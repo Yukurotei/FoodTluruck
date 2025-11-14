@@ -23,8 +23,11 @@ public class Main extends ApplicationAdapter {
 
         player.update(Gdx.graphics.getDeltaTime());
 
+
         batch.begin();
+
         player.render(batch);
+
         batch.end();
     }
 

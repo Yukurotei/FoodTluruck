@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Player {
     private Texture texture;
     private float x;
     private float y;
     private float speed = 200f;
+    private float rotation;
     private boolean processMovement;
 
     public Player(String texturePath) {
@@ -20,19 +22,26 @@ public class Player {
     }
 
     public void update(float delta) {
-        if (!processMovement) return;
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            y += speed * delta;
+        // Movement
+        if (processMovement) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                y += speed * delta;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                y -= speed * delta;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                x -= speed * delta;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                x += speed * delta;
+            }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            y -= speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            x -= speed * delta;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            x += speed * delta;
-        }
+
+        // Rotation
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - y, mouseX - x);
     }
 
     public float getX() {
@@ -76,7 +85,7 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(texture, x, y);
+        batch.draw(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, texture.getWidth(), texture.getHeight(), 1, 1, rotation, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
     }
 
     public void dispose() {
