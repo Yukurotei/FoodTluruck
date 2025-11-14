@@ -1,4 +1,4 @@
-package it.thesquad.foodtruck;
+package it.thesquad.foodtruck.dish;
 
 public enum Drinks {
     WATER("Water"),

@@ -1,4 +1,4 @@
-package it.thesquad.foodtruck;
+package it.thesquad.foodtruck.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

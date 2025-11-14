@@ -1,5 +1,8 @@
 package it.thesquad.foodtruck;
 
+import it.thesquad.foodtruck.dish.Drinks;
+import it.thesquad.foodtruck.dish.Foods;
+
 public class Order {
     private Foods mainEntree;
     private Foods sideDish;
