@@ -27,7 +27,7 @@ public enum Foods {
 
     String name;
 
-    public Food(String someShit) {
+    private Foods(String someShit) {
         this.name = someShit;
     }
 
