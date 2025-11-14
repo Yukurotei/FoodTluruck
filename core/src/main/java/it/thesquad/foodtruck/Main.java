@@ -14,7 +14,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        player = new Player("libgdx.png");
+        player = new Player("player.png");
     }
 
     @Override
