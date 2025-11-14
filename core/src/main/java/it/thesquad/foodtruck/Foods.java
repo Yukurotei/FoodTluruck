@@ -1,6 +1,6 @@
 package it.thesquad.foodtruck;
 
-public enum Foods {
+public static enum Foods {
     // Mains
     BURGER("Burger"),
     RIBS("Ribs"),
@@ -25,10 +25,14 @@ public enum Foods {
     ICE_CREAM("Ice Cream"),
     CARROT_CAKE("Carrot Cake");
 
-    String name;
+    private String name;
 
-    private Foods(String someShit) {
-        this.name = someShit;
+    private Foods(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

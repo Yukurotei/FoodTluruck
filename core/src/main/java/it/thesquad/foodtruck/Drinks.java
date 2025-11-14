@@ -10,9 +10,9 @@ public enum Drinks {
     COCKTAIL("Cocktail"),
     LEMONADE("Lemonade");
 
-    String name;
+    private String name;
 
-    private Drinks(String someShit) {
-        this.name = someShit;
+    private Drinks(String name) {
+        this.name = name;
     }
 }
