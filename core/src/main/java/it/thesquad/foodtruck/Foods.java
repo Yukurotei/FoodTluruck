@@ -1,6 +1,6 @@
 package it.thesquad.foodtruck;
 
-public static enum Foods {
+public enum Foods {
     // Mains
     BURGER("Burger"),
     RIBS("Ribs"),
