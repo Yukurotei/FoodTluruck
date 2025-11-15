@@ -9,7 +9,7 @@ public class Order {
     private Foods dessertsDish;
     private Drinks drink;
 
-    Order(Foods mainEntree, Foods sideDish, Foods dessertsDish, Drinks drink) {
+    public Order(Foods mainEntree, Foods sideDish, Foods dessertsDish, Drinks drink) {
         this.mainEntree = mainEntree;
         this.sideDish = sideDish;
         this.dessertsDish = dessertsDish;

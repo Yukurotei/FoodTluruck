@@ -1,38 +1,51 @@
 package it.thesquad.foodtruck.dish;
 
+import java.util.Locale.Category;
+
 public enum Foods {
     // Mains
-    BURGER("Burger"),
-    RIBS("Ribs"),
-    BRISKET("Brisket"),
-    SAUSAGES("Sausages"),
-    POUTINE("Poutine"),
-    Korean_Fried_Chicken("Korean Fried Chicken"),
+    BURGER("Burger", Category.MAIN),
+    RIBS("Ribs", Category.MAIN),
+    BRISKET("Brisket", Category.MAIN),
+    SAUSAGES("Sausages", Category.MAIN),
+    POUTINE("Poutine", Category.MAIN),
+    Korean_Fried_Chicken("Korean Fried Chicken", Category.MAIN),
 
 
     // Sides
-    FRIES("Fries"),
-    SOUP("Soup"),
-    ONION_RINGS("Onion Rings"),
-    COLESLAW("Coleslaw"),
-    MAC_N_CHEESE("Mac n Cheese"),
-    SALAD("Salad"),
+    FRIES("Fries", Category.SIDE),
+    SOUP("Soup", Category.SIDE),
+    ONION_RINGS("Onion Rings", Category.SIDE),
+    COLESLAW("Coleslaw", Category.SIDE),
+    MAC_N_CHEESE("Mac n Cheese", Category.SIDE),
+    SALAD("Salad", Category.SIDE),
 
     // Desserts
-    PEACH_COBBLER("Peach Cobbler"),
-    PIE("Pie"),
-    COOKIES("Cookies"),
-    ICE_CREAM("Ice Cream"),
-    CARROT_CAKE("Carrot Cake");
+    PEACH_COBBLER("Peach Cobbler", Category.DESSERT),
+    PIE("Pie", Category.DESSERT),
+    COOKIES("Cookies", Category.DESSERT),
+    ICE_CREAM("Ice Cream", Category.DESSERT),
+    CARROT_CAKE("Carrot Cake", Category.DESSERT);
 
-    private String name;
+    private final String name;
+    private final Category category;
 
-    private Foods(String name) {
+    private Foods(String name, Category category) {
         this.name = name;
+        this.category = category;
     }
 
     public String getName() {
         return name;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public enum Category {
+        MAIN,
+        SIDE,
+        DESSERT
+    }
 }
