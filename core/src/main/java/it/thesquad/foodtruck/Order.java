@@ -29,5 +29,4 @@ public class Order {
     public Drinks getDrink() {
         return drink;
     }
-
 }

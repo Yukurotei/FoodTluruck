@@ -10,7 +10,7 @@ public enum Drinks {
     COCKTAIL("Cocktail"),
     LEMONADE("Lemonade");
 
-    private String name;
+    private final String name;
 
     private Drinks(String name) {
         this.name = name;
