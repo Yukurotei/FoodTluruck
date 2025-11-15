@@ -1,7 +1,5 @@
 package it.thesquad.foodtruck.dish;
 
-import java.util.Locale.Category;
-
 public enum Foods {
     // Mains
     BURGER("Burger", Category.MAIN),
