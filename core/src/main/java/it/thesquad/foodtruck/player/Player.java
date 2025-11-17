@@ -2,25 +2,21 @@ package it.thesquad.foodtruck.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import it.thesquad.foodtruck.logic.Sprite;
 
-public class Player {
-    private Texture texture;
-    private float x;
-    private float y;
+public class Player extends Sprite {
     private float speed = 200f;
     private float rotation;
     private boolean processMovement;
 
     public Player(String texturePath) {
-        this.texture = new Texture(texturePath);
-        this.x = 0;
-        this.y = 0;
+        super(texturePath, 0, 0);
         this.processMovement = true;
     }
 
+    @Override
     public void update(float delta) {
         // Movement
         if (processMovement) {
@@ -44,36 +40,12 @@ public class Player {
         rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - y, mouseX - x);
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
     public boolean isProcessingMovement() {
         return processMovement;
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
     public float getSpeed() {
         return speed;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
     }
 
     public void setSpeed(float speed) {
@@ -84,11 +56,8 @@ public class Player {
         this.processMovement = processMovement;
     }
 
+    @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, texture.getWidth(), texture.getHeight(), 1, 1, rotation, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-    }
-
-    public void dispose() {
-        texture.dispose();
     }
 }
