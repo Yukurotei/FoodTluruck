@@ -19,6 +19,7 @@ public final class Utils {
                                 .filter(f -> f.getCategory() == Foods.Category.DESSERT)
                                 .toList();
 
-        return new Order(mains.get((int)Math.floor(Math.random()*mains.size())), sides.get((int)Math.floor(Math.random()*sides.size())), desserts.get((int)Math.floor(Math.random()*desserts.size())), Drinks.BEER);
+        return new Order(mains.get((int)Math.floor(Math.random()*mains.size())), sides.get((int)Math.floor(Math.random()*sides.size())), desserts.get((int)Math.floor(Math.random()*desserts.size())),
+            Drinks.BEER);
     }
 }
