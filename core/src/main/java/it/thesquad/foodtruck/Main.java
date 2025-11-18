@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import it.thesquad.foodtruck.appliances.Grill;
 import it.thesquad.foodtruck.logic.Sprite;
+import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
 
 import java.util.ArrayList;
@@ -23,22 +24,20 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        player = new Player("player.png");
-        Grill grill = new Grill("player.png", 0, 0, 20, 20);
+        player = new Player(new Texture("player.png"));
+        Grill grill = new Grill(Utils.scaleByPercentage(new Texture("grill.png"), 50), 20, 20, 20, 20);
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
-        //player.update(Gdx.graphics.getDeltaTime());
         for (Sprite sprite : spriteObjects) {
             sprite.update(Gdx.graphics.getDeltaTime());
         }
 
         batch.begin();
 
-        //player.render(batch);
         for (Sprite sprite : spriteObjects) {
             sprite.render(batch);
         }

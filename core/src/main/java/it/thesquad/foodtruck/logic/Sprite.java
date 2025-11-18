@@ -9,8 +9,8 @@ public class Sprite {
     protected float x;
     protected float y;
 
-    public Sprite(String texturePath, float x, float y) {
-        this.texture = new Texture(texturePath);
+    public Sprite(Texture texture, float x, float y) {
+        this.texture = texture;
         this.x = x;
         this.y = y;
         Main.spriteObjects.add(this);

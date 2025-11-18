@@ -10,8 +10,8 @@ public class Appliance extends Sprite {
     protected int w;
     protected int h;
 
-    public Appliance(String texturePath, float x, float y, int w, int h) {
-        super(texturePath, x, y);
+    public Appliance(Texture texture, float x, float y, int w, int h) {
+        super(texture, x, y);
         this.w = w;
         this.h = h;
         Main.spriteObjects.add(this);
