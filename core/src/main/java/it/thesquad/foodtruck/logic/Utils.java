@@ -25,21 +25,6 @@ public final class Utils {
             Drinks.BEER);
     }
 
-    /**
-     * Creates a new texture by scaling an existing texture to a specific width and height.
-     * <p>
-     * This method is CPU-intensive and creates a new Texture object. For frequent or
-     * real-time scaling, it is much more efficient to use the
-     * {@code SpriteBatch.draw(texture, x, y, width, height)} method during rendering.
-     * <p>
-     * This method safely disposes of the intermediate Pixmap objects it creates.
-     *
-     * @param sourceTexture The source texture to resize.
-     * @param newWidth      The desired width of the new texture in pixels (must be > 0).
-     * @param newHeight     The desired height of the new texture in pixels (must be > 0).
-     * @return A new Texture object with the specified dimensions.
-     * @throws IllegalArgumentException if newWidth or newHeight are not positive.
-     */
     public static Texture resizeTo(Texture sourceTexture, int newWidth, int newHeight) {
         if (newWidth <= 0 || newHeight <= 0) {
             throw new IllegalArgumentException("New dimensions must be positive.");
@@ -67,21 +52,7 @@ public final class Utils {
         return resizedTexture;
     }
 
-    /**
-     * Creates a new texture by scaling an existing texture by a given percentage.
-     * <p>
-     * A percentage of 100 results in an identically sized texture. A percentage of 50
-     * results in a texture that is half the width and height of the original.
-     * <p>
-     * This method is a convenience wrapper around {@link #resizeTo(Texture, int, int)}.
-     *
-     * @param sourceTexture The source texture to scale.
-     * @param percentage    The percentage to scale the texture by (e.g., 50.0 for 50%).
-     *                      Using a double for the parameter as requested.
-     * @return A new, scaled Texture object.
-     * @throws IllegalArgumentException if percentage is not positive.
-     */
-    public static Texture scaleByPercentage(Texture sourceTexture, double percentage) {
+    public static Texture resizeTo(Texture sourceTexture, double percentage) {
         if (percentage <= 0) {
             throw new IllegalArgumentException("Percentage must be positive.");
         }
@@ -94,5 +65,9 @@ public final class Utils {
         if (newHeight <= 0) newHeight = 1;
 
         return resizeTo(sourceTexture, newWidth, newHeight);
+    }
+
+    public static double distanceOfSprites(Sprite sprite1, Sprite sprite2) {
+        return Math.sqrt(Math.pow(sprite1.getX() - sprite2.getX(), 2) + Math.pow(sprite1.getY() - sprite2.getY(), 2));
     }
 }

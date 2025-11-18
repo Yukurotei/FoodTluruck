@@ -18,14 +18,14 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
     //private Order testorder;
-    private Player player;
+    public static Player player;
     public static List<Sprite> spriteObjects = new ArrayList<>();
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         player = new Player(new Texture("player.png"));
-        Grill grill = new Grill(Utils.scaleByPercentage(new Texture("grill.png"), 50), 20, 20, 20, 20);
+        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 20, 20, 20, 20);
     }
 
     @Override
