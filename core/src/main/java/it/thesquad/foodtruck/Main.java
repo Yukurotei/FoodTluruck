@@ -25,7 +25,7 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         player = new Player(new Texture("player.png"));
-        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 20, 20, 20, 20);
+        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
     }
 
     @Override

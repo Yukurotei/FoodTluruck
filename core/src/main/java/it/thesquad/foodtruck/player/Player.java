@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import it.thesquad.foodtruck.Main;
+import it.thesquad.foodtruck.appliances.Appliance;
 import it.thesquad.foodtruck.logic.Sprite;
 
 public class Player extends Sprite {
@@ -19,21 +21,48 @@ public class Player extends Sprite {
 
     @Override
     public void update(float delta) {
-        // Movement
         if (processMovement) {
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                y += speed * delta;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                y -= speed * delta;
-            }
+            float oldX = getX();
+            float dx = 0;
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                x -= speed * delta;
+                dx -= 1;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                x += speed * delta;
+                dx += 1;
+            }
+
+            setX(getX() + dx * speed * delta);
+
+            for (Sprite sprite : Main.spriteObjects) {
+                if (sprite instanceof Appliance) {
+                    if (this.collidesWith(sprite)) {
+                        setX(oldX);
+                        break;
+                    }
+                }
+            }
+
+            float oldY = getY();
+            float dy = 0;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                dy -= 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                dy += 1;
+            }
+
+            setY(getY() + dy * speed * delta);
+
+            for (Sprite sprite : Main.spriteObjects) {
+                if (sprite instanceof Appliance) {
+                    if (this.collidesWith(sprite)) {
+                        setY(oldY);
+                        break;
+                    }
+                }
             }
         }
+
 
         // Rotation
         float mouseX = Gdx.input.getX();

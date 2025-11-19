@@ -2,6 +2,7 @@ package it.thesquad.foodtruck.logic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import it.thesquad.foodtruck.Main;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Sprite {
     protected List<Texture> textures;
     protected float x;
     protected float y;
+    protected Rectangle hitbox;
     protected boolean isVisible;
     private float frameTime = 0.1f;
     private float animationTimer = 0f;
@@ -22,6 +24,8 @@ public class Sprite {
         this.textures = new ArrayList<>();
         this.x = x;
         this.y = y;
+        this.isVisible = true;
+        this.hitbox = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
         Main.spriteObjects.add(this);
     }
 
@@ -29,8 +33,8 @@ public class Sprite {
         if (!isVisible) return;
         if (textures != null && !textures.isEmpty()) {
             batch.draw(textures.get(currentFrame), x, y);
-        } else if (texture != null) {
-            batch.draw(texture, x, y);
+        } else {
+            System.out.println(texture.toString());
         }
     }
 
@@ -80,15 +84,19 @@ public class Sprite {
 
     public void setX(float x) {
         this.x = x;
+        hitbox.setX(x);
     }
 
     public void setY(float y) {
         this.y = y;
+        hitbox.setY(y);
     }
 
     public void setTexture(Texture texture) {
         this.texture = texture;
         this.textures = null;
+        hitbox.setWidth(texture.getWidth());
+        hitbox.setHeight(texture.getHeight());
     }
 
     public void setTextures(List<Texture> textures) {
@@ -96,6 +104,11 @@ public class Sprite {
         this.texture = null;
         this.currentFrame = 0;
         this.animationTimer = 0;
+        if (textures != null && !textures.isEmpty()) {
+            Texture firstFrame = textures.get(0);
+            hitbox.setWidth(firstFrame.getWidth());
+            hitbox.setHeight(firstFrame.getHeight());
+        }
     }
 
     public void setFrameTime(float frameTime) {
@@ -104,5 +117,13 @@ public class Sprite {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public boolean collidesWith(Sprite other) {
+        return this.hitbox.overlaps(other.getHitbox());
     }
 }
