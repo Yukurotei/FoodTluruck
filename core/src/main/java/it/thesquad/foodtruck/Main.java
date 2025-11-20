@@ -15,14 +15,20 @@ import java.util.List;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+    public enum GameState {
+        WORLD,
+        MINIGAME
+    }
     private SpriteBatch batch;
     private Texture image;
     //private Order testorder;
     public static Player player;
     public static List<Sprite> spriteObjects = new ArrayList<>();
+    public static GameState gameState;
 
     @Override
     public void create() {
+        gameState = GameState.WORLD;
         batch = new SpriteBatch();
         Sprite interactionSprite = new Sprite(new Texture("interact.png"), 0, 0);
         interactionSprite.setVisible(false);
@@ -32,11 +38,15 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-
         for (Sprite sprite : spriteObjects) {
             sprite.update(Gdx.graphics.getDeltaTime());
         }
+
+        if (gameState == GameState.MINIGAME) {
+            ScreenUtils.clear(0f, 0f, 0f, 1f);
+            return;
+        }
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
         batch.begin();
 

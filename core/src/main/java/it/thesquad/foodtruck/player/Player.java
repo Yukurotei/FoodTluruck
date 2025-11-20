@@ -24,6 +24,19 @@ public class Player extends Sprite {
 
     @Override
     public void update(float delta) {
+        boolean justSwitchedState = false;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E) && Main.gameState == Main.GameState.MINIGAME) {
+            Main.gameState = Main.GameState.WORLD;
+            justSwitchedState = true;
+        }
+
+        if (Main.gameState == Main.GameState.WORLD) {
+            setProcessingMovement(true);
+        } else {
+            setProcessingMovement(false);
+            interactionSprite.setVisible(false);
+        }
+
         if (processMovement) {
             float oldX = getX();
             float dx = 0;
@@ -36,15 +49,25 @@ public class Player extends Sprite {
 
             setX(getX() + dx * speed * delta);
 
+            boolean inRangeOfAppliance = false;
             for (Sprite sprite : Main.spriteObjects) {
                 if (sprite instanceof Appliance) {
                     if (this.collidesWith(sprite)) {
                         setX(oldX);
                         break;
                     }
-                    interactionSprite.setVisible(Utils.distanceOfSprites(this, sprite) <= 120);
+                    if(Utils.distanceOfSprites(this, sprite) <= 120) {
+                        inRangeOfAppliance = true;
+                    }
                 }
             }
+            interactionSprite.setVisible(inRangeOfAppliance);
+            if(inRangeOfAppliance && Gdx.input.isKeyJustPressed(Input.Keys.E) && !justSwitchedState) {
+                if(Main.gameState == Main.GameState.WORLD) {
+                    Main.gameState = Main.GameState.MINIGAME;
+                }
+            }
+
 
             float oldY = getY();
             float dy = 0;
