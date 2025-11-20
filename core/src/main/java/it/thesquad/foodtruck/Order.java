@@ -18,7 +18,6 @@ public class Order {
 
     public Foods getMainEntree() {
         return mainEntree;
-
     }
     public Foods getSideDish() {
         return sideDish;
@@ -28,5 +27,17 @@ public class Order {
     }
     public Drinks getDrink() {
         return drink;
+    }
+    public void setSideDish(Foods sideDish){
+        this.sideDish = sideDish;
+    }
+    public void setDessertsDish(Foods desserts){
+        this.dessertsDish = desserts;
+    }
+    public void setDrink(Drinks drink){
+        this.drink = drink;
+    }
+    public void setMainEntree(Foods mainEntree){
+        this.mainEntree = mainEntree;
     }
 }
