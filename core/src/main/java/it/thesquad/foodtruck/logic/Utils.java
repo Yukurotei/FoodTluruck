@@ -1,13 +1,17 @@
 package it.thesquad.foodtruck.logic;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.Drinks;
 import it.thesquad.foodtruck.dish.Foods;
+import it.thesquad.foodtruck.player.Player;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public final class Utils {
     public static Order randomOrder() {
@@ -69,5 +73,12 @@ public final class Utils {
 
     public static double distanceOfSprites(Sprite sprite1, Sprite sprite2) {
         return Math.sqrt(Math.pow(sprite1.getX() - sprite2.getX(), 2) + Math.pow(sprite1.getY() - sprite2.getY(), 2));
+    }
+
+    public static List<Sprite> getSpritesSortedByDistance(List<Sprite> sprites, Player player) {
+        List<Sprite> sortedSprites = new ArrayList<>(sprites);
+        sortedSprites.remove(player);
+        sortedSprites.sort(Comparator.comparing(sprite -> distanceOfSprites(player, sprite)));
+        return sortedSprites;
     }
 }

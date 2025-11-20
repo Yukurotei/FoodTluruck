@@ -17,17 +17,7 @@ public class Appliance extends Sprite {
         Main.spriteObjects.add(this);
     }
 
-    /*
-    public void render(SpriteBatch batch) {
 
-    }
-     */
-
-    /*
-    public void update() {
-
-    }
-     */
 
     public int getW() {
         return w;
