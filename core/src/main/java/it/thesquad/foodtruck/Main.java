@@ -24,7 +24,9 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        player = new Player(new Texture("player.png"));
+        Sprite interactionSprite = new Sprite(new Texture("interact.png"), 0, 0);
+        interactionSprite.setVisible(false);
+        player = new Player(new Texture("player.png"), interactionSprite);
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
     }
 

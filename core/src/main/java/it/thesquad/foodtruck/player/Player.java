@@ -8,15 +8,18 @@ import com.badlogic.gdx.math.MathUtils;
 import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.appliances.Appliance;
 import it.thesquad.foodtruck.logic.Sprite;
+import it.thesquad.foodtruck.logic.Utils;
 
 public class Player extends Sprite {
     private float speed = 200f;
     private float rotation;
     private boolean processMovement;
+    private Sprite interactionSprite;
 
-    public Player(Texture texture) {
+    public Player(Texture texture, Sprite interactionSprite) {
         super(texture, 0, 0);
         this.processMovement = true;
+        this.interactionSprite = interactionSprite;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class Player extends Sprite {
                         setX(oldX);
                         break;
                     }
+                    interactionSprite.setVisible(Utils.distanceOfSprites(this, sprite) <= 120);
                 }
             }
 
@@ -84,6 +88,22 @@ public class Player extends Sprite {
 
     public void setProcessingMovement(boolean processMovement) {
         this.processMovement = processMovement;
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public Sprite getInteractionSprite() {
+        return interactionSprite;
+    }
+
+    public void setInteractionSprite(Sprite interactionSprite) {
+        this.interactionSprite = interactionSprite;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Sprite {
         if (textures != null && !textures.isEmpty()) {
             batch.draw(textures.get(currentFrame), x, y);
         } else {
-            System.out.println(texture.toString());
+            batch.draw(texture, x, y);
         }
     }
 
