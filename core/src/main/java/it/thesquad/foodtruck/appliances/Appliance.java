@@ -1,6 +1,7 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.logic.Sprite;
 
@@ -17,7 +18,9 @@ public class Appliance extends Sprite {
         Main.spriteObjects.add(this);
     }
 
+    public void display(SpriteBatch batch) {
 
+    }
 
     public int getW() {
         return w;

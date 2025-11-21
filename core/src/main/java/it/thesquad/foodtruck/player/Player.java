@@ -29,11 +29,6 @@ public class Player extends Sprite {
         boolean justSwitchedState = false;
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) && Main.gameState == Main.GameState.MINIGAME) {
             Main.gameState = Main.GameState.WORLD;
-            for (Sprite sprite : Utils.getSpritesSortedByDistance(Main.spriteObjects, this)) {
-                if (sprite instanceof Appliance) {
-                    this.appliance = (Appliance) sprite;
-                }
-            }
             justSwitchedState = true;
         }
 
@@ -71,7 +66,11 @@ public class Player extends Sprite {
             interactionSprite.setVisible(inRangeOfAppliance);
             if(inRangeOfAppliance && Gdx.input.isKeyJustPressed(Input.Keys.E) && !justSwitchedState) {
                 if(Main.gameState == Main.GameState.WORLD) {
-                    this.appliance = null;
+                    for (Sprite sprite : Utils.getSpritesSortedByDistance(Main.spriteObjects, this)) {
+                        if (sprite instanceof Appliance) {
+                            this.appliance = (Appliance) sprite;
+                        }
+                    }
                     Main.gameState = Main.GameState.MINIGAME;
                 }
             }
@@ -135,6 +134,10 @@ public class Player extends Sprite {
 
     public void setInteractionSprite(Sprite interactionSprite) {
         this.interactionSprite = interactionSprite;
+    }
+
+    public Appliance getAppliance() {
+        return appliance;
     }
 
     @Override

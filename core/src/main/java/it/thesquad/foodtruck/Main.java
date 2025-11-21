@@ -44,6 +44,7 @@ public class Main extends ApplicationAdapter {
 
         if (gameState == GameState.MINIGAME) {
             ScreenUtils.clear(0f, 0f, 0f, 1f);
+            player.getAppliance().display(batch);
             return;
         }
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
