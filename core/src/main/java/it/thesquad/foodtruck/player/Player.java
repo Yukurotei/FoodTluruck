@@ -17,6 +17,11 @@ public class Player extends Sprite {
     private Sprite interactionSprite;
     private Appliance appliance;
 
+    /**
+     * 
+     * @param texture the texture of the player
+     * @param interactionSprite the sprite used to indicate interaction
+     */
     public Player(Texture texture, Sprite interactionSprite) {
         super(texture, 0, 0);
         this.processMovement = true;
@@ -24,6 +29,10 @@ public class Player extends Sprite {
         this.appliance = null;
     }
 
+    /** 
+     * 
+     * @param delta the time elapsed since the last update
+     */
     @Override
     public void update(float delta) {
         boolean justSwitchedState = false;
@@ -104,42 +113,82 @@ public class Player extends Sprite {
         rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - y, mouseX - x);
     }
 
+    /**
+     * 
+     * @return whether the player is processing movement
+     */
     public boolean isProcessingMovement() {
         return processMovement;
     }
 
+    /**
+     * 
+     * @return the speed of the player
+     */
     public float getSpeed() {
         return speed;
     }
 
+    /**
+     * 
+     * @param speed the new speed of the player
+     */
     public void setSpeed(float speed) {
         this.speed = speed;
     }
 
+    /**
+     * 
+     * @param processMovement whether the player should process movement
+     */
     public void setProcessingMovement(boolean processMovement) {
         this.processMovement = processMovement;
     }
 
+    /**
+     * 
+     * @return the rotation of the player
+     */
     public float getRotation() {
         return rotation;
     }
 
+    /**
+     * 
+     * @param rotation the new rotation of the player
+     */
     public void setRotation(float rotation) {
         this.rotation = rotation;
     }
 
+    /**
+     * 
+     * @return the interaction sprite of the player
+     */
     public Sprite getInteractionSprite() {
         return interactionSprite;
     }
 
+    /**
+     * 
+     * @param interactionSprite the new interaction sprite of the player
+     */
     public void setInteractionSprite(Sprite interactionSprite) {
         this.interactionSprite = interactionSprite;
     }
 
+    /**
+     * 
+     * @return the appliance the player is interacting with
+     */
     public Appliance getAppliance() {
         return appliance;
     }
 
+    /**
+     * 
+     * @param appliance the new appliance the player is interacting with
+     */
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, texture.getWidth(), texture.getHeight(), 1, 1, rotation, 0, 0, texture.getWidth(), texture.getHeight(), false, false);

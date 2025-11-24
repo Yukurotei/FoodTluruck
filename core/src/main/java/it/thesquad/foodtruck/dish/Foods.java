@@ -33,10 +33,18 @@ public enum Foods {
         this.category = category;
     }
 
+    /**
+     * 
+     * @return the name of the food item
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 
+     * @return the category of the food item (MAIN, SIDE, DESSERT)
+     */
     public Category getCategory() {
         return category;
     }

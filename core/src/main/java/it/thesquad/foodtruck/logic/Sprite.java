@@ -19,6 +19,12 @@ public class Sprite {
     private float animationTimer = 0f;
     private int currentFrame = 0;
 
+    /**
+     * 
+     * @param texture the texture of the sprite
+     * @param x the x-coordinate of the sprite
+     * @param y the y-coordinate of the sprite
+     */
     public Sprite(Texture texture, float x, float y) {
         this.texture = texture;
         this.textures = new ArrayList<>();
@@ -29,6 +35,11 @@ public class Sprite {
         Main.spriteObjects.add(this);
     }
 
+
+    /**
+     * 
+     * @param batch the SpriteBatch used for rendering
+     */
     public void render(SpriteBatch batch) {
         if (!isVisible) return;
         if (textures != null && !textures.isEmpty()) {
@@ -38,6 +49,10 @@ public class Sprite {
         }
     }
 
+    /**
+     * 
+     * @param delta the time elapsed since the last update
+     */
     public void update(float delta) {
         if (textures != null && !textures.isEmpty() && frameTime > 0) {
             animationTimer += delta;
@@ -62,36 +77,68 @@ public class Sprite {
         }
     }
 
+    /**
+     * 
+     * @return the source texture of the sprite
+     */
     public Texture getSourceTexture() {
         return texture;
     }
 
+    /**
+     * 
+     * @return the list of textures for animated sprites
+     */
     public List<Texture> getTextures() {
         return textures;
     }
 
+    /**
+     * 
+     * @return the x-coordinate of the sprite
+     */
     public float getX() {
         return x;
     }
 
+    /**
+     * 
+     * @return the y-coordinate of the sprite
+     */
     public float getY() {
         return y;
     }
 
+    /**
+     * 
+     * @return whether the sprite is visible
+     */
     public boolean isVisible() {
         return isVisible;
     }
 
+    /**
+     * 
+     * @param x the new x-coordinate of the sprite
+     */
     public void setX(float x) {
         this.x = x;
         hitbox.setX(x);
     }
 
+    /**
+     * 
+     * @param y the new y-coordinate of the sprite
+     */
     public void setY(float y) {
         this.y = y;
         hitbox.setY(y);
     }
 
+    /**
+     * 
+     * @param texture the new texture of the sprite
+     */
     public void setTexture(Texture texture) {
         this.texture = texture;
         this.textures = null;
@@ -99,6 +146,10 @@ public class Sprite {
         hitbox.setHeight(texture.getHeight());
     }
 
+    /**
+     * 
+     * @param textures the new list of textures for animated sprites
+     */
     public void setTextures(List<Texture> textures) {
         this.textures = textures;
         this.texture = null;
@@ -111,18 +162,35 @@ public class Sprite {
         }
     }
 
+    /**
+     * 
+     * @param frameTime the time each frame is displayed in animated sprites
+     */
     public void setFrameTime(float frameTime) {
         this.frameTime = frameTime;
     }
 
+    /**
+     * 
+     * @param visible whether the sprite should be visible
+     */
     public void setVisible(boolean visible) {
         isVisible = visible;
     }
 
+    /**
+     * 
+     * @return the hitbox of the sprite
+     */
     public Rectangle getHitbox() {
         return hitbox;
     }
 
+    /**
+     * 
+     * @param other the other sprite to check collision with
+     * @return true if this sprite collides with the other sprite, false otherwise
+     */
     public boolean collidesWith(Sprite other) {
         return this.hitbox.overlaps(other.getHitbox());
     }

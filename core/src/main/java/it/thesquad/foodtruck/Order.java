@@ -9,6 +9,14 @@ public class Order {
     private Food dessertsDish;
     private Drinks drink;
 
+    /**
+     * 
+     * @param mainEntree   the main entree food item of the order
+     * @param sideDish     the side dish food item of the order
+     * @param dessertsDish the dessert food item of the order
+     * @param drink        the drink of the order
+     */
+
     public Order(Food mainEntree, Food sideDish, Food dessertsDish, Drinks drink) {
         this.mainEntree = mainEntree;
         this.sideDish = sideDish;
@@ -16,16 +24,35 @@ public class Order {
         this.drink = drink;
     }
 
+    /**
+     * 
+     * @return the main entree food item of the order
+     */
     public Food getMainEntree() {
         return mainEntree;
 
     }
+
+    /**
+     * 
+     * @return the side dish food item of the order
+     */
     public Food getSideDish() {
         return sideDish;
     }
+
+    /**
+     * 
+     * @return the dessert food item of the order
+     */
     public Food getDessertsDish() {
         return dessertsDish;
     }
+
+    /**
+     * 
+     * @return the drink of the order
+     */
     public Drinks getDrink() {
         return drink;
     }
