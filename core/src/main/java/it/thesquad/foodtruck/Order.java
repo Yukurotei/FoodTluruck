@@ -1,29 +1,29 @@
 package it.thesquad.foodtruck;
 
 import it.thesquad.foodtruck.dish.Drinks;
-import it.thesquad.foodtruck.dish.Foods;
+import it.thesquad.foodtruck.dish.Food;
 
 public class Order {
-    private Foods mainEntree;
-    private Foods sideDish;
-    private Foods dessertsDish;
+    private Food mainEntree;
+    private Food sideDish;
+    private Food dessertsDish;
     private Drinks drink;
 
-    public Order(Foods mainEntree, Foods sideDish, Foods dessertsDish, Drinks drink) {
+    public Order(Food mainEntree, Food sideDish, Food dessertsDish, Drinks drink) {
         this.mainEntree = mainEntree;
         this.sideDish = sideDish;
         this.dessertsDish = dessertsDish;
         this.drink = drink;
     }
 
-    public Foods getMainEntree() {
+    public Food getMainEntree() {
         return mainEntree;
 
     }
-    public Foods getSideDish() {
+    public Food getSideDish() {
         return sideDish;
     }
-    public Foods getDessertsDish() {
+    public Food getDessertsDish() {
         return dessertsDish;
     }
     public Drinks getDrink() {

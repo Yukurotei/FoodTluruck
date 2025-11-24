@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.Drinks;
+import it.thesquad.foodtruck.dish.Food;
 import it.thesquad.foodtruck.dish.Foods;
 import it.thesquad.foodtruck.player.Player;
 
@@ -25,10 +26,20 @@ public final class Utils {
                                 .filter(f -> f.getCategory() == Foods.Category.DESSERT)
                                 .toList();
 
-        return new Order(mains.get((int)Math.floor(Math.random()*mains.size())), sides.get((int)Math.floor(Math.random()*sides.size())), desserts.get((int)Math.floor(Math.random()*desserts.size())),
+        return new Order(new Food(mains.get((int)Math.floor(Math.random()*mains.size())),randomSize()), new Food(sides.get((int)Math.floor(Math.random()*sides.size())),randomSize()), new Food(desserts.get((int)Math.floor(Math.random()*desserts.size())),randomSize()),
             Drinks.BEER);
     }
 
+
+    public static it.thesquad.foodtruck.util.Sizes randomSize() {
+        int pick = (int)Math.floor(Math.random()*3);
+        return switch (pick) {
+            case 0 -> it.thesquad.foodtruck.util.Sizes.LARGE;
+            case 1 -> it.thesquad.foodtruck.util.Sizes.MEDIUM;
+            case 2 -> it.thesquad.foodtruck.util.Sizes.SMALL;
+            default -> it.thesquad.foodtruck.util.Sizes.MEDIUM;
+        };
+    }
     public static Texture resizeTo(Texture sourceTexture, int newWidth, int newHeight) {
         if (newWidth <= 0 || newHeight <= 0) {
             throw new IllegalArgumentException("New dimensions must be positive.");
