@@ -15,6 +15,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class Utils {
+    /**
+     * 
+     * @return a random order consisting of a main entree, side dish, dessert, and drink
+     */
     public static Order randomOrder() {
         List<Foods> mains = Arrays.stream(Foods.values())
                           .filter(f -> f.getCategory() == Foods.Category.MAIN)
@@ -30,7 +34,10 @@ public final class Utils {
             Drinks.BEER);
     }
 
-
+    /**
+     * 
+     * @return a random size (LARGE, MEDIUM, SMALL)
+     */
     public static it.thesquad.foodtruck.util.Sizes randomSize() {
         int pick = (int)Math.floor(Math.random()*3);
         return switch (pick) {
@@ -40,6 +47,14 @@ public final class Utils {
             default -> it.thesquad.foodtruck.util.Sizes.MEDIUM;
         };
     }
+
+    /**
+     * 
+     * @param sourceTexture the original texture to be resized
+     * @param newWidth the desired width of the resized texture
+     * @param newHeight the desired height of the resized texture
+     * @return a new Texture object resized to the specified dimensions
+     */
     public static Texture resizeTo(Texture sourceTexture, int newWidth, int newHeight) {
         if (newWidth <= 0 || newHeight <= 0) {
             throw new IllegalArgumentException("New dimensions must be positive.");
@@ -67,6 +82,12 @@ public final class Utils {
         return resizedTexture;
     }
 
+    /**
+     * 
+     * @param sourceTexture the original texture to be resized
+     * @param percentage the percentage to scale the texture by (e.g., 50 for 50%)
+     * @return a new Texture object resized by the specified percentage
+     */
     public static Texture resizeTo(Texture sourceTexture, double percentage) {
         if (percentage <= 0) {
             throw new IllegalArgumentException("Percentage must be positive.");
@@ -82,10 +103,22 @@ public final class Utils {
         return resizeTo(sourceTexture, newWidth, newHeight);
     }
 
+    /**
+     * 
+     * @param sprite1 the first sprite
+     * @param sprite2 the second sprite
+     * @return the Euclidean distance between the two sprites
+     */
     public static double distanceOfSprites(Sprite sprite1, Sprite sprite2) {
         return Math.sqrt(Math.pow(sprite1.getX() - sprite2.getX(), 2) + Math.pow(sprite1.getY() - sprite2.getY(), 2));
     }
 
+    /**
+     * 
+     * @param sprites the list of sprites to be sorted
+     * @param player the player sprite to measure distance from
+     * @return a list of sprites sorted by their distance from the player
+     */
     public static List<Sprite> getSpritesSortedByDistance(List<Sprite> sprites, Player player) {
         List<Sprite> sortedSprites = new ArrayList<>(sprites);
         sortedSprites.remove(player);
