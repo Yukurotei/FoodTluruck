@@ -1,14 +1,15 @@
 package it.thesquad.foodtruck.customers;
 
 import it.thesquad.foodtruck.Order;
+import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.reputation.Reputation;
 import it.thesquad.foodtruck.reputation.Review;
 
 public class Customer {
     Order order;
     Review review;
-    Customer(Order order) {
-        this.order = order;   
+    Customer() {
+        this.order = Utils.randomOrder();
     }
 
     public Order getOrder() {
