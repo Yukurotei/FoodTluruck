@@ -36,7 +36,7 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Sprite interactionSprite = new Sprite(new Texture("interact.png"), 0, 0);
+        Sprite interactionSprite = new Sprite(new Texture("interact.png"), 0, 0, true);
         interactionSprite.setVisible(false);
         player = new Player(new Texture("player.png"), interactionSprite);
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);

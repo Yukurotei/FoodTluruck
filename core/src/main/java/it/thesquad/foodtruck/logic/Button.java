@@ -11,8 +11,14 @@ public class Button extends Sprite {
     private final Runnable onClick;
 
     public Button(Texture texture, float x, float y, Runnable onClick) {
-        super(texture, x, y);
+        super(texture, x, y, false);
         this.onClick = onClick;
+    }
+
+    @Override
+    @Deprecated
+    public void render(SpriteBatch bt) {
+        System.out.println("RENDER FUNCTION IS DEPRECATED FOR BUTTONS, USE renderButton INSTEAD");
     }
 
     public void renderButton(SpriteBatch bt) {

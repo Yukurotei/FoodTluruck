@@ -25,14 +25,14 @@ public class Sprite {
      * @param x the x-coordinate of the sprite
      * @param y the y-coordinate of the sprite
      */
-    public Sprite(Texture texture, float x, float y) {
+    public Sprite(Texture texture, float x, float y, boolean addToQueue) {
         this.texture = texture;
         this.textures = new ArrayList<>();
         this.x = x;
         this.y = y;
         this.isVisible = true;
         this.hitbox = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
-        Main.spriteObjects.add(this);
+        if (addToQueue) Main.spriteObjects.add(this);
     }
 
 

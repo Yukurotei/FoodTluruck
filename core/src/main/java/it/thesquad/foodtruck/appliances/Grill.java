@@ -1,5 +1,6 @@
 package it.thesquad.foodtruck.appliances;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.logic.Button;
@@ -26,7 +27,9 @@ public class Grill extends Appliance {
     public void init() {
         System.out.println("Inited button");
         pattyPile = new Button(new Texture("patty.png"), 10f, 10f, () -> {
-            System.out.println("I GOT FUCKED");
+            if (currentPatty != null) return;
+            System.out.println("Making patty");
+            currentPatty = new Sprite(new Texture("patty.png"), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
     }
 
@@ -38,17 +41,28 @@ public class Grill extends Appliance {
     public void display(SpriteBatch batch) {
         batch.begin();
         pattyPile.renderButton(batch);
+        if (currentPatty != null) {
+            currentPatty.render(batch);
+        }
         batch.end();
     }
 
     @Override
     public void end() {
-        System.out.println("Disposing button");
+        System.out.println("Ending");
         pattyPile.dispose();
+        if (currentPatty != null) currentPatty.dispose();
+        pattyPile = null;
+        currentPatty = null;
     }
 
     @Override
     public void update(float dt) {
-
+        if (pattyPile != null) pattyPile.update(dt);
+        if (currentPatty != null) {
+            currentPatty.update(dt);
+            currentPatty.setX(Gdx.input.getX() - (float) currentPatty.getSourceTexture().getWidth() / 2);
+            currentPatty.setY(Gdx.graphics.getHeight() - Gdx.input.getY() - (float) currentPatty.getSourceTexture().getHeight() / 2);
+        }
     }
 }

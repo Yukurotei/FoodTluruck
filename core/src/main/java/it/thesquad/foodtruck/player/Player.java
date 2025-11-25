@@ -23,7 +23,7 @@ public class Player extends Sprite {
      * @param interactionSprite the sprite used to indicate interaction
      */
     public Player(Texture texture, Sprite interactionSprite) {
-        super(texture, 0, 0);
+        super(texture, 0, 0, true);
         this.processMovement = true;
         this.interactionSprite = interactionSprite;
         this.appliance = null;
@@ -74,6 +74,10 @@ public class Player extends Sprite {
                 }
             }
             interactionSprite.setVisible(inRangeOfAppliance);
+            if (inRangeOfAppliance) {
+                interactionSprite.setX(x + (getTexture().getWidth() / 2f) - (interactionSprite.getTexture().getWidth() / 2f));
+                interactionSprite.setY(y + (getTexture().getHeight() / 2f) - (interactionSprite.getTexture().getHeight() / 2f) + 67);
+            }
             if(inRangeOfAppliance && Gdx.input.isKeyJustPressed(Input.Keys.E) && !justSwitchedState) {
                 if(Main.gameState == Main.GameState.WORLD) {
                     for (Sprite sprite : Utils.getSpritesSortedByDistance(Main.spriteObjects, this)) {
@@ -190,7 +194,7 @@ public class Player extends Sprite {
 
     /**
      *
-     * @param appliance the new appliance the player is interacting with
+     * @param batch the sprite batch that is used to render the textures
      */
     @Override
     public void render(SpriteBatch batch) {

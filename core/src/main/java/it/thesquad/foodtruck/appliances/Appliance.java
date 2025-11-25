@@ -20,7 +20,7 @@ public class Appliance extends Sprite {
      * @param h the height of the appliance
      */
     public Appliance(Texture texture, float x, float y, int w, int h) {
-        super(texture, x, y);
+        super(texture, x, y, true);
         this.w = w;
         this.h = h;
         Main.spriteObjects.add(this);
