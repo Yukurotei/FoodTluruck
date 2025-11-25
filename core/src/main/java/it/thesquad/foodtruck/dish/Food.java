@@ -1,6 +1,6 @@
 package it.thesquad.foodtruck.dish;
 
-import it.thesquad.foodtruck.util.Sizes;
+import it.thesquad.foodtruck.Sizes;
 
 
 public class Food {
@@ -8,7 +8,7 @@ public class Food {
     private Sizes size;
 
     /**
-     * 
+     *
      * @param food the food item
      * @param size the size of the food item
      */
@@ -18,7 +18,7 @@ public class Food {
     }
 
     /**
-     * 
+     *
      * @return the food item
      */
     public Foods getFood() {
@@ -26,7 +26,7 @@ public class Food {
     }
 
     /**
-     * 
+     *
      * @return the size of the food item
      */
     public Sizes getSize() {

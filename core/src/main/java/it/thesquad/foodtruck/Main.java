@@ -2,6 +2,7 @@ package it.thesquad.foodtruck;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,6 +13,8 @@ import it.thesquad.foodtruck.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -21,15 +24,18 @@ public class Main extends ApplicationAdapter {
     }
     private SpriteBatch batch;
     private Texture image;
+    public static OrthographicCamera camera;
     //private Order testorder;
     public static Player player;
-    public static List<Sprite> spriteObjects = new ArrayList<>();
+    public static Queue<Sprite> spriteObjects = new ConcurrentLinkedQueue<>();
     public static GameState gameState;
 
     @Override
     public void create() {
         gameState = GameState.WORLD;
         batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Sprite interactionSprite = new Sprite(new Texture("interact.png"), 0, 0);
         interactionSprite.setVisible(false);
         player = new Player(new Texture("player.png"), interactionSprite);
@@ -38,6 +44,9 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
         for (Sprite sprite : spriteObjects) {
             sprite.update(Gdx.graphics.getDeltaTime());
         }

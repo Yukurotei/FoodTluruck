@@ -20,7 +20,7 @@ public class Sprite {
     private int currentFrame = 0;
 
     /**
-     * 
+     *
      * @param texture the texture of the sprite
      * @param x the x-coordinate of the sprite
      * @param y the y-coordinate of the sprite
@@ -37,7 +37,7 @@ public class Sprite {
 
 
     /**
-     * 
+     *
      * @param batch the SpriteBatch used for rendering
      */
     public void render(SpriteBatch batch) {
@@ -50,7 +50,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param delta the time elapsed since the last update
      */
     public void update(float delta) {
@@ -75,10 +75,11 @@ public class Sprite {
                 t.dispose();
             }
         }
+        Main.spriteObjects.remove(this);
     }
 
     /**
-     * 
+     *
      * @return the source texture of the sprite
      */
     public Texture getSourceTexture() {
@@ -86,15 +87,21 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @return the list of textures for animated sprites
      */
     public List<Texture> getTextures() {
         return textures;
     }
 
+    public Texture getTexture() {
+        if (texture == null && textures.isEmpty()) return null;
+        if (textures.isEmpty()) return texture;
+        return textures.get(0);
+    }
+
     /**
-     * 
+     *
      * @return the x-coordinate of the sprite
      */
     public float getX() {
@@ -102,7 +109,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @return the y-coordinate of the sprite
      */
     public float getY() {
@@ -110,7 +117,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @return whether the sprite is visible
      */
     public boolean isVisible() {
@@ -118,7 +125,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param x the new x-coordinate of the sprite
      */
     public void setX(float x) {
@@ -127,7 +134,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param y the new y-coordinate of the sprite
      */
     public void setY(float y) {
@@ -136,7 +143,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param texture the new texture of the sprite
      */
     public void setTexture(Texture texture) {
@@ -147,7 +154,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param textures the new list of textures for animated sprites
      */
     public void setTextures(List<Texture> textures) {
@@ -163,7 +170,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param frameTime the time each frame is displayed in animated sprites
      */
     public void setFrameTime(float frameTime) {
@@ -171,7 +178,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param visible whether the sprite should be visible
      */
     public void setVisible(boolean visible) {
@@ -179,7 +186,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @return the hitbox of the sprite
      */
     public Rectangle getHitbox() {
@@ -187,7 +194,7 @@ public class Sprite {
     }
 
     /**
-     * 
+     *
      * @param other the other sprite to check collision with
      * @return true if this sprite collides with the other sprite, false otherwise
      */

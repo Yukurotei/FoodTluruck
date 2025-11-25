@@ -1,4 +1,4 @@
-package it.thesquad.foodtruck.util;
+package it.thesquad.foodtruck;
 
 public enum Sizes {
     LARGE, MEDIUM, SMALL;

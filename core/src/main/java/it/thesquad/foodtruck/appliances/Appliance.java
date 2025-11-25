@@ -12,7 +12,7 @@ public class Appliance extends Sprite {
     protected int h;
 
     /**
-     * 
+     *
      * @param texture the texture of the appliance
      * @param x the x-coordinate of the appliance
      * @param y the y-coordinate of the appliance
@@ -26,16 +26,24 @@ public class Appliance extends Sprite {
         Main.spriteObjects.add(this);
     }
 
+    public void init() {
+
+    }
+
     /**
-     * 
+     *
      * @param batch the SpriteBatch used for rendering
      */
     public void display(SpriteBatch batch) {
 
     }
 
+    public void end() {
+
+    }
+
     /**
-     * 
+     *
      * @return the x-coordinate of the appliance
      */
     public int getW() {
@@ -43,7 +51,7 @@ public class Appliance extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return the y-coordinate of the appliance
      */
     public int getH() {
@@ -51,7 +59,7 @@ public class Appliance extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param x the new x-coordinate of the appliance
      */
     public void setX(int x) {
@@ -59,7 +67,7 @@ public class Appliance extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param y the new y-coordinate of the appliance
      */
     public void setY(int y) {
@@ -67,7 +75,7 @@ public class Appliance extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param w the new width of the appliance
      */
     public void setW(int w) {
@@ -75,7 +83,7 @@ public class Appliance extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param h the new height of the appliance
      */
     public void setH(int h) {

@@ -18,7 +18,7 @@ public class Player extends Sprite {
     private Appliance appliance;
 
     /**
-     * 
+     *
      * @param texture the texture of the player
      * @param interactionSprite the sprite used to indicate interaction
      */
@@ -29,8 +29,8 @@ public class Player extends Sprite {
         this.appliance = null;
     }
 
-    /** 
-     * 
+    /**
+     *
      * @param delta the time elapsed since the last update
      */
     @Override
@@ -38,6 +38,7 @@ public class Player extends Sprite {
         boolean justSwitchedState = false;
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) && Main.gameState == Main.GameState.MINIGAME) {
             Main.gameState = Main.GameState.WORLD;
+            appliance.end();
             justSwitchedState = true;
         }
 
@@ -78,6 +79,8 @@ public class Player extends Sprite {
                     for (Sprite sprite : Utils.getSpritesSortedByDistance(Main.spriteObjects, this)) {
                         if (sprite instanceof Appliance) {
                             this.appliance = (Appliance) sprite;
+                            appliance.init();
+                            break;
                         }
                     }
                     Main.gameState = Main.GameState.MINIGAME;
@@ -114,7 +117,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return whether the player is processing movement
      */
     public boolean isProcessingMovement() {
@@ -122,7 +125,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return the speed of the player
      */
     public float getSpeed() {
@@ -130,7 +133,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param speed the new speed of the player
      */
     public void setSpeed(float speed) {
@@ -138,7 +141,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param processMovement whether the player should process movement
      */
     public void setProcessingMovement(boolean processMovement) {
@@ -146,7 +149,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return the rotation of the player
      */
     public float getRotation() {
@@ -154,7 +157,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param rotation the new rotation of the player
      */
     public void setRotation(float rotation) {
@@ -162,7 +165,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return the interaction sprite of the player
      */
     public Sprite getInteractionSprite() {
@@ -170,7 +173,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param interactionSprite the new interaction sprite of the player
      */
     public void setInteractionSprite(Sprite interactionSprite) {
@@ -178,7 +181,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @return the appliance the player is interacting with
      */
     public Appliance getAppliance() {
@@ -186,7 +189,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     *
      * @param appliance the new appliance the player is interacting with
      */
     @Override

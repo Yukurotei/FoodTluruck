@@ -2,21 +2,19 @@ package it.thesquad.foodtruck.logic;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
+import it.thesquad.foodtruck.Sizes;
 import it.thesquad.foodtruck.dish.Drinks;
 import it.thesquad.foodtruck.dish.Food;
 import it.thesquad.foodtruck.dish.Foods;
 import it.thesquad.foodtruck.player.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public final class Utils {
     /**
-     * 
+     *
      * @return a random order consisting of a main entree, side dish, dessert, and drink
      */
     public static Order randomOrder() {
@@ -35,21 +33,21 @@ public final class Utils {
     }
 
     /**
-     * 
+     *
      * @return a random size (LARGE, MEDIUM, SMALL)
      */
-    public static it.thesquad.foodtruck.util.Sizes randomSize() {
+    public static Sizes randomSize() {
         int pick = (int)Math.floor(Math.random()*3);
         return switch (pick) {
-            case 0 -> it.thesquad.foodtruck.util.Sizes.LARGE;
-            case 1 -> it.thesquad.foodtruck.util.Sizes.MEDIUM;
-            case 2 -> it.thesquad.foodtruck.util.Sizes.SMALL;
-            default -> it.thesquad.foodtruck.util.Sizes.MEDIUM;
+            case 0 -> Sizes.LARGE;
+            case 1 -> Sizes.MEDIUM;
+            case 2 -> Sizes.SMALL;
+            default -> Sizes.MEDIUM;
         };
     }
 
     /**
-     * 
+     *
      * @param sourceTexture the original texture to be resized
      * @param newWidth the desired width of the resized texture
      * @param newHeight the desired height of the resized texture
@@ -83,7 +81,7 @@ public final class Utils {
     }
 
     /**
-     * 
+     *
      * @param sourceTexture the original texture to be resized
      * @param percentage the percentage to scale the texture by (e.g., 50 for 50%)
      * @return a new Texture object resized by the specified percentage
@@ -104,22 +102,24 @@ public final class Utils {
     }
 
     /**
-     * 
+     *
      * @param sprite1 the first sprite
      * @param sprite2 the second sprite
      * @return the Euclidean distance between the two sprites
      */
     public static double distanceOfSprites(Sprite sprite1, Sprite sprite2) {
-        return Math.sqrt(Math.pow(sprite1.getX() - sprite2.getX(), 2) + Math.pow(sprite1.getY() - sprite2.getY(), 2));
+        double dx = (sprite1.getX() + sprite1.getTexture().getWidth() / 2.0) - (sprite2.getX() + sprite2.getTexture().getWidth() / 2.0);
+        double dy = (sprite1.getY() + sprite1.getTexture().getHeight() / 2.0) - (sprite2.getY() + sprite2.getTexture().getHeight() / 2.0);
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
     /**
-     * 
+     *
      * @param sprites the list of sprites to be sorted
      * @param player the player sprite to measure distance from
      * @return a list of sprites sorted by their distance from the player
      */
-    public static List<Sprite> getSpritesSortedByDistance(List<Sprite> sprites, Player player) {
+    public static List<Sprite> getSpritesSortedByDistance(Queue<Sprite> sprites, Player player) {
         List<Sprite> sortedSprites = new ArrayList<>(sprites);
         sortedSprites.remove(player);
         sortedSprites.sort(Comparator.comparing(sprite -> distanceOfSprites(player, sprite)));
