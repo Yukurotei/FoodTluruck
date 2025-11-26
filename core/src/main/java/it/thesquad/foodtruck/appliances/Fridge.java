@@ -1,6 +1,7 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.logic.Button;
@@ -25,11 +26,11 @@ public class Fridge extends Appliance {
 
     @Override
     public void init() {
-        System.out.println("Inited button, is fridge");
-        drinkPile = new Button(new Texture("patty.png"), 10f, 10f, () -> {
+        System.out.println("Inited button");
+        drinkPile = new Button(new Texture("the_drink.png"), 10f, 10f, () -> {
             if (currentDrink != null) return;
             System.out.println("Making drinking");
-            currentDrink = new Sprite(new Texture("patty.png"), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
+            currentDrink = new Sprite(new Texture("the_drink.png"), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
     }
 
@@ -40,6 +41,8 @@ public class Fridge extends Appliance {
     @Override
     public void display(SpriteBatch batch) {
         batch.begin();
+        Gdx.gl.glClearColor(135 / 255f, 206 / 255f, 235 / 255f, 1.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         drinkPile.renderButton(batch);
         if (currentDrink != null) {
             currentDrink.render(batch);
