@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
+import it.thesquad.foodtruck.logic.Utils;
 
 public class Grill extends Appliance {
 
@@ -40,6 +41,8 @@ public class Grill extends Appliance {
     @Override
     public void display(SpriteBatch batch) {
         batch.begin();
+        batch.draw(Utils.resizeTo(new Texture("grillUI.png"), 800, 600), 0, 0);
+
         pattyPile.renderButton(batch);
         if (currentPatty != null) {
             currentPatty.render(batch);

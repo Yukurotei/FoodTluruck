@@ -25,7 +25,7 @@ public class Fridge extends Appliance {
 
     @Override
     public void init() {
-        System.out.println("Inited button");
+        System.out.println("Inited button, is fridge");
         drinkPile = new Button(new Texture("patty.png"), 10f, 10f, () -> {
             if (currentDrink != null) return;
             System.out.println("Making drinking");
