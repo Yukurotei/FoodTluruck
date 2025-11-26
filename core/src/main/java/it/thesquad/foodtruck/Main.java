@@ -4,10 +4,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import it.thesquad.foodtruck.appliances.Fridge;
 import it.thesquad.foodtruck.appliances.Grill;
+import it.thesquad.foodtruck.customers.Customer;
+import it.thesquad.foodtruck.customers.CustomerQueue;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
@@ -30,6 +33,8 @@ public class Main extends ApplicationAdapter {
     public static Player player;
     public static Queue<Sprite> spriteObjects = new ConcurrentLinkedQueue<>();
     public static GameState gameState;
+    public static CustomerQueue customerQueue = new CustomerQueue();
+    private BitmapFont font;
 
     @Override
     public void create() {
@@ -42,6 +47,8 @@ public class Main extends ApplicationAdapter {
         player = new Player(new Texture("player.png"), interactionSprite);
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
         Fridge second = new Fridge(Utils.resizeTo(new Texture("grill.png"), 50), 360, 360, 20, 20);
+        customerQueue.add(new Customer());
+        font = new BitmapFont();
     }
 
     @Override
@@ -65,6 +72,10 @@ public class Main extends ApplicationAdapter {
         for (Sprite sprite : spriteObjects) {
             sprite.render(batch);
         }
+        
+        if(gameState == GameState.WORLD)
+            font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 300, 300); 
+
 
         batch.end();
     }

@@ -8,12 +8,16 @@ import it.thesquad.foodtruck.reputation.Review;
 public class Customer {
     Order order;
     Review review;
+    int id;
+    private static int customers = 0;
     /**
      * 
      * Creates a new customer with a random order
      */
-    Customer() {
+    public Customer() {
         this.order = Utils.randomOrder();
+        this.id = customers;
+        customers++;
     }
 
     /**
@@ -39,5 +43,13 @@ public class Customer {
      */
     public Review getReview() {
         return review;
+    }
+
+    /**
+     * 
+     * @return the order message
+     */
+    public String getOrderMsg() {
+        return "Customer"+id+" wants "+getOrder().toString();
     }
 }
