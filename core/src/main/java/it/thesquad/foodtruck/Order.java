@@ -56,4 +56,11 @@ public class Order {
     public Drinks getDrink() {
         return drink;
     }
+
+    /**
+     * @return the obj to a string
+     */
+    public String toString() {
+        return getMainEntree().getFood().getName()+" "+getSideDish().getFood().getName()+" "+getDessertsDish().getFood().getName()+" "+getDrink().getName();
+    }
 }
