@@ -11,6 +11,8 @@ public class Grill extends Appliance {
 
     private Sprite currentPatty;
     private Button pattyPile;
+    private Button griller;
+    private boolean isPattyCooking;
 
     /**
      *
@@ -32,6 +34,13 @@ public class Grill extends Appliance {
             System.out.println("Making patty");
             currentPatty = new Sprite(new Texture("patty.png"), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
+        Texture grillerTexture = new Texture("grillGrill.png");
+        griller = new Button(grillerTexture, 400 - ((float) grillerTexture.getWidth() / 2), 300 - ((float) grillerTexture.getHeight() / 2), () -> {
+            if (currentPatty == null) return;
+            System.out.println("Recieved patty, now cooking it");
+            isPattyCooking = true;
+            currentPatty = null;
+        });
     }
 
     /**
@@ -44,8 +53,13 @@ public class Grill extends Appliance {
         batch.draw(Utils.resizeTo(new Texture("grillUI.png"), 800, 600), 0, 0);
 
         pattyPile.renderButton(batch);
+        griller.renderButton(batch);
         if (currentPatty != null) {
             currentPatty.render(batch);
+        }
+
+        if (isPattyCooking) {
+            batch.draw(new Texture("patty.png"), 341, 248);
         }
         batch.end();
     }
@@ -54,6 +68,7 @@ public class Grill extends Appliance {
     public void end() {
         System.out.println("Ending");
         pattyPile.dispose();
+        griller.dispose();
         if (currentPatty != null) currentPatty.dispose();
         pattyPile = null;
         currentPatty = null;
@@ -62,6 +77,7 @@ public class Grill extends Appliance {
     @Override
     public void update(float dt) {
         if (pattyPile != null) pattyPile.update(dt);
+        if (griller != null) griller.update(dt);
         if (currentPatty != null) {
             currentPatty.update(dt);
             currentPatty.setX(Gdx.input.getX() - (float) currentPatty.getSourceTexture().getWidth() / 2);
