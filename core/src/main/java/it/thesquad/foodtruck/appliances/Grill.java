@@ -36,7 +36,7 @@ public class Grill extends Appliance {
         });
         Texture grillerTexture = new Texture("grillGrill.png");
         griller = new Button(grillerTexture, 400 - ((float) grillerTexture.getWidth() / 2), 300 - ((float) grillerTexture.getHeight() / 2), () -> {
-            if (currentPatty == null) return;
+            if (currentPatty == null || isPattyCooking) return;
             System.out.println("Recieved patty, now cooking it");
             isPattyCooking = true;
             currentPatty = null;
