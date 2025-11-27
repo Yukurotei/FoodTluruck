@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.appliances.Appliance;
+import it.thesquad.foodtruck.ingredients.Ingredient;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 
@@ -15,7 +16,10 @@ public class Player extends Sprite {
     private float rotation;
     private boolean processMovement;
     private Sprite interactionSprite;
-    private Appliance appliance;
+    private Appliance currentAppliance;
+    private Ingredient currentIngredient;
+
+    private static Player instance = null;
 
     /**
      *
@@ -24,9 +28,12 @@ public class Player extends Sprite {
      */
     public Player(Texture texture, Sprite interactionSprite) {
         super(texture, 0, 0, true);
+        if (instance != null) throw new IllegalStateException("Player already instantiated");
+        instance = this;
         this.processMovement = true;
         this.interactionSprite = interactionSprite;
-        this.appliance = null;
+        this.currentAppliance = null;
+        this.currentIngredient = null;
     }
 
     /**
@@ -38,7 +45,7 @@ public class Player extends Sprite {
         boolean justSwitchedState = false;
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) && Main.gameState == Main.GameState.MINIGAME) {
             Main.gameState = Main.GameState.WORLD;
-            appliance.end();
+            currentAppliance.end();
             justSwitchedState = true;
         }
 
@@ -82,8 +89,8 @@ public class Player extends Sprite {
                 if(Main.gameState == Main.GameState.WORLD) {
                     for (Sprite sprite : Utils.getSpritesSortedByDistance(Main.spriteObjects, this)) {
                         if (sprite instanceof Appliance) {
-                            this.appliance = (Appliance) sprite;
-                            appliance.init();
+                            this.currentAppliance = (Appliance) sprite;
+                            currentAppliance.init();
                             break;
                         }
                     }
@@ -118,6 +125,10 @@ public class Player extends Sprite {
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY() - (float) texture.getHeight() / 2;
         rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - y, mouseX - x);
+    }
+
+    public static Player getInstance() {
+        return instance;
     }
 
     /**
@@ -188,8 +199,16 @@ public class Player extends Sprite {
      *
      * @return the appliance the player is interacting with
      */
-    public Appliance getAppliance() {
-        return appliance;
+    public Appliance getCurrentAppliance() {
+        return currentAppliance;
+    }
+
+    public Ingredient getCurrentIngredient() {
+        return currentIngredient;
+    }
+
+    public void setCurrentIngredient(Ingredient currentIngredient) {
+        this.currentIngredient = currentIngredient;
     }
 
     /**
@@ -199,5 +218,8 @@ public class Player extends Sprite {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, texture.getWidth(), texture.getHeight(), 1, 1, rotation, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+        if (currentIngredient != null) {
+            currentIngredient.draw(batch);
+        }
     }
 }

@@ -55,25 +55,33 @@ public final class Utils {
      */
     public static Texture resizeTo(Texture sourceTexture, int newWidth, int newHeight) {
         if (newWidth <= 0 || newHeight <= 0) {
-            throw new IllegalArgumentException("New dimensions must be positive.");
+            throw new IllegalArgumentException("Dimensions must be positive");
         }
 
-        if (!sourceTexture.getTextureData().isPrepared()) {
-            sourceTexture.getTextureData().prepare();
+        com.badlogic.gdx.graphics.TextureData sourceData = sourceTexture.getTextureData();
+        Pixmap sourcePixmap;
+
+        boolean isFile = sourceData instanceof com.badlogic.gdx.graphics.glutils.FileTextureData;
+        if (isFile) {
+            sourcePixmap = new Pixmap(((com.badlogic.gdx.graphics.glutils.FileTextureData) sourceData).getFileHandle());
+        } else {
+            if (!sourceData.isPrepared()) {
+                sourceData.prepare();
+            }
+            sourcePixmap = sourceData.consumePixmap();
         }
-        Pixmap sourcePixmap = sourceTexture.getTextureData().consumePixmap();
 
         Pixmap resizedPixmap = new Pixmap(newWidth, newHeight, sourcePixmap.getFormat());
+        resizedPixmap.setFilter(Pixmap.Filter.NearestNeighbour); //Much faster scaling method than BiLinear
 
-        // Draw the original Pixmap into the new one, scaling it to the new dimensions.
         resizedPixmap.drawPixmap(sourcePixmap,
-            0, 0, sourcePixmap.getWidth(), sourcePixmap.getHeight(), // Source rectangle
-            0, 0, newWidth, newHeight    // Destination rectangle
+                0, 0, sourcePixmap.getWidth(), sourcePixmap.getHeight(), // Source rectangle
+                0, 0, newWidth, newHeight    // Destination rectangle
         );
 
         Texture resizedTexture = new Texture(resizedPixmap);
 
-        // Dispose of the pixmaps to prevent memory leaks
+        //Dispose pixmaps
         sourcePixmap.dispose();
         resizedPixmap.dispose();
 
