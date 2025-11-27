@@ -36,10 +36,10 @@ public class Cutter extends Appliance {
     @Override
     public void init() {
         uiTexture = new Texture("cuttingBoard.png");
-        bunWholeTexture = new Texture("libgdx.png");
+        bunWholeTexture = new Texture("burgerTopBun.png");
         bunTopTexture = new Texture("burgerTopBun.png");
         bunBottomTexture = new Texture("burgerBottomBun.png");
-        cutterTexture = new Texture("libgdx.png");
+        cutterTexture = new Texture("knife.png");
 
         // Bun pile (take whole bun)
         bunPile = new Button(bunWholeTexture, 10f, 10f, () -> {
@@ -87,8 +87,8 @@ public class Cutter extends Appliance {
 
     @Override
     public void update(float dt) {
-        bunPile.update(dt);
-        cutterButton.update(dt);
+        if (bunPile != null) bunPile.update(dt);
+        if (cutterButton != null) cutterButton.update(dt);
 
         if (currentBun != null && !isCutting) {
             // follow cursor
