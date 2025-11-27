@@ -41,7 +41,6 @@ public class Cutter extends Appliance {
         bunBottomTexture = new Texture("burgerBottomBun.png");
         cutterTexture = new Texture("knife.png");
 
-        // Bun pile (take whole bun)
         bunPile = new Button(bunWholeTexture, 10f, 10f, () -> {
             if (currentBun != null || isCutting) return;
             currentBun = new Sprite(bunWholeTexture,
@@ -50,21 +49,18 @@ public class Cutter extends Appliance {
                     false);
         });
 
-        // Cutting station (place + cut)
         cutterButton = new Button(cutterTexture,
                 350, 250, () -> {
 
             if (isCutting && !justPlaced) {
-                // Second press then pick up halves
                 if (Player.getInstance().getCurrentIngredient() == null &&
                     cutTop != null && cutBottom != null) {
 
-                    // Give player top bun
+                    //burgerTopBun.png
                     Player.getInstance().setCurrentIngredient(
-                        new Patty(cutTop, 100)
+                        new Patty(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false), 0)
                     );
 
-                    // Reset state
                     cutTop = cutBottom = null;
                     isCutting = false;
                 }
@@ -72,7 +68,6 @@ public class Cutter extends Appliance {
             }
 
             if (currentBun != null && !isCutting) {
-                // Place bun on board to cut
                 justPlaced = true;
                 isCutting = true;
                 cutProgress = 0f;
@@ -105,7 +100,6 @@ public class Cutter extends Appliance {
     }
 
     private void performCut() {
-        // Delete whole bun, create 2 halves
         cutTop = new Sprite(bunTopTexture, 330, 280, false);
         cutBottom = new Sprite(bunBottomTexture, 330, 240, false);
 
