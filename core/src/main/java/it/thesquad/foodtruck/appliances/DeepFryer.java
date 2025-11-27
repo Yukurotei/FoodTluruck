@@ -1,18 +1,31 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import it.thesquad.foodtruck.ingredients.Patty;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
+import it.thesquad.foodtruck.player.Player;
 
 public class DeepFryer extends Appliance {
 
-    private Sprite currentItem;
+    private Texture fryerUiTexture;
+    private Texture pattyTexture;
+    private Texture fryererTexture;
+
+    private final Color rawPattyColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Raw patty color (219, 108, 141)
+
+    private Sprite currentPatty;
     private Button pattyPile;
-    private Button fryer;
-    private boolean isFrying;
+    private Button fryerer;
+    private boolean isPattyCooking;
+    private Patty outputPatty;
+    private float cookTime = 0f;
+
+    boolean justPutPatty = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
 
     /**
      *
@@ -29,17 +42,35 @@ public class DeepFryer extends Appliance {
     @Override
     public void init() {
         System.out.println("Inited button");
-        pattyPile = new Button(Utils.resizeTo(new Texture("raw_fries.png"), 200, 200), 10f, 10f, () -> {
-            if (currentItem != null) return;
-            System.out.println("Making fries");
-            currentItem = new Sprite(Utils.resizeTo(new Texture("raw_fries.png"), 200, 200), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
+        //Load all texture on init to avoid disk consumption
+        fryerUiTexture = new Texture("fryerUI.png");
+        pattyTexture = new Texture("raw_fries.png");
+        fryererTexture = new Texture("fryerUI.png");
+
+        pattyPile = new Button(pattyTexture, 10f, 10f, () -> {
+            if (currentPatty != null) return;
+            currentPatty = new Sprite(pattyTexture, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
-        Texture fryerTexture = Utils.resizeTo(new Texture("fryer.png"), 800, 600);
-        fryer = new Button(fryerTexture, 400 - ((float) fryerTexture.getWidth() / 2), 300 - ((float) fryerTexture.getHeight() / 2), () -> {
-            if (currentItem == null || isFrying) return;
-            System.out.println("Recieved patty, now cooking it");
-            isFrying = true;
-            currentItem = null;
+
+        fryerer = new Button(fryererTexture, 400 - ((float) fryererTexture.getWidth() / 2), 300 - ((float) fryererTexture.getHeight() / 2), () -> {
+            if (isPattyCooking && !justPutPatty && currentPatty == null) {
+                if (Player.getInstance().getCurrentIngredient() == null) {
+                    isPattyCooking = false;
+                    Texture resizedPatty = Utils.resizeTo(pattyTexture, 50);
+                    Player.getInstance().setCurrentIngredient(new Patty(new Sprite(resizedPatty, Player.getInstance().getX()
+                        + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
+                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
+                    outputPatty = null;
+                } else {
+                    //TODO: Warn player they have something in their hands
+                }
+            }
+            justPutPatty = false;
+            if (currentPatty == null || isPattyCooking) return;
+            justPutPatty = true;
+            isPattyCooking = true;
+            currentPatty = null;
+            outputPatty = new Patty(null, 0);
         });
     }
 
@@ -50,38 +81,75 @@ public class DeepFryer extends Appliance {
     @Override
     public void display(SpriteBatch batch) {
         batch.begin();
-        batch.draw(new Texture("fryer.png"), 0, 0);
+        batch.draw(fryerUiTexture, 0, 0);
 
+        fryerer.renderButton(batch);
+
+        batch.setColor(rawPattyColor);
         pattyPile.renderButton(batch);
-        fryer.renderButton(batch);
-        if (currentItem != null) {
-            currentItem.render(batch);
+        if (currentPatty != null) {
+            currentPatty.render(batch);
         }
+        batch.setColor(Color.WHITE);
 
-        if (isFrying) {
-            batch.draw(new Texture("raw_fries.png"), 341, 248);
+        if (isPattyCooking) {
+            if (outputPatty != null) {
+                Color tint;
+                float cookedPercentage = outputPatty.getCookedPercentage();
+
+                if (cookedPercentage < 50f) {
+                    float progress = cookedPercentage / 50f;
+                    tint = new Color(rawPattyColor).lerp(Color.WHITE, progress);
+                } else {
+                    float progress = Math.min((cookedPercentage - 50f) / 50f, 1.0f);
+                    tint = new Color(Color.WHITE).lerp(Color.BLACK, progress);
+                }
+                batch.setColor(tint);
+            }
+
+            batch.draw(pattyTexture, 341, 248);
+
+            // Reset color to white to not affect other drawn objects
+            batch.setColor(Color.WHITE);
         }
         batch.end();
     }
 
     @Override
     public void end() {
-        System.out.println("Ending");
-        pattyPile.dispose();
-        fryer.dispose();
-        if (currentItem != null) currentItem.dispose();
+        if (pattyPile != null) pattyPile.dispose();
+        if (fryerer != null) fryerer.dispose();
+        if (currentPatty != null) currentPatty.dispose();
+
+        if (fryerUiTexture != null) fryerUiTexture.dispose();
+        if (pattyTexture != null) pattyTexture.dispose();
+        if (fryererTexture != null) fryererTexture.dispose();
+
         pattyPile = null;
-        currentItem = null;
+        fryerer = null;
+        currentPatty = null;
+        fryerUiTexture = null;
+        pattyTexture = null;
+        fryererTexture = null;
     }
 
     @Override
     public void update(float dt) {
         if (pattyPile != null) pattyPile.update(dt);
-        if (fryer != null) fryer.update(dt);
-        if (currentItem != null) {
-            currentItem.update(dt);
-            currentItem.setX(Gdx.input.getX() - (float) currentItem.getSourceTexture().getWidth() / 2);
-            currentItem.setY(Gdx.graphics.getHeight() - Gdx.input.getY() - (float) currentItem.getSourceTexture().getHeight() / 2);
+        if (fryerer != null) fryerer.update(dt);
+        if (currentPatty != null) {
+            currentPatty.update(dt);
+            currentPatty.setX(Gdx.input.getX() - (float) currentPatty.getSourceTexture().getWidth() / 2);
+            currentPatty.setY(Gdx.graphics.getHeight() - Gdx.input.getY() - (float) currentPatty.getSourceTexture().getHeight() / 2);
+        }
+
+        if (isPattyCooking && outputPatty != null) {
+            cookTime += dt;
+            if (cookTime >= 1.0f) {
+                outputPatty.setCookedPercentage(outputPatty.getCookedPercentage() + 2);
+                System.out.println(outputPatty.getCookedPercentage());
+                cookTime -= 1.0f;
+            }
         }
     }
 }
