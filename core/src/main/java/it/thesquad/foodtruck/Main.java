@@ -42,10 +42,15 @@ public class Main extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
+<<<<<<< HEAD
         Fridge second = new Fridge(Utils.resizeTo(new Texture("grill.png"), 50), 360, 360, 20, 20);
         DeepFryer third = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 50), 200, 200, 20, 20);
         Cutter fourth = new Cutter(Utils.resizeTo(new Texture("fryerUI.png"), 50), 100, 100, 20, 20);
         fourth.init();
+=======
+        Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360, 20, 20);
+        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 50), 200, 200, 20, 20);
+>>>>>>> 41344ba3ecfeb84d4902c1addb672787cf70c4de
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
