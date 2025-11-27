@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import it.thesquad.foodtruck.ingredients.Cookable;
+import it.thesquad.foodtruck.ingredients.Patty;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
@@ -22,7 +22,7 @@ public class Grill extends Appliance {
     private Button pattyPile;
     private Button griller;
     private boolean isPattyCooking;
-    private Cookable outputPatty;
+    private Patty outputPatty;
     private float cookTime = 0f;
 
     boolean justPutPatty = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
@@ -41,7 +41,6 @@ public class Grill extends Appliance {
 
     @Override
     public void init() {
-        System.out.println("Inited button");
         //Load all texture on init to avoid disk consumption
         grillUiTexture = new Texture("grillUI.png");
         pattyTexture = new Texture("patty.png");
@@ -57,7 +56,7 @@ public class Grill extends Appliance {
                 if (Player.getInstance().getCurrentIngredient() == null) {
                     isPattyCooking = false;
                     Texture resizedPatty = Utils.resizeTo(pattyTexture, 50);
-                    Player.getInstance().setCurrentIngredient(new Cookable(new Sprite(resizedPatty, Player.getInstance().getX()
+                    Player.getInstance().setCurrentIngredient(new Patty(new Sprite(resizedPatty, Player.getInstance().getX()
                         + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
                         ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
                     outputPatty = null;
@@ -70,7 +69,7 @@ public class Grill extends Appliance {
             justPutPatty = true;
             isPattyCooking = true;
             currentPatty = null;
-            outputPatty = new Cookable(null, 0);
+            outputPatty = new Patty(null, 0);
         });
     }
 
