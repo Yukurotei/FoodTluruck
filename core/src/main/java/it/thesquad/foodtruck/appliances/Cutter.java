@@ -1,11 +1,10 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import it.thesquad.foodtruck.ingredients.Cookable;
+import it.thesquad.foodtruck.ingredients.Patty;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.player.Player;
@@ -62,7 +61,7 @@ public class Cutter extends Appliance {
 
                     // Give player top bun
                     Player.getInstance().setCurrentIngredient(
-                        new Cookable(cutTop, 100)
+                        new Patty(cutTop, 100)
                     );
 
                     // Reset state
