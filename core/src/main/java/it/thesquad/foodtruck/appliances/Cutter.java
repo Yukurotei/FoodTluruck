@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.ingredients.Patty;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
+import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
 
 public class Cutter extends Appliance {
@@ -39,7 +40,7 @@ public class Cutter extends Appliance {
         bunWholeTexture = new Texture("burgerTopBun.png");
         bunTopTexture = new Texture("burgerTopBun.png");
         bunBottomTexture = new Texture("burgerBottomBun.png");
-        cutterTexture = new Texture("knife.png");
+        cutterTexture = Utils.rotateTexture(new Texture("knife.png"),90f);
 
         // Bun pile (take whole bun)
         bunPile = new Button(bunWholeTexture, 10f, 10f, () -> {
