@@ -5,19 +5,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.player.Player;
 
-public class Patty implements Ingredient {
+public class Cookable implements Ingredient {
 
     private Sprite patty;
     private int cookedPercentage;
 
     private final Color rawPattyColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Raw patty color (219, 108, 141)
 
-    public Patty(Sprite patty) {
+    public Cookable(Sprite patty) {
         this.patty = patty;
         this.cookedPercentage = 0;
     }
 
-    public Patty(Sprite patty, int cookedPercentage) {
+    public Cookable(Sprite patty, int cookedPercentage) {
         this.patty = patty;
         this.cookedPercentage = cookedPercentage;
     }

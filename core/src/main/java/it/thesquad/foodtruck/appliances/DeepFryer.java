@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import it.thesquad.foodtruck.ingredients.FryItem;
+import it.thesquad.foodtruck.ingredients.Cookable;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
@@ -21,8 +21,8 @@ public class DeepFryer extends Appliance {
     private Sprite currentFryItem;
     private Button FryItemPile;
     private Button fryerer;
-    private boolean isFryItemCooking;
-    private FryItem outputFryItem;
+    private boolean isPattyCooking;
+    private Cookable outputPatty;
     private float cookTime = 0f;
 
     boolean justPutFryItem = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
@@ -55,22 +55,22 @@ public class DeepFryer extends Appliance {
         fryerer = new Button(fryererTexture, 400 - ((float) fryererTexture.getWidth() / 2), 300 - ((float) fryererTexture.getHeight() / 2), () -> {
             if (isFryItemCooking && !justPutFryItem && currentFryItem == null) {
                 if (Player.getInstance().getCurrentIngredient() == null) {
-                    isFryItemCooking = false;
-                    Texture resizedFryItem = Utils.resizeTo(FryItemTexture, 50);
-                    Player.getInstance().setCurrentIngredient(new FryItem(new Sprite(resizedFryItem, Player.getInstance().getX()
-                        + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedFryItem.getWidth() / 2f)
-                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedFryItem.getHeight() / 2f) - 67, false), outputFryItem.getCookedPercentage()));
-                    outputFryItem = null;
+                    isPattyCooking = false;
+                    Texture resizedPatty = Utils.resizeTo(pattyTexture, 50);
+                    Player.getInstance().setCurrentIngredient(new Cookable(new Sprite(resizedPatty, Player.getInstance().getX()
+                        + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
+                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
+                    outputPatty = null;
                 } else {
                     //TODO: Warn player they have something in their hands
                 }
             }
-            justPutFryItem = false;
-            if (currentFryItem == null || isFryItemCooking) return;
-            justPutFryItem = true;
-            isFryItemCooking = true;
-            currentFryItem = null;
-            outputFryItem = new FryItem(null, 0);
+            justPutPatty = false;
+            if (currentPatty == null || isPattyCooking) return;
+            justPutPatty = true;
+            isPattyCooking = true;
+            currentPatty = null;
+            outputPatty = new Cookable(null, 0);
         });
     }
 
