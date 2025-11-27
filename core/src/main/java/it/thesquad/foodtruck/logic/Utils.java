@@ -3,7 +3,6 @@ package it.thesquad.foodtruck.logic;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.glutils.FileTextureData;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.Sizes;
 import it.thesquad.foodtruck.dish.Drinks;
@@ -12,7 +11,6 @@ import it.thesquad.foodtruck.dish.Foods;
 import it.thesquad.foodtruck.player.Player;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public final class Utils {
     /**
