@@ -49,7 +49,6 @@ public class Grill extends Appliance {
 
         pattyPile = new Button(pattyTexture, 10f, 10f, () -> {
             if (currentPatty != null) return;
-            System.out.println("Making patty");
             currentPatty = new Sprite(pattyTexture, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
 
@@ -62,15 +61,12 @@ public class Grill extends Appliance {
                         + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
                         ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
                     outputPatty = null;
-                    System.out.println("Player picked up ingredients");
                 } else {
                     //TODO: Warn player they have something in their hands
-                    System.out.println("Player has thing in hand");
                 }
             }
             justPutPatty = false;
             if (currentPatty == null || isPattyCooking) return;
-            System.out.println("Recieved patty, now cooking it");
             justPutPatty = true;
             isPattyCooking = true;
             currentPatty = null;
@@ -88,21 +84,26 @@ public class Grill extends Appliance {
         batch.draw(grillUiTexture, 0, 0);
 
         griller.renderButton(batch);
-        Color tint = new Color(rawPattyColor).lerp(Color.WHITE, 0); //Color is stored as floating point so leaping it essentially * 255
-        batch.setColor(tint);
+
+        batch.setColor(rawPattyColor);
+        pattyPile.renderButton(batch);
         if (currentPatty != null) {
             currentPatty.render(batch);
         }
-        pattyPile.renderButton(batch);
         batch.setColor(Color.WHITE);
 
         if (isPattyCooking) {
-            // Tint patty based on cooked percentage
             if (outputPatty != null) {
-                // Clamp progress between 0 and 1
-                float progress = Math.min(outputPatty.getCookedPercentage() / 100f, 1.0f);
-                // Interpolate from raw color to white (no tint)
-                tint = new Color(rawPattyColor).lerp(Color.WHITE, progress);
+                Color tint;
+                float cookedPercentage = outputPatty.getCookedPercentage();
+
+                if (cookedPercentage < 50f) {
+                    float progress = cookedPercentage / 50f;
+                    tint = new Color(rawPattyColor).lerp(Color.WHITE, progress);
+                } else {
+                    float progress = Math.min((cookedPercentage - 50f) / 50f, 1.0f);
+                    tint = new Color(Color.WHITE).lerp(Color.BLACK, progress);
+                }
                 batch.setColor(tint);
             }
 
@@ -116,7 +117,6 @@ public class Grill extends Appliance {
 
     @Override
     public void end() {
-        System.out.println("Ending");
         if (pattyPile != null) pattyPile.dispose();
         if (griller != null) griller.dispose();
         if (currentPatty != null) currentPatty.dispose();
