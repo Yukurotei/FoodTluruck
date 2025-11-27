@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import it.thesquad.foodtruck.ingredients.Bun;
 import it.thesquad.foodtruck.ingredients.Patty;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
@@ -58,7 +59,7 @@ public class Cutter extends Appliance {
 
                     //burgerTopBun.png
                     Player.getInstance().setCurrentIngredient(
-                        new Patty(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false), 0)
+                        new Bun(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false))
                     );
 
                     cutTop = cutBottom = null;
