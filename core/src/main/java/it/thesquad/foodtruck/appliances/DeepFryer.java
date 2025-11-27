@@ -13,7 +13,7 @@ import it.thesquad.foodtruck.player.Player;
 public class DeepFryer extends Appliance {
 
     private Texture fryerUiTexture;
-    private Texture FryItemTexture;
+    private Texture fryItemTexture;
     private Texture fryererTexture;
 
     private final Color rawFryItemColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Raw FryItem color (219, 108, 141)
@@ -21,8 +21,8 @@ public class DeepFryer extends Appliance {
     private Sprite currentFryItem;
     private Button FryItemPile;
     private Button fryerer;
-    private boolean isPattyCooking;
-    private Cookable outputPatty;
+    private boolean isFryItemCooking;
+    private Cookable outputFryItem;
     private float cookTime = 0f;
 
     boolean justPutFryItem = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
@@ -44,33 +44,33 @@ public class DeepFryer extends Appliance {
         System.out.println("Inited button");
         //Load all texture on init to avoid disk consumption
         fryerUiTexture = new Texture("fryerUI.png");
-        FryItemTexture = new Texture("raw_fries.png");
+        fryItemTexture = new Texture("raw_fries.png");
         fryererTexture = new Texture("fryerUI.png");
 
-        FryItemPile = new Button(FryItemTexture, 10f, 10f, () -> {
+        FryItemPile = new Button(fryItemTexture, 10f, 10f, () -> {
             if (currentFryItem != null) return;
-            currentFryItem = new Sprite(FryItemTexture, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
+            currentFryItem = new Sprite(fryItemTexture, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
 
         fryerer = new Button(fryererTexture, 400 - ((float) fryererTexture.getWidth() / 2), 300 - ((float) fryererTexture.getHeight() / 2), () -> {
             if (isFryItemCooking && !justPutFryItem && currentFryItem == null) {
                 if (Player.getInstance().getCurrentIngredient() == null) {
-                    isPattyCooking = false;
-                    Texture resizedPatty = Utils.resizeTo(pattyTexture, 50);
+                    isFryItemCooking = false;
+                    Texture resizedPatty = Utils.resizeTo(fryItemTexture, 50);
                     Player.getInstance().setCurrentIngredient(new Cookable(new Sprite(resizedPatty, Player.getInstance().getX()
                         + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
-                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
-                    outputPatty = null;
+                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputFryItem.getCookedPercentage()));
+                    outputFryItem = null;
                 } else {
                     //TODO: Warn player they have something in their hands
                 }
             }
-            justPutPatty = false;
-            if (currentPatty == null || isPattyCooking) return;
-            justPutPatty = true;
-            isPattyCooking = true;
-            currentPatty = null;
-            outputPatty = new Cookable(null, 0);
+            justPutFryItem = false;
+            if (currentFryItem == null || isFryItemCooking) return;
+            justPutFryItem = true;
+            isFryItemCooking = true;
+            currentFryItem = null;
+            outputFryItem = new Cookable(null, 0);
         });
     }
 
@@ -107,7 +107,7 @@ public class DeepFryer extends Appliance {
                 batch.setColor(tint);
             }
 
-            batch.draw(FryItemTexture, 341, 248);
+            batch.draw(fryItemTexture, 341, 248);
 
             // Reset color to white to not affect other drawn objects
             batch.setColor(Color.WHITE);
@@ -122,14 +122,14 @@ public class DeepFryer extends Appliance {
         if (currentFryItem != null) currentFryItem.dispose();
 
         if (fryerUiTexture != null) fryerUiTexture.dispose();
-        if (FryItemTexture != null) FryItemTexture.dispose();
+        if (fryItemTexture != null) fryItemTexture.dispose();
         if (fryererTexture != null) fryererTexture.dispose();
 
         FryItemPile = null;
         fryerer = null;
         currentFryItem = null;
         fryerUiTexture = null;
-        FryItemTexture = null;
+        fryItemTexture = null;
         fryererTexture = null;
     }
 
