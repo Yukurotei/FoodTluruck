@@ -44,7 +44,7 @@ public class Main extends ApplicationAdapter {
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
         Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100, 20, 20);
         Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360, 20, 20);
-        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 50), 200, 200, 20, 20);
+        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200, 20, 20);
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
