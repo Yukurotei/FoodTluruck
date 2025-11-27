@@ -2,6 +2,8 @@ package it.thesquad.foodtruck.logic;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.glutils.FileTextureData;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.Sizes;
 import it.thesquad.foodtruck.dish.Drinks;
@@ -132,5 +134,83 @@ public final class Utils {
         sortedSprites.remove(player);
         sortedSprites.sort(Comparator.comparing(sprite -> distanceOfSprites(player, sprite)));
         return sortedSprites;
+    }
+
+    /**
+     * Rotates a texture by a given angle (multiples of 90 degrees).
+     * For angles other than 0, 90, 180, 270, the original texture is returned.
+     *
+     * @param sourceTexture The original texture to rotate.
+     * @param degrees The rotation angle in degrees (0, 90, 180, 270).
+     * @return A new, rotated Texture.
+     */
+    public static Texture rotateTexture(Texture sourceTexture, float degrees) {
+        if (sourceTexture == null) {
+            throw new IllegalArgumentException("Source texture cannot be null.");
+        }
+
+        // Normalize degrees to 0, 90, 180, 270
+        int rotationAngle = ((int) degrees % 360 + 360) % 360;
+        if (rotationAngle % 90 != 0) {
+            // Only support 90-degree rotations for now, return original for others
+            return sourceTexture;
+        }
+
+        TextureData sourceData = sourceTexture.getTextureData();
+        Pixmap sourcePixmap;
+
+        if (!sourceData.isPrepared()) {
+            sourceData.prepare();
+        }
+        sourcePixmap = sourceData.consumePixmap();
+
+
+        int originalWidth = sourcePixmap.getWidth();
+        int originalHeight = sourcePixmap.getHeight();
+        int newWidth = originalWidth;
+        int newHeight = originalHeight;
+
+        // Determine new dimensions for 90/270 degree rotations
+        if (rotationAngle == 90 || rotationAngle == 270) {
+            newWidth = originalHeight;
+            newHeight = originalWidth;
+        }
+
+        Pixmap rotatedPixmap = new Pixmap(newWidth, newHeight, sourcePixmap.getFormat());
+
+        for (int y = 0; y < originalHeight; y++) {
+            for (int x = 0; x < originalWidth; x++) {
+                int color = sourcePixmap.getPixel(x, y);
+                int rotatedX = 0;
+                int rotatedY = 0;
+
+                switch (rotationAngle) {
+                    case 0:
+                        rotatedX = x;
+                        rotatedY = y;
+                        break;
+                    case 90:
+                        rotatedX = y;
+                        rotatedY = newHeight - 1 - x;
+                        break;
+                    case 180:
+                        rotatedX = newWidth - 1 - x;
+                        rotatedY = newHeight - 1 - y;
+                        break;
+                    case 270:
+                        rotatedX = newWidth - 1 - y;
+                        rotatedY = x;
+                        break;
+                }
+                rotatedPixmap.drawPixel(rotatedX, rotatedY, color);
+            }
+        }
+
+        Texture rotatedTexture = new Texture(rotatedPixmap);
+
+        sourcePixmap.dispose();
+        rotatedPixmap.dispose();
+
+        return rotatedTexture;
     }
 }
