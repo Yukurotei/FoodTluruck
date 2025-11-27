@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import it.thesquad.foodtruck.appliances.DeepFryer;
 import it.thesquad.foodtruck.appliances.Fridge;
 import it.thesquad.foodtruck.appliances.Grill;
 import it.thesquad.foodtruck.customers.Customer;
@@ -40,6 +42,7 @@ public class Main extends ApplicationAdapter {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
         Fridge second = new Fridge(Utils.resizeTo(new Texture("grill.png"), 50), 360, 360, 20, 20);
+        DeepFryer third = new DeepFryer(Utils.resizeTo(new Texture("fryer.png"), 50), 200, 200, 20, 20);
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
