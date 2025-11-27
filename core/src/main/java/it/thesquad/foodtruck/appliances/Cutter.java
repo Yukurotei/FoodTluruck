@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import it.thesquad.foodtruck.ingredients.Bread;
+import it.thesquad.foodtruck.ingredients.Bun;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
@@ -57,9 +57,8 @@ public class Cutter extends Appliance {
                 if (Player.getInstance().getCurrentIngredient() == null &&
                     cutTop != null && cutBottom != null) {
 
-                    //burgerTopBun.png
                     Player.getInstance().setCurrentIngredient(
-                        new Bread(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false))
+                        new Bun(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false))
                     );
 
                     cutTop = cutBottom = null;
@@ -83,6 +82,9 @@ public class Cutter extends Appliance {
 
     @Override
     public void update(float dt) {
+        if (Player.getInstance().getCurrentAppliance() == null) return;
+        if (!(Player.getInstance().getCurrentAppliance() instanceof Cutter)) return;
+
         if (bunPile != null) bunPile.update(dt);
         if (cutterButton != null) cutterButton.update(dt);
 

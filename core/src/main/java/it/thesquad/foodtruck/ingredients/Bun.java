@@ -7,19 +7,30 @@ import it.thesquad.foodtruck.player.Player;
 
 public class Bun implements Ingredient {
 
-    Sprite bun;
+    private Sprite bread;
 
-    public Bun(Sprite sprite) {
-        this.bun = sprite;
+
+    public Bun(Sprite bread) {
+        this.bread = bread;
     }
+
 
     @Override
     public void draw(SpriteBatch batch) {
-        if (bun != null) {
-            bun.setX(Player.getInstance().getX() + (Player.getInstance().getTexture().getWidth() / 2f) - (bun.getTexture().getWidth() / 2f));
-            bun.setY(Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (bun.getTexture().getHeight() / 2f) - 67);
+        if (bread != null) {
+            bread.setX(Player.getInstance().getX() + (Player.getInstance().getTexture().getWidth() / 2f) - (bread.getTexture().getWidth() / 2f));
+            bread.setY(Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (bread.getTexture().getHeight() / 2f) - 67);
 
-            bun.render(batch);
+            bread.render(batch);
+            batch.setColor(Color.WHITE);
         }
+    }
+
+    public Sprite getBread() {
+        return bread;
+    }
+
+    public void setBread(Sprite bread) {
+        this.bread = bread;
     }
 }
