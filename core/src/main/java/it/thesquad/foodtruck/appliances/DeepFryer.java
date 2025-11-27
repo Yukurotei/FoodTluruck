@@ -125,11 +125,13 @@ public class DeepFryer extends Appliance {
         }
 
         if (isFrying && outputFry != null) {
-            cookTime += dt;
-            if (cookTime >= 1.0f) {
-                outputFry.setCookedPercentage(outputFry.getCookedPercentage() + 2);
-                System.out.println(outputFry.getCookedPercentage());
-                cookTime -= 1.0f;
+            if (outputFry.getCookedPercentage() != 100) {
+                cookTime += dt;
+                if (cookTime >= 1.0f) {
+                    outputFry.setCookedPercentage(outputFry.getCookedPercentage() + 2);
+                    System.out.println(outputFry.getCookedPercentage());
+                    cookTime -= 1.0f;
+                }
             }
         }
     }

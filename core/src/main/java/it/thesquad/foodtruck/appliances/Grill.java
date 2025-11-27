@@ -143,11 +143,13 @@ public class Grill extends Appliance {
         }
 
         if (isPattyCooking && outputPatty != null) {
-            cookTime += dt;
-            if (cookTime >= 1.0f) {
-                outputPatty.setCookedPercentage(outputPatty.getCookedPercentage() + 2);
-                System.out.println(outputPatty.getCookedPercentage());
-                cookTime -= 1.0f;
+            if (outputPatty.getCookedPercentage() != 100) {
+                cookTime += dt;
+                if (cookTime >= 1.0f) {
+                    outputPatty.setCookedPercentage(outputPatty.getCookedPercentage() + 2);
+                    System.out.println(outputPatty.getCookedPercentage());
+                    cookTime -= 1.0f;
+                }
             }
         }
     }
