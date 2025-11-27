@@ -131,16 +131,18 @@ public class Cutter extends Appliance {
 
     @Override
     public void end() {
-        bunPile.dispose();
+        // bunPile.dispose();
         cutterButton.dispose();
-        if (currentBun != null) currentBun.dispose();
-        if (cutTop != null) cutTop.dispose();
-        if (cutBottom != null) cutBottom.dispose();
+        // if (currentBun != null) currentBun.dispose();
+        // if (cutTop != null) cutTop.dispose();
+        // if (cutBottom != null) cutBottom.dispose();
 
         uiTexture.dispose();
-        bunWholeTexture.dispose();
+        // bunWholeTexture.dispose();
         bunTopTexture.dispose();
         bunBottomTexture.dispose();
         cutterTexture.dispose();
+        bunBottomTexture = null;
+        bunTopTexture = null;
     }
 }
