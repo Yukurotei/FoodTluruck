@@ -201,4 +201,14 @@ public class Sprite {
     public boolean collidesWith(Sprite other) {
         return this.hitbox.overlaps(other.getHitbox());
     }
+
+
+    public float getWidth() {
+        return this.texture.getWidth();
+    }
+
+
+    public float getHeight() {
+        return this.texture.getHeight();
+    }
 }
