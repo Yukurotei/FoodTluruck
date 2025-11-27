@@ -90,7 +90,7 @@ public class DeepFryer extends Appliance {
         if (currentFryItem != null) {
             currentFryItem.render(batch);
         }
-        batch.setColor(Color.SALMON);
+        batch.setColor(Color.WHITE);
 
         if (isFryItemCooking) {
             if (outputFryItem != null) {
