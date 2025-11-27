@@ -51,7 +51,7 @@ public class Cutter extends Appliance {
         });
 
         // Cutting station (place + cut)
-        cutterButton = new Button(cutterTexture, 
+        cutterButton = new Button(cutterTexture,
                 350, 250, () -> {
 
             if (isCutting && !justPlaced) {
@@ -141,8 +141,10 @@ public class Cutter extends Appliance {
         // bunWholeTexture.dispose();
         bunTopTexture.dispose();
         bunBottomTexture.dispose();
+        if (currentBun != null) currentBun.dispose();
         cutterTexture.dispose();
         bunBottomTexture = null;
         bunTopTexture = null;
+        currentBun = null;
     }
 }
