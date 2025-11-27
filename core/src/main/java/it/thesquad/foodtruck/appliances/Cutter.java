@@ -40,19 +40,18 @@ public class Cutter extends Appliance {
         bunWholeTexture = new Texture("burgerTopBun.png");
         bunTopTexture = new Texture("burgerTopBun.png");
         bunBottomTexture = new Texture("burgerBottomBun.png");
-        cutterTexture = Utils.rotateTexture(new Texture("knife.png"),90f);
+        cutterTexture = Utils.rotateTextureRightAngles(new Texture("knife.png"),90f);
 
         bunPile = new Button(bunWholeTexture, 10f, 10f, () -> {
             if (currentBun != null || isCutting) return;
-            currentBun = new Sprite(bunWholeTexture,
+            currentBun = new Sprite(new Texture("burgerTopBun.png"),
                     Gdx.input.getX(),
                     Gdx.graphics.getHeight() - Gdx.input.getY(),
                     false);
         });
 
         cutterButton = new Button(cutterTexture,
-                350, 250, () -> {
-
+                500, 50, () -> {
             if (isCutting && !justPlaced) {
                 if (Player.getInstance().getCurrentIngredient() == null &&
                     cutTop != null && cutBottom != null) {
@@ -129,19 +128,17 @@ public class Cutter extends Appliance {
     @Override
     public void end() {
         // bunPile.dispose();
-        cutterButton.dispose();
+        //cutterButton.dispose();
         // if (currentBun != null) currentBun.dispose();
-        // if (cutTop != null) cutTop.dispose();
-        // if (cutBottom != null) cutBottom.dispose();
+        //if (cutTop != null) cutTop.dispose();
+        //if (cutBottom != null) cutBottom.dispose();
 
         uiTexture.dispose();
         // bunWholeTexture.dispose();
-        bunTopTexture.dispose();
-        bunBottomTexture.dispose();
+        //bunTopTexture.dispose();
+        //bunBottomTexture.dispose();
         if (currentBun != null) currentBun.dispose();
         cutterTexture.dispose();
-        bunBottomTexture = null;
-        bunTopTexture = null;
         currentBun = null;
     }
 }

@@ -142,15 +142,13 @@ public final class Utils {
      * @param degrees The rotation angle in degrees (0, 90, 180, 270).
      * @return A new, rotated Texture.
      */
-    public static Texture rotateTexture(Texture sourceTexture, float degrees) {
+    public static Texture rotateTextureRightAngles(Texture sourceTexture, float degrees) {
         if (sourceTexture == null) {
             throw new IllegalArgumentException("Source texture cannot be null.");
         }
 
-        // Normalize degrees to 0, 90, 180, 270
         int rotationAngle = ((int) degrees % 360 + 360) % 360;
         if (rotationAngle % 90 != 0) {
-            // Only support 90-degree rotations for now, return original for others
             return sourceTexture;
         }
 
@@ -180,26 +178,26 @@ public final class Utils {
             for (int x = 0; x < originalWidth; x++) {
                 int color = sourcePixmap.getPixel(x, y);
                 int rotatedX = 0;
-                int rotatedY = 0;
-
-                switch (rotationAngle) {
-                    case 0:
+                int rotatedY = switch (rotationAngle) {
+                    case 0 -> {
                         rotatedX = x;
-                        rotatedY = y;
-                        break;
-                    case 90:
+                        yield y;
+                    }
+                    case 90 -> {
                         rotatedX = y;
-                        rotatedY = newHeight - 1 - x;
-                        break;
-                    case 180:
+                        yield newHeight - 1 - x;
+                    }
+                    case 180 -> {
                         rotatedX = newWidth - 1 - x;
-                        rotatedY = newHeight - 1 - y;
-                        break;
-                    case 270:
+                        yield newHeight - 1 - y;
+                    }
+                    case 270 -> {
                         rotatedX = newWidth - 1 - y;
-                        rotatedY = x;
-                        break;
-                }
+                        yield x;
+                    }
+                    default -> 0;
+                };
+
                 rotatedPixmap.drawPixel(rotatedX, rotatedY, color);
             }
         }
