@@ -107,6 +107,9 @@ public class Player extends Sprite {
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 dy += 1;
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+                dropItem();
+            }
 
             setY(getY() + dy * speed * delta);
 
@@ -221,5 +224,9 @@ public class Player extends Sprite {
         if (currentIngredient != null) {
             currentIngredient.draw(batch);
         }
+    }
+
+    public void dropItem() {
+        this.currentIngredient = null;
     }
 }
