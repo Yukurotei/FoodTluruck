@@ -50,17 +50,11 @@ public class Main extends ApplicationAdapter {
         font = new BitmapFont();
         try {
 
-            int rating = 0;
+            int rating = 5;
 
             String orderMsg = customerQueue.getElm(0).getOrderMsg();
 
-            String prompt = String.format(
-                "%d-star review for order \"%s\": ",
-                rating,
-                orderMsg
-            );
-
-            System.out.println(Utils.getReview(prompt));
+            System.out.println(Utils.getReview(orderMsg,rating));
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

@@ -12,18 +12,15 @@ import it.thesquad.foodtruck.player.Player;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 public final class Utils {
-
-    private static final Gson gson = new Gson();
-
     /**
      *
      * @return a random order consisting of a main entree, side dish, dessert, and drink
@@ -220,42 +217,80 @@ public final class Utils {
 
         return rotatedTexture;
     }
+    
 
-    public static String getReview(String prompt) {
+
+    private static final Gson gson = new Gson();
+
+    public static String getReview(String order, int stars) {
         try {
-            URL url = new URL("http://localhost:5005/review");
+            URL url = new URL("http://ai.webseb.ca/v1/chat/completions");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
             con.setDoOutput(true);
 
-            JsonObject obj = new JsonObject();
-            obj.addProperty("prompt", prompt);
-            String json = gson.toJson(obj);
+            // Build the user prompt
+            String userPrompt = String.format(
+                "Write a %d-star food review for the order \"%s\". ",
+                stars,
+                order
+            );
 
+            // Build the JSON body
+            JsonObject body = new JsonObject();
+            body.addProperty("model", "ibm/granite-3.2-8b");
+
+            JsonArray messages = new JsonArray();
+
+            // JsonObject sys = new JsonObject();
+            // sys.addProperty("role", "system");
+            // sys.addProperty("content", "");
+            // messages.add(sys);
+
+            JsonObject usr = new JsonObject();
+            usr.addProperty("role", "user");
+            usr.addProperty("content", userPrompt);
+            messages.add(usr);
+
+            body.add("messages", messages);
+            body.addProperty("temperature", 0.7);
+            body.addProperty("max_tokens", 256);
+            body.addProperty("stream", false);
+
+            String json = gson.toJson(body);
             con.getOutputStream().write(json.getBytes());
 
+            // Read response
             BufferedReader reader = new BufferedReader(
                 new InputStreamReader(con.getInputStream())
             );
 
-            StringBuilder result = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             String line;
 
             while ((line = reader.readLine()) != null)
-                result.append(line);
+                sb.append(line);
 
-            return result.toString();
+            reader.close();
+
+            // Extract the content field
+            JsonObject resp = gson.fromJson(sb.toString(), JsonObject.class);
+            String reply = resp
+                .getAsJsonArray("choices")
+                .get(0).getAsJsonObject()
+                .getAsJsonObject("message")
+                .get("content").getAsString();
+
+            return reply;
+
         } catch (Exception e) {
-            if (e instanceof ConnectException) {
-                return "[CUSTOMER RATING] Connection refused: Is server up?";
-            } else {
-                e.printStackTrace();
-                return "AI error";
-            }
+            e.printStackTrace();
+            return "AI error";
         }
     }
+
 
 
 }
