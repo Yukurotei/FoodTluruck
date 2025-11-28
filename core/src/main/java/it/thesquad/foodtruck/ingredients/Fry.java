@@ -87,29 +87,23 @@ public class Fry implements Ingredient {
         this.cookedPercentage = cookedPercentage;
     }
 
-    
+
     /**
      * @author MR CLANKER GEMINI TY DADDY
      * @return
      */
-    public int calcAccuracy() {     
-                                                                                                                                   
-        // Return 0 if the input is outside the 0-100 range                                                                                                                
-        if (cookedPercentage < 0 || cookedPercentage > 100) {                                                                                                                                            
-            return 0;                                                                                                                                                      
-        }                                                                                                                                                                  
-                                                                                                                                                                           
-        // First part of the blend: from 0 up to 20                                                                                                                        
-        if (cookedPercentage <= 20) {                                                                                                                                                     
-            // This is the formula for the line from (0,0) to (58,5)                                                                                                       
-            return (int) (5.0f / 20.0f) * cookedPercentage;                                                                                                                                     
-        }                                                                                                                                                                  
-        // Second part of the blend: from 20 down to 100                                                                                                                   
-        else {                                                                                                                                                             
-            // This is the formula for the line from (58,5) to (100,0)                                                                                                     
-            return (int) (5.0f - (5.0f / 80.0f) * (cookedPercentage - 20.0f));                                                                                                                    
-        }                                                                                                                                                                  
-   }             
+    public int calcAccuracy() {
+        if (cookedPercentage < 0 || cookedPercentage > 100) {
+            return 0;
+        }
+
+        if (cookedPercentage <= 20) {
+            return 0;
+        }
+        else {
+            return (int) (5.0f - (5.0f / 80.0f) * (cookedPercentage - 20.0f));
+        }
+   }
 
     @Override
     public int getAccuracy() {
