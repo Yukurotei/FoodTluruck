@@ -50,14 +50,13 @@ public class Main extends ApplicationAdapter {
         font = new BitmapFont();
         try {
 
-            int rating = 5;
+            int rating = 0;
 
             String orderMsg = customerQueue.getElm(0).getOrderMsg();
 
-            System.out.println(Utils.getReview(orderMsg,rating));
+            font.draw(batch, Utils.getReview(orderMsg,rating), 200, 200);
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
