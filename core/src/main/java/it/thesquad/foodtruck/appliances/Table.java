@@ -85,7 +85,7 @@ public class Table extends Appliance {
         if (interactCooldown > 0)
             interactCooldown -= dt;
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && interactCooldown <= 0f) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E) && interactCooldown <= 0f) {
             interact(Player.getInstance());
             interactCooldown = 0.25f; // 250ms debounce
         }

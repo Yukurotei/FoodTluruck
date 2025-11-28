@@ -14,6 +14,7 @@ import it.thesquad.foodtruck.customers.CustomerQueue;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
+import it.thesquad.foodtruck.reputation.Review;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -53,9 +54,8 @@ public class Main extends ApplicationAdapter {
             int rating = 0;
 
             String orderMsg = customerQueue.getElm(0).getOrderMsg();
-
-            font.draw(batch, Utils.getReview(orderMsg,rating), 200, 200);
-
+            
+            customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,8 +82,10 @@ public class Main extends ApplicationAdapter {
             sprite.render(batch);
         }
 
-        if(gameState == GameState.WORLD)
+        if(gameState == GameState.WORLD) {
             font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 300, 300);
+            font.draw(batch, customerQueue.getElm(0).getReview().getReviewText(), 200, 200);
+        }
 
 
         batch.end();
