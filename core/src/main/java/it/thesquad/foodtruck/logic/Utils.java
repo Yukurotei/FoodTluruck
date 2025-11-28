@@ -245,20 +245,8 @@ public final class Utils {
             JsonArray messages = new JsonArray();
 
             JsonObject sys = new JsonObject();
-            sys.addProperty("role", "system");
-            sys.addProperty("content", "You write short food reviews.\r\n" +
-                                "Always be concise and direct.\r\n" + 
-                                "Your tone must depend on the star rating:\r\n" + 
-                                "- 0–1 stars: rude, angry, insulting\r\n" + 
-                                "- 2 stars: disappointed and negative\r\n" + 
-                                "- 3 stars: neutral and plain\r\n" + 
-                                "- 4 stars: positive and kind\r\n" + 
-                                "- 5 stars: cheerful, enthusiastic, very positive\r\n" + 
-                                "Never mention the star rating in the review.\r\n" + 
-                                "Never apologize.\r\n" + 
-                                "Never explain your reasoning.\r\n" + 
-                                "Only describe the FOOD.\r\n" + 
-                                "");
+            // sys.addProperty("role", "system");
+            // sys.addProperty("content", "");
             messages.add(sys);
 
             JsonObject usr = new JsonObject();
