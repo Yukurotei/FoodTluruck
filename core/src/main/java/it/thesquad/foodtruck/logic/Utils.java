@@ -10,7 +10,14 @@ import it.thesquad.foodtruck.dish.Food;
 import it.thesquad.foodtruck.dish.Foods;
 import it.thesquad.foodtruck.player.Player;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public final class Utils {
     /**
@@ -209,4 +216,43 @@ public final class Utils {
 
         return rotatedTexture;
     }
+    
+
+
+private static final Gson gson = new Gson();
+
+public static String getReview(String prompt) {
+    try {
+        URL url = new URL("http://localhost:5005/review");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setDoOutput(true);
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("prompt", prompt);
+        String json = gson.toJson(obj);
+
+        con.getOutputStream().write(json.getBytes());
+
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(con.getInputStream())
+        );
+
+        StringBuilder result = new StringBuilder();
+        String line;
+
+        while ((line = reader.readLine()) != null)
+            result.append(line);
+
+        return result.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "AI error";
+        }
+    }
+
+
 }

@@ -48,8 +48,25 @@ public class Main extends ApplicationAdapter {
         new Player(new Texture("player.png"), interactionSprite);
         customerQueue.add(new Customer());
         font = new BitmapFont();
-    }
+        try {
 
+            int rating = 0;
+
+            String orderMsg = customerQueue.getElm(0).getOrderMsg();
+
+            String prompt = String.format(
+                "%d-star review for order \"%s\": ",
+                rating,
+                orderMsg
+            );
+
+            System.out.println(Utils.getReview(prompt));
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     @Override
     public void render() {
         camera.update();

@@ -19,7 +19,6 @@ public class Table extends Appliance {
     // Button representing the table’s interact area
     private Button tableButton;
 
-    boolean justInteracted = false; // Prevent double-trigger presses
 
     public Table(Texture texture, int x, int y, int w, int h) {
         super(texture, x, y, w, h);
@@ -39,15 +38,14 @@ public class Table extends Appliance {
                 Player player = Player.getInstance();
 
                 // Picking up the item
-                if (tableItem != null && player.getCurrentIngredient() == null && !justInteracted) {
+                if (tableItem != null && player.getCurrentIngredient() == null) {
                     player.setCurrentIngredient(tableItem);
                     tableItem = null;
-                    justInteracted = true;
                     return;
                 }
 
                 // Placing an item
-                if (tableItem == null && player.getCurrentIngredient() != null && !justInteracted) {
+                if (tableItem == null && player.getCurrentIngredient() != null) {
                     tableItem = player.getCurrentIngredient();
                     player.setCurrentIngredient(null);
 
@@ -56,10 +54,8 @@ public class Table extends Appliance {
                     s.setX(400 - s.getWidth() / 2f);
                     s.setY(300 - s.getHeight() / 2f);
 
-                    justInteracted = true;
                 }
 
-                justInteracted = false;
             }
         );
     }
@@ -97,11 +93,39 @@ public class Table extends Appliance {
 
     @Override
     public void update(float dt) {
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.Q)) {
+            interact(Player.getInstance());
+        }
+
         if (tableButton != null) tableButton.update(dt);
 
-        // Update item sprite (if any)
         if (tableItem != null && tableItem.getSprite() != null) {
             tableItem.getSprite().update(dt);
         }
     }
+
+
+    private void interact(Player player) {
+
+        // pic from table
+        if (tableItem != null && player.getCurrentIngredient() == null) {
+            player.setCurrentIngredient(tableItem);
+            tableItem = null;
+            return;
+        }
+
+        // place on table
+        if (tableItem == null && player.getCurrentIngredient() != null) {
+            tableItem = player.getCurrentIngredient();
+            player.setCurrentIngredient(null);
+
+            Sprite s = tableItem.getSprite();
+            s.setX(400 - s.getWidth() / 2f);
+            s.setY(300 - s.getHeight() / 2f);
+        }
+    }
+
+
+
 }
