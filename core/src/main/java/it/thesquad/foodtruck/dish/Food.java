@@ -6,6 +6,7 @@ import it.thesquad.foodtruck.Sizes;
 public class Food {
     private Foods food;
     private Sizes size;
+    private int accuracy;
 
     /**
      *
@@ -23,6 +24,14 @@ public class Food {
      */
     public Foods getFood() {
         return food;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
     }
 
     /**
