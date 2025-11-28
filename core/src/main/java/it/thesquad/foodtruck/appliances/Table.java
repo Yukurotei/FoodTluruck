@@ -114,8 +114,8 @@ public class Table extends Appliance {
             tableItem = null;
 
             Sprite s = player.getCurrentIngredient().getSprite();
-            s.setX(50);
-            s.setY(500);
+            s.setX(-1);
+            s.setY(-1);
 
             return;
         }
