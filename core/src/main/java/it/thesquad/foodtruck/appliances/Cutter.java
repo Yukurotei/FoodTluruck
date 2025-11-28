@@ -57,7 +57,7 @@ public class Cutter extends Appliance {
                     cutTop != null && cutBottom != null) {
 
                     Player.getInstance().setCurrentIngredient(
-                        new Bun(new Sprite(new Texture("burgerTopBun.png"), 0, 0, false))
+                        new Bun(new Sprite(Utils.resizeTo(new Texture("burgerTopBun.png"), 50), 0, 0, false))
                     );
 
                     cutTop = cutBottom = null;

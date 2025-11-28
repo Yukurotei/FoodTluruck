@@ -33,9 +33,9 @@ public class DeepFryer extends Appliance {
 
     @Override
     public void init() {
-        fryerUiTexture = new Texture("fryerUI.png");
+        fryerUiTexture = Utils.resizeTo(new Texture("fryerUI.png"), 800, 600);
         fryTexture = new Texture("raw_fries.png");
-        fryerButtonTexture = new Texture("fryerUI.png");
+        fryerButtonTexture = new Texture("fryerBasket.png");
 
         fryPile = new Button(fryTexture, 10f, 10f, () -> {
             if (currentFry != null) return;
