@@ -32,11 +32,9 @@ public class Grill extends Appliance {
      * @param texture the texture of the grill
      * @param x the x-coordinate of the grill
      * @param y the y-coordinate of the grill
-     * @param w the width of the grill
-     * @param h the height of the grill
      */
-    public Grill(Texture texture, int x, int y, int w, int h) {
-        super(texture, x, y, w, h);
+    public Grill(Texture texture, int x, int y) {
+        super(texture, x, y);
     }
 
     @Override

@@ -26,8 +26,8 @@ public class Table extends Appliance {
 
 
 
-    public Table(Texture texture, int x, int y, int w, int h) {
-        super(texture, x, y, w, h);
+    public Table(Texture texture, int x, int y) {
+        super(texture, x, y);
     }
 
     @Override
@@ -48,18 +48,18 @@ public class Table extends Appliance {
 
         batch.begin();
 
-        // Draw the table background
+
         batch.draw(tableUiTexture, 0, 0);
 
-        // Draw the table interact button
+
         tableButton.renderButton(batch);
 
-        // Draw item if present
+
         if (tableItem != null) {
             tableItem.getSprite().render(batch);
         }
 
-        // Draw player's held item
+
         Ingredient playerIngredient = Player.getInstance().getCurrentIngredient();
         if (playerIngredient != null) {
             playerIngredient.getSprite().render(batch);

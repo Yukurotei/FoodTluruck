@@ -23,7 +23,7 @@ public class OnionRing implements Ingredient {
     }
 
     /**
-     * Calculates the overlay color for the fry based on its cooked percentage.
+     * Calculates the overlay color for the onion ring based on its cooked percentage.
      * Transitions from white (raw) to friedColor, then to black (burnt).
      *
      * @return The calculated tint color.
