@@ -27,8 +27,8 @@ public class DeepFryer extends Appliance {
 
     boolean justPutFry = false;
 
-    public DeepFryer(Texture texture, int x, int y, int w, int h) {
-        super(texture, x, y, w, h);
+    public DeepFryer(Texture texture, int x, int y) {
+        super(texture, x, y);
     }
 
     @Override

@@ -39,11 +39,11 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 40, 40, 20, 20);
-        Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100, 20, 20);
-        Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360, 20, 20);
-        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200, 20, 20);
-        Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 300, 100, 20, 20);
+        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 100, 200);
+        Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100);
+        Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360);
+        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200);
+        Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
@@ -54,7 +54,7 @@ public class Main extends ApplicationAdapter {
             int rating = 5;
 
             String orderMsg = customerQueue.getElm(0).getOrderMsg();
-            
+
             customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
         } catch (Exception e) {
             e.printStackTrace();
