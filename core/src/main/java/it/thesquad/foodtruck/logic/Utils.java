@@ -232,7 +232,7 @@ public final class Utils {
 
             // Build the user prompt
             String userPrompt = String.format(
-                "Create a %d-star food review for the order \"%s\". Keep it concise, ONE SENTENCE, 20 WORDS MAX, it's meant to be a short opinion.",
+                "Create a %d-star food review for the order \"%s\".",
                 stars,
                 order
             );
