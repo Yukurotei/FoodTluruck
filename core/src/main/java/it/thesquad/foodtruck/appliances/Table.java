@@ -128,6 +128,8 @@ public class Table extends Appliance {
             Sprite s = tableItem.getSprite();
             s.setX(400 - s.getWidth() / 2f);
             s.setY(300 - s.getHeight() / 2f);
+
+            return;
         }
     }
 
