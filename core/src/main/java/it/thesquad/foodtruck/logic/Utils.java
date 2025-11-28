@@ -244,10 +244,10 @@ public final class Utils {
 
             JsonArray messages = new JsonArray();
 
-            JsonObject sys = new JsonObject();
+            // JsonObject sys = new JsonObject();
             // sys.addProperty("role", "system");
             // sys.addProperty("content", "");
-            messages.add(sys);
+            // messages.add(sys);
 
             JsonObject usr = new JsonObject();
             usr.addProperty("role", "user");
