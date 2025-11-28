@@ -26,6 +26,14 @@ public class Bun implements Ingredient {
         }
     }
 
+    @Override
+    public void drawOnTable(SpriteBatch batch) {
+        if (bread != null) {
+            bread.render(batch);
+            batch.setColor(Color.WHITE);
+        }
+    }
+
     public Sprite getSprite() {
         return bread;
     }

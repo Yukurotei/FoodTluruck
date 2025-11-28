@@ -54,6 +54,15 @@ public class Patty implements Ingredient {
         }
     }
 
+    @Override
+    public void drawOnTable(SpriteBatch batch) {
+        if (patty != null) {
+            batch.setColor(getOverlayColor());
+            patty.render(batch);
+            batch.setColor(Color.WHITE);
+        }
+    }
+
     public Sprite getSprite() {
         return patty;
     }

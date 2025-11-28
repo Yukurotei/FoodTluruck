@@ -55,6 +55,15 @@ public class OnionRing implements Ingredient {
         }
     }
 
+    @Override
+    public void drawOnTable(SpriteBatch batch) {
+        if (onion != null) {
+            batch.setColor(getOverlayColor());
+            onion.render(batch);
+            batch.setColor(Color.WHITE);
+        }
+    }
+
     public Sprite getSprite() {
         return onion;
     }

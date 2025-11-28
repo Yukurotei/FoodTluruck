@@ -55,6 +55,15 @@ public class Fry implements Ingredient {
         }
     }
 
+    @Override
+    public void drawOnTable(SpriteBatch batch) {
+        if (fry != null) {
+            batch.setColor(getOverlayColor());
+            fry.render(batch);
+            batch.setColor(Color.WHITE);
+        }
+    }
+
     public Sprite getSprite() {
         return fry;
     }

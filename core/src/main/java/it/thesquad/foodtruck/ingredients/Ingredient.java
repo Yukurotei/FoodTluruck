@@ -7,7 +7,9 @@ public interface Ingredient {
 
     void draw(SpriteBatch batch);
 
-    public abstract Sprite getSprite();
+    void drawOnTable(SpriteBatch batch);
+
+    Sprite getSprite();
 
 
 }
