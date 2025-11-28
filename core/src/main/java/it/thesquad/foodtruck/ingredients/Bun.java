@@ -8,6 +8,7 @@ import it.thesquad.foodtruck.player.Player;
 public class Bun implements Ingredient {
 
     private Sprite bread;
+    private int accuracy;
 
 
     public Bun(Sprite bread) {
@@ -32,5 +33,11 @@ public class Bun implements Ingredient {
 
     public void setBread(Sprite bread) {
         this.bread = bread;
+    }
+
+
+    @Override
+    public int getAccuracy() {
+        return accuracy;
     }
 }

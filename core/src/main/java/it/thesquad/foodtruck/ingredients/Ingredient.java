@@ -8,6 +8,7 @@ public interface Ingredient {
     void draw(SpriteBatch batch);
 
     public abstract Sprite getSprite();
+    public abstract int getAccuracy();
 
 
 }

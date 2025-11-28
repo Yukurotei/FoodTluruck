@@ -9,6 +9,7 @@ public class OnionRing implements Ingredient {
 
     private Sprite onion;
     private int cookedPercentage;
+    private int accuracy;
 
     private final Color friedColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Target fried color (219, 108, 141)
 
@@ -23,7 +24,7 @@ public class OnionRing implements Ingredient {
     }
 
     /**
-     * Calculates the overlay color for the fry based on its cooked percentage.
+     * Calculates the overlay color for the onion ring based on its cooked percentage.
      * Transitions from white (raw) to friedColor, then to black (burnt).
      *
      * @return The calculated tint color.
@@ -75,5 +76,10 @@ public class OnionRing implements Ingredient {
             cookedPercentage = 100;
         }
         this.cookedPercentage = cookedPercentage;
+    }
+
+    @Override
+    public int getAccuracy() {
+        return accuracy;
     }
 }

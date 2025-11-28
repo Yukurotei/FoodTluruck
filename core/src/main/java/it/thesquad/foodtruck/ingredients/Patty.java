@@ -9,6 +9,7 @@ public class Patty implements Ingredient {
 
     private Sprite patty;
     private int cookedPercentage;
+    private int accuracy;
 
     private final Color rawPattyColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Raw patty color (219, 108, 141)
 
@@ -74,5 +75,10 @@ public class Patty implements Ingredient {
             cookedPercentage = 100;
         }
         this.cookedPercentage = cookedPercentage;
+    }
+
+    @Override
+    public int getAccuracy() {
+        return accuracy;
     }
 }
