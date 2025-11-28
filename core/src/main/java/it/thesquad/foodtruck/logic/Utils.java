@@ -18,6 +18,7 @@ import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 public final class Utils {
     /**
@@ -219,40 +220,89 @@ public final class Utils {
     
 
 
-private static final Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
-public static String getReview(String prompt) {
-    try {
-        URL url = new URL("http://localhost:5005/review");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+    public static String getReview(String order, int stars) {
+        try {
+            URL url = new URL("http://ai.webseb.ca/v1/chat/completions");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setDoOutput(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
 
-        JsonObject obj = new JsonObject();
-        obj.addProperty("prompt", prompt);
-        String json = gson.toJson(obj);
+            // Build the user prompt
+            String userPrompt = String.format(
+                "Write a %d-star food review for the order \"%s\". ",
+                stars,
+                order
+            );
 
-        con.getOutputStream().write(json.getBytes());
+            // Build the JSON body
+            JsonObject body = new JsonObject();
+            body.addProperty("model", "ibm/granite-3.2-8b");
 
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(con.getInputStream())
-        );
+            JsonArray messages = new JsonArray();
 
-        StringBuilder result = new StringBuilder();
-        String line;
+            JsonObject sys = new JsonObject();
+            sys.addProperty("role", "system");
+            sys.addProperty("content", "You write short food reviews.\r\n" +
+                                "Always be concise and direct.\r\n" + 
+                                "Your tone must depend on the star rating:\r\n" + 
+                                "- 0–1 stars: rude, angry, insulting\r\n" + 
+                                "- 2 stars: disappointed and negative\r\n" + 
+                                "- 3 stars: neutral and plain\r\n" + 
+                                "- 4 stars: positive and kind\r\n" + 
+                                "- 5 stars: cheerful, enthusiastic, very positive\r\n" + 
+                                "Never mention the star rating in the review.\r\n" + 
+                                "Never apologize.\r\n" + 
+                                "Never explain your reasoning.\r\n" + 
+                                "Only describe the FOOD.\r\n" + 
+                                "");
+            messages.add(sys);
 
-        while ((line = reader.readLine()) != null)
-            result.append(line);
+            JsonObject usr = new JsonObject();
+            usr.addProperty("role", "user");
+            usr.addProperty("content", userPrompt);
+            messages.add(usr);
 
-        return result.toString();
+            body.add("messages", messages);
+            body.addProperty("temperature", 0.7);
+            body.addProperty("max_tokens", 256);
+            body.addProperty("stream", false);
+
+            String json = gson.toJson(body);
+            con.getOutputStream().write(json.getBytes());
+
+            // Read response
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(con.getInputStream())
+            );
+
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null)
+                sb.append(line);
+
+            reader.close();
+
+            // Extract the content field
+            JsonObject resp = gson.fromJson(sb.toString(), JsonObject.class);
+            String reply = resp
+                .getAsJsonArray("choices")
+                .get(0).getAsJsonObject()
+                .getAsJsonObject("message")
+                .get("content").getAsString();
+
+            return reply;
 
         } catch (Exception e) {
             e.printStackTrace();
             return "AI error";
         }
     }
+
 
 
 }
