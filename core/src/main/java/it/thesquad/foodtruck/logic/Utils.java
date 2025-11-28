@@ -12,6 +12,7 @@ import it.thesquad.foodtruck.player.Player;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
@@ -20,6 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public final class Utils {
+
+    private static final Gson gson = new Gson();
+
     /**
      *
      * @return a random order consisting of a main entree, side dish, dessert, and drink
@@ -216,41 +220,40 @@ public final class Utils {
 
         return rotatedTexture;
     }
-    
 
+    public static String getReview(String prompt) {
+        try {
+            URL url = new URL("http://localhost:5005/review");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-private static final Gson gson = new Gson();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
 
-public static String getReview(String prompt) {
-    try {
-        URL url = new URL("http://localhost:5005/review");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            JsonObject obj = new JsonObject();
+            obj.addProperty("prompt", prompt);
+            String json = gson.toJson(obj);
 
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setDoOutput(true);
+            con.getOutputStream().write(json.getBytes());
 
-        JsonObject obj = new JsonObject();
-        obj.addProperty("prompt", prompt);
-        String json = gson.toJson(obj);
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(con.getInputStream())
+            );
 
-        con.getOutputStream().write(json.getBytes());
+            StringBuilder result = new StringBuilder();
+            String line;
 
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(con.getInputStream())
-        );
+            while ((line = reader.readLine()) != null)
+                result.append(line);
 
-        StringBuilder result = new StringBuilder();
-        String line;
-
-        while ((line = reader.readLine()) != null)
-            result.append(line);
-
-        return result.toString();
-
+            return result.toString();
         } catch (Exception e) {
-            e.printStackTrace();
-            return "AI error";
+            if (e instanceof ConnectException) {
+                return "[CUSTOMER RATING] Connection refused: Is server up?";
+            } else {
+                e.printStackTrace();
+                return "AI error";
+            }
         }
     }
 
