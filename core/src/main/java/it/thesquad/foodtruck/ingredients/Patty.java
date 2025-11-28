@@ -9,6 +9,7 @@ public class Patty implements Ingredient {
 
     private Sprite patty;
     private int cookedPercentage;
+    private int accuracy;
 
     private final Color rawPattyColor = new Color(219/255f, 108/255f, 141/255f, 1f); // Raw patty color (219, 108, 141)
 
@@ -83,5 +84,35 @@ public class Patty implements Ingredient {
             cookedPercentage = 100;
         }
         this.cookedPercentage = cookedPercentage;
+    }
+
+    
+    /**
+     * @author MR CLANKER GEMINI TY DADDY
+     * @return
+     */
+    public int calcAccuracy() {     
+                                                                                                                                   
+        // Return 0 if the input is outside the 0-100 range                                                                                                                
+        if (cookedPercentage < 0 || cookedPercentage > 100) {                                                                                                                                            
+            return 0;                                                                                                                                                      
+        }                                                                                                                                                                  
+                                                                                                                                                                           
+        // First part of the blend: from 0 up to 58                                                                                                                        
+        if (cookedPercentage <= 58) {                                                                                                                                                     
+            // This is the formula for the line from (0,0) to (58,5)                                                                                                       
+            return (int) (5.0f / 58.0f) * cookedPercentage;                                                                                                                                     
+        }                                                                                                                                                                  
+        // Second part of the blend: from 58 down to 100                                                                                                                   
+        else {                                                                                                                                                             
+            // This is the formula for the line from (58,5) to (100,0)                                                                                                     
+            return (int) (5.0f - (5.0f / 42.0f) * (cookedPercentage - 58.0f));                                                                                                                    
+        }                                                                                                                                                                  
+   }             
+
+    @Override
+    public int getAccuracy() {
+        accuracy = calcAccuracy();
+        return accuracy;
     }
 }

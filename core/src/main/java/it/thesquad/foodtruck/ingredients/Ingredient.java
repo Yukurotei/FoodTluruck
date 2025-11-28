@@ -6,10 +6,10 @@ import it.thesquad.foodtruck.logic.Sprite;
 public interface Ingredient {
 
     void draw(SpriteBatch batch);
-
     void drawOnTable(SpriteBatch batch);
 
     Sprite getSprite();
+    int getAccuracy();
 
 
 }

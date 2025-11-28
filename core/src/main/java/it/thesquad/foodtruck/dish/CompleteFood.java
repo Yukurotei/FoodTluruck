@@ -9,7 +9,7 @@ import it.thesquad.foodtruck.ingredients.Ingredient;
 public class CompleteFood {
     private Foods food;
     private Sizes size;
-    private int accuracy;
+    private int totalAccuracy;
     private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     /**
@@ -31,11 +31,18 @@ public class CompleteFood {
     }
 
     public int getAccuracy() {
-        return accuracy;
+        calcTotal();
+        return totalAccuracy;
     }
 
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
+    public void calcTotal() {
+        totalAccuracy = 0;
+        for (Ingredient ingredient : ingredients) {
+            totalAccuracy += ingredient.getAccuracy();
+        }
+        if (ingredients.size() > 0) {
+            totalAccuracy = totalAccuracy / ingredients.size();
+        }
     }
 
 
