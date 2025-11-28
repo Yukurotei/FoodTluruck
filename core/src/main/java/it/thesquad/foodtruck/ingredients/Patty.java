@@ -54,7 +54,7 @@ public class Patty implements Ingredient {
         }
     }
 
-    public Sprite getPatty() {
+    public Sprite getSprite() {
         return patty;
     }
 

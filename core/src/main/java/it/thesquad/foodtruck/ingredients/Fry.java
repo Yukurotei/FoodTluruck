@@ -55,7 +55,7 @@ public class Fry implements Ingredient {
         }
     }
 
-    public Sprite getFry() {
+    public Sprite getSprite() {
         return fry;
     }
 

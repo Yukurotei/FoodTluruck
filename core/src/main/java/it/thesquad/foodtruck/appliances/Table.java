@@ -1,90 +1,82 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import it.thesquad.foodtruck.ingredients.Patty;
+import it.thesquad.foodtruck.ingredients.Ingredient;
 import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
-import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
 
 public class Table extends Appliance {
 
     private Texture tableUiTexture;
-    private Texture itemTexture;
     private Texture tableTexture;
 
+    // The item currently on the table
+    private Ingredient tableItem;
 
-    private Sprite currentPatty;
-    private Button pattyPile;
-    private Button griller;
-    private boolean isPattyCooking;
-    private Patty outputPatty;
+    // Button representing the table’s interact area
+    private Button tableButton;
 
-    boolean justPutPatty = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
+    boolean justInteracted = false; // Prevent double-trigger presses
 
-    /**
-     *
-     * @param texture the texture of the table
-     * @param x the x-coordinate of the table
-     * @param y the y-coordinate of the table
-     * @param w the width of the table
-     * @param h the height of the table
-     */
     public Table(Texture texture, int x, int y, int w, int h) {
         super(texture, x, y, w, h);
     }
 
     @Override
     public void init() {
-        //Load all texture on init to avoid disk consumption
         tableUiTexture = new Texture("table.png");
-        itemTexture = new Texture("patty.png");
         tableTexture = new Texture("table.png");
 
-        pattyPile = new Button(itemTexture, 10f, 10f, () -> {
-            if (currentPatty != null) return;
-            currentPatty = new Sprite(itemTexture, Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
-        });
+        // Table interaction button
+        tableButton = new Button(
+            tableTexture,
+            400 - (tableTexture.getWidth() / 2f),
+            300 - (tableTexture.getHeight() / 2f),
+            () -> {
+                Player player = Player.getInstance();
 
-        griller = new Button(tableTexture, 400 - ((float) tableTexture.getWidth() / 2), 300 - ((float) tableTexture.getHeight() / 2), () -> {
-            if (isPattyCooking && !justPutPatty && currentPatty == null) {
-                if (Player.getInstance().getCurrentIngredient() == null) {
-                    isPattyCooking = false;
-                    Texture resizedPatty = Utils.resizeTo(itemTexture, 50);
-                    Player.getInstance().setCurrentIngredient(new Patty(new Sprite(resizedPatty, Player.getInstance().getX()
-                        + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
-                        ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
-                    outputPatty = null;
-                } else {
-                    //TODO: Warn player they have something in their hands
+                // Picking up the item
+                if (tableItem != null && player.getCurrentIngredient() == null && !justInteracted) {
+                    player.setCurrentIngredient(tableItem);
+                    tableItem = null;
+                    justInteracted = true;
+                    return;
                 }
+
+                // Placing an item
+                if (tableItem == null && player.getCurrentIngredient() != null && !justInteracted) {
+                    tableItem = player.getCurrentIngredient();
+                    player.setCurrentIngredient(null);
+
+                    // Move item sprite to table center
+                    Sprite s = tableItem.getSprite();
+                    s.setX(400 - s.getWidth() / 2f);
+                    s.setY(300 - s.getHeight() / 2f);
+
+                    justInteracted = true;
+                }
+
+                justInteracted = false;
             }
-            justPutPatty = false;
-            if (currentPatty == null || isPattyCooking) return;
-            justPutPatty = true;
-            isPattyCooking = true;
-            currentPatty = null;
-            outputPatty = new Patty(null, 0);
-        });
+        );
     }
 
-    /**
-     *
-     * @param batch the SpriteBatch used for rendering
-     */
     @Override
     public void display(SpriteBatch batch) {
         batch.begin();
+
+        // Draw the table background
         batch.draw(tableUiTexture, 0, 0);
 
-        griller.renderButton(batch);
+        // Draw the table interact button
+        tableButton.renderButton(batch);
 
-        pattyPile.renderButton(batch);
-        if (currentPatty != null) {
-            currentPatty.render(batch);
+        // Draw item if present
+        if (tableItem != null) {
+            tableItem.getSprite().render(batch);
         }
 
         batch.end();
@@ -92,30 +84,24 @@ public class Table extends Appliance {
 
     @Override
     public void end() {
-        if (pattyPile != null) pattyPile.dispose();
-        if (griller != null) griller.dispose();
-        if (currentPatty != null) currentPatty.dispose();
+        if (tableButton != null) tableButton.dispose();
 
         if (tableUiTexture != null) tableUiTexture.dispose();
-        if (itemTexture != null) itemTexture.dispose();
         if (tableTexture != null) tableTexture.dispose();
 
-        pattyPile = null;
-        griller = null;
-        currentPatty = null;
+        tableButton = null;
         tableUiTexture = null;
-        itemTexture = null;
         tableTexture = null;
+        tableItem = null;
     }
 
     @Override
     public void update(float dt) {
-        if (pattyPile != null) pattyPile.update(dt);
-        if (griller != null) griller.update(dt);
-        if (currentPatty != null) {
-            currentPatty.update(dt);
-            currentPatty.setX(Gdx.input.getX() - (float) currentPatty.getSourceTexture().getWidth() / 2);
-            currentPatty.setY(Gdx.graphics.getHeight() - Gdx.input.getY() - (float) currentPatty.getSourceTexture().getHeight() / 2);
+        if (tableButton != null) tableButton.update(dt);
+
+        // Update item sprite (if any)
+        if (tableItem != null && tableItem.getSprite() != null) {
+            tableItem.getSprite().update(dt);
         }
     }
 }

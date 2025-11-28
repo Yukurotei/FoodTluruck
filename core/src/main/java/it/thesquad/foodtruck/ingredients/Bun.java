@@ -26,7 +26,7 @@ public class Bun implements Ingredient {
         }
     }
 
-    public Sprite getBread() {
+    public Sprite getSprite() {
         return bread;
     }
 
