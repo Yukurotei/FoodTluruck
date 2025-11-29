@@ -31,11 +31,11 @@ public class CompleteFood {
     }
 
     public int getAccuracy() {
-        calcTotal();
+        calcTotalAccuracy();
         return totalAccuracy;
     }
 
-    public void calcTotal() {
+    public void calcTotalAccuracy() {
         totalAccuracy = 0;
         for (Ingredient ingredient : ingredients) {
             totalAccuracy += ingredient.getAccuracy();
