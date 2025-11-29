@@ -43,7 +43,9 @@ public class Main extends ApplicationAdapter {
         Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100);
         Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360);
         DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200);
-        Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
+        Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
+        AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
+
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
