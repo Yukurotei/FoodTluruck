@@ -15,6 +15,10 @@ public class Bun implements Ingredient {
         this.bread = bread;
     }
 
+    public Color getOverlayColor() {
+        return Color.CLEAR;
+    }
+
 
     @Override
     public void draw(SpriteBatch batch) {

@@ -29,7 +29,7 @@ public class Fry implements Ingredient {
      *
      * @return The calculated tint color.
      */
-    private Color getOverlayColor() {
+    public Color getOverlayColor() {
         Color tint;
         float currentCookedPercentage = this.cookedPercentage;
 

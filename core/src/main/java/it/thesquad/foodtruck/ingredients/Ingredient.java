@@ -1,5 +1,6 @@
 package it.thesquad.foodtruck.ingredients;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.logic.Sprite;
 
@@ -10,6 +11,8 @@ public interface Ingredient {
 
     Sprite getSprite();
     int getAccuracy();
+
+    Color getOverlayColor();
 
 
 }

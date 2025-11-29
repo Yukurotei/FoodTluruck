@@ -2,6 +2,7 @@ package it.thesquad.foodtruck.dish;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import it.thesquad.foodtruck.Sizes;
@@ -64,10 +65,10 @@ public class CompleteFood {
     }
 
     public void drawOnTable(SpriteBatch batch) {
-        // if (onion != null) {
-        //     batch.setColor(getOverlayColor());
-        //     onion.render(batch);
-        //     batch.setColor(Color.WHITE);
-        // }
+        if (ingredients.size() != 0) {
+            batch.setColor(ingredients.get(ingredients.size()-1).getOverlayColor());
+            ingredients.get(ingredients.size()-1).getSprite().render(batch);
+            batch.setColor(Color.WHITE);
+        }
     }
 }

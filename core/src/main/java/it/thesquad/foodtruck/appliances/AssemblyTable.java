@@ -90,9 +90,9 @@ public class AssemblyTable extends Appliance {
 
         if (tableButton != null) tableButton.update(dt);
 
-        // if (tableItem != null && tableItem.getSprite() != null) {
-        //     tableItem.getSprite().update(dt);
-        // }
+        if (tableItem != null && tableItem.getIngredients().size() != 0 && tableItem.getIngredients().get(tableItem.getIngredients().size()-1).getSprite() != null) {
+            tableItem.getIngredients().get(tableItem.getIngredients().size()-1).getSprite().update(dt);
+        }
 
         /*
         Ingredient playerIngredient = Player.getInstance().getCurrentIngredient();
