@@ -1,12 +1,14 @@
 package it.thesquad.foodtruck.customers;
 
 import it.thesquad.foodtruck.Order;
+import it.thesquad.foodtruck.dish.CompleteOrder;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.reputation.Reputation;
 import it.thesquad.foodtruck.reputation.Review;
 
 public class Customer {
     Order order;
+    CompleteOrder completeOrder;
     Review review;
     int id;
     private static int customers = 0;
@@ -26,6 +28,14 @@ public class Customer {
      */
     public Order getOrder() {
         return order;
+    }
+
+    /**
+     * 
+     * @return the fufilled order by the customer
+     */
+    public CompleteOrder getCompleteOrder() {
+        return completeOrder;
     }
 
     /**
@@ -51,5 +61,9 @@ public class Customer {
      */
     public String getOrderMsg() {
         return "Customer"+id+" wants "+getOrder().toString();
+    }
+
+    public String getClankerReview() {
+        return Utils.getReview(getOrderMsg(), completeOrder.getAccuracy());
     }
 }

@@ -60,4 +60,8 @@ public class CompleteOrder {
     public String toString() {
         return getMainEntree().getFood().getName()+" "+getSideDish().getFood().getName()+" "+getDessertsDish().getFood().getName()+" "+getDrink().getName();
     }
+
+    public int getAccuracy() {
+        return (mainEntree.getAccuracy() + sideDish.getAccuracy() + dessertsDish.getAccuracy())/3;
+    }
 }
