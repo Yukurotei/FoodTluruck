@@ -89,20 +89,15 @@ public class Fry implements Ingredient {
 
 
     /**
-     * @author MR CLANKER GEMINI TY DADDY
+     * @author MR CLANKER GEMINI TY DADDY (the formula)
      * @return
      */
     public int calcAccuracy() {
-        if (cookedPercentage < 0 || cookedPercentage > 100) {
-            return 0;
-        }
+        if (cookedPercentage < 0 || cookedPercentage > 100) return 0;
 
-        if (cookedPercentage <= 20) {
-            return 0;
-        }
-        else {
-            return (int) (5.0f - (5.0f / 80.0f) * (cookedPercentage - 20.0f));
-        }
+        if (cookedPercentage <= 20) return (cookedPercentage / 20) * 5;
+
+        else return 5 * (1 - (cookedPercentage - 20) / 80);
    }
 
     @Override

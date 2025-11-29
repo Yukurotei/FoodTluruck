@@ -88,20 +88,14 @@ public class Patty implements Ingredient {
 
 
     /**
-     * @author MR CLANKER GEMINI TY DADDY
+     * @author MR CLANKER GEMINI TY DADDY (the formula)
      * @return
      */
     public int calcAccuracy() {
-        if (cookedPercentage < 0 || cookedPercentage > 100) {
-            return 0;
-        }
+        if (cookedPercentage < 0 || cookedPercentage > 100) return 0;
 
-        if (cookedPercentage <= 58) {
-            return 0;
-        }
-        else {
-            return (int) (5.0f - (5.0f / 42.0f) * (cookedPercentage - 58.0f));
-        }
+        if (cookedPercentage <= 58) return (cookedPercentage / 58) * 5;
+        else return 5 * (1 - (cookedPercentage - 58) / 42);
    }
 
     @Override
