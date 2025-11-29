@@ -11,6 +11,7 @@ public class Fridge extends Appliance {
 
     private Sprite currentDrink;
     private Button drinkPile;
+    private Texture uiTexture;
 
     /**
      *
@@ -30,6 +31,7 @@ public class Fridge extends Appliance {
             System.out.println("Making drinking");
             currentDrink = new Sprite(new Texture("the_drink.png"), Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), false);
         });
+        uiTexture = new Texture("fridgeUI.png");
     }
 
     /**
@@ -39,8 +41,8 @@ public class Fridge extends Appliance {
     @Override
     public void display(SpriteBatch batch) {
         batch.begin();
-        Gdx.gl.glClearColor(135 / 255f, 206 / 255f, 235 / 255f, 1.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // Gdx.gl.glClearColor(135 / 255f, 206 / 255f, 235 / 255f, 1.0f);
+        // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         drinkPile.renderButton(batch);
         if (currentDrink != null) {
             currentDrink.render(batch);
