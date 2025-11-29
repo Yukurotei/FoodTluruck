@@ -43,6 +43,7 @@ public class Fridge extends Appliance {
         batch.begin();
         // Gdx.gl.glClearColor(135 / 255f, 206 / 255f, 235 / 255f, 1.0f);
         // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.draw(uiTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         drinkPile.renderButton(batch);
         if (currentDrink != null) {
             currentDrink.render(batch);
