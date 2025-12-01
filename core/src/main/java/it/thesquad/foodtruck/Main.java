@@ -21,13 +21,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+
     public enum GameState {
         WORLD,
         MINIGAME
     }
     private SpriteBatch batch;
     public static OrthographicCamera camera;
-    //private Order testorder;
     public static Queue<Sprite> spriteObjects = new ConcurrentLinkedQueue<>();
     public static GameState gameState;
     public static CustomerQueue customerQueue = new CustomerQueue();
