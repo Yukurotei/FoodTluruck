@@ -14,13 +14,13 @@ import it.thesquad.foodtruck.player.Player;
 
 public class Table extends Appliance {
 
-    private Texture tableUiTexture;
+    protected Texture tableUiTexture;
 
-    private Ingredient tableItem = null;
+    protected Ingredient tableItem = null;
 
-    private Button tableButton;
+    protected Button tableButton;
 
-    private float interactCooldown = 0f;
+    protected float interactCooldown = 0f;
 
 
     public Table(Texture texture, int x, int y) {
@@ -55,13 +55,6 @@ public class Table extends Appliance {
         if (tableItem != null) {
             tableItem.drawOnTable(batch);
         }
-
-        /*
-        Ingredient playerIngredient = Player.getInstance().getCurrentIngredient();
-        if (playerIngredient != null) {
-            playerIngredient.getSprite().render(batch);
-        }
-         */
 
         batch.end();
     }
@@ -102,7 +95,7 @@ public class Table extends Appliance {
 
 
 
-    private void interact(Player player) {
+    protected void interact(Player player) {
         if (interactCooldown != 0) return;
         if (player.getCurrentIngredient() == null && tableItem != null) {
 
@@ -118,5 +111,4 @@ public class Table extends Appliance {
             s.setY(300 - s.getHeight() / 2f);
         }
     }
-
 }
