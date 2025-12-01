@@ -50,17 +50,17 @@ public class Main extends ApplicationAdapter {
         interactionSprite.setVisible(false);
         new Player(new Texture("player.png"), interactionSprite);
         customerQueue.add(new Customer());
-        font = new BitmapFont();
-        try {
+        // font = new BitmapFont();
+        // try {
 
-            int rating = 5;
+        //     int rating = 5;
 
-            String orderMsg = customerQueue.getElm(0).getOrderMsg();
+        //     String orderMsg = customerQueue.getElm(0).getOrderMsg();
 
-            customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //     customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
     @Override
     public void render() {
@@ -85,8 +85,8 @@ public class Main extends ApplicationAdapter {
         }
 
         if(gameState == GameState.WORLD) {
-            font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 300, 300);
-            font.draw(batch, customerQueue.getElm(0).getReview().getReviewText(), 200, 200);
+            // font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 300, 300);
+            // font.draw(batch, customerQueue.getElm(0).getReview().getReviewText(), 200, 200);
         }
 
 
