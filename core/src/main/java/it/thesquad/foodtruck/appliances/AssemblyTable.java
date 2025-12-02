@@ -54,7 +54,9 @@ public class AssemblyTable extends Table {
     private void updateIngredientPos() {
         for (int i = 0; i < items.size(); i++) {
             Ingredient current = items.get(i);
-            current.getSprite().setX(current.getSprite().getX() + (offset * items.size() - 1));
+            current.getSprite().setX(400 - current.getSprite().getWidth() / 2f);
+            current.getSprite().setY(300 - current.getSprite().getHeight() / 2f);
+            current.getSprite().setX(current.getSprite().getX() + (offset * i));
         }
     }
 
@@ -66,6 +68,7 @@ public class AssemblyTable extends Table {
             player.setCurrentIngredient(tableItem);
             if (!items.isEmpty()) {
                 items.remove(tableItem);
+                updateIngredientPos();
                 if (!items.isEmpty()) {
                     tableItem = items.get(items.size() - 1);
                 } else {

@@ -42,10 +42,11 @@ public class Main extends ApplicationAdapter {
         DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200);
         Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
         AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
+        FoodCubbard cubbard = new FoodCubbard(Utils.resizeTo(new Texture("table.png"), 20), 500, 500);
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
-        new Player(Utils.resizeTo(new Texture("john_hands.png"),20), interactionSprite);
+        new Player(Utils.resizeTo(new Texture("john_hands.png"),50), interactionSprite);
         customerQueue.add(new Customer());
         font = new BitmapFont();
     //     try {
