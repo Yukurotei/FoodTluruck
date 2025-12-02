@@ -15,7 +15,7 @@ public class Button extends Sprite {
      * @param texture The image that will be used as a button
      * @param x The x-coordinate where the top-left corner of the button will be
      * @param y The y-coordinate where the top-left corner of the button will be
-     * @param onClick If the user can click the button or not
+     * @param onClick when user click btn
      */
     public Button(Texture texture, float x, float y, Runnable onClick) {
         super(texture, x, y, false);
