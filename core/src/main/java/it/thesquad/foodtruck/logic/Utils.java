@@ -65,20 +65,15 @@ public final class Utils {
      * @return a new Texture object resized to the specified dimensions
      */
     public static Texture resizeTo(Texture sourceTexture, int newWidth, int newHeight) {
-        if (newWidth <= 0 || newHeight <= 0) {
-            throw new IllegalArgumentException("Dimensions must be positive");
-        }
+        if (newWidth <= 0 || newHeight <= 0) throw new IllegalArgumentException("Dimensions must be positive");
 
         com.badlogic.gdx.graphics.TextureData sourceData = sourceTexture.getTextureData();
         Pixmap sourcePixmap;
 
         boolean isFile = sourceData instanceof com.badlogic.gdx.graphics.glutils.FileTextureData;
-        if (isFile) {
-            sourcePixmap = new Pixmap(((com.badlogic.gdx.graphics.glutils.FileTextureData) sourceData).getFileHandle());
-        } else {
-            if (!sourceData.isPrepared()) {
-                sourceData.prepare();
-            }
+        if (isFile) sourcePixmap = new Pixmap(((com.badlogic.gdx.graphics.glutils.FileTextureData) sourceData).getFileHandle()); else {
+            if (!sourceData.isPrepared()) sourceData.prepare();
+
             sourcePixmap = sourceData.consumePixmap();
         }
 
@@ -106,9 +101,7 @@ public final class Utils {
      * @return a new Texture object resized by the specified percentage
      */
     public static Texture resizeTo(Texture sourceTexture, double percentage) {
-        if (percentage <= 0) {
-            throw new IllegalArgumentException("Percentage must be positive.");
-        }
+        if (percentage <= 0) throw new IllegalArgumentException("Percentage must be positive.");
 
         float scale = (float) (percentage / 100.0);
         int newWidth = Math.round(sourceTexture.getWidth() * scale);
@@ -154,14 +147,10 @@ public final class Utils {
      * @return A new, rotated Texture.
      */
     public static Texture rotateTextureRightAngles(Texture sourceTexture, float degrees) {
-        if (sourceTexture == null) {
-            throw new IllegalArgumentException("Source texture cannot be null.");
-        }
+        if (sourceTexture == null) throw new IllegalArgumentException("Source texture cannot be null.");
 
         int rotationAngle = ((int) degrees % 360 + 360) % 360;
-        if (rotationAngle % 90 != 0) {
-            return sourceTexture;
-        }
+        if (rotationAngle % 90 != 0) return sourceTexture;
 
         TextureData sourceData = sourceTexture.getTextureData();
         Pixmap sourcePixmap;
@@ -223,7 +212,7 @@ public final class Utils {
 
     public static String getReview(String order, int stars) {
         try {
-            URL url = new URL("http://ai.webseb.ca/v1/chat/completions");
+            URL url = new URL("http://ai.site.ca/v1/chat/completions");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("POST");
@@ -293,7 +282,4 @@ public final class Utils {
             return "AI error";
         }
     }
-
-
-
 }

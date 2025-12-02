@@ -40,12 +40,9 @@ public class CompleteFood {
 
     public void calcTotalAccuracy() {
         totalAccuracy = 0;
-        for (Ingredient ingredient : ingredients) {
-            totalAccuracy += ingredient.getAccuracy();
-        }
-        if (ingredients.size() > 0) {
-            totalAccuracy = totalAccuracy / ingredients.size();
-        }
+        for (Ingredient ingredient : ingredients) totalAccuracy += ingredient.getAccuracy();
+        
+        if (ingredients.size() > 0) totalAccuracy = totalAccuracy / ingredients.size();
     }
 
 

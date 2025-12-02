@@ -73,9 +73,7 @@ public class Cutter extends Appliance {
 
                 currentBun.setX(330);
                 currentBun.setY(260);
-            } else {
-                justPlaced = false;
-            }
+            } else justPlaced = false;
         });
     }
 
@@ -95,9 +93,7 @@ public class Cutter extends Appliance {
 
         if (isCutting && currentBun != null) {
             cutProgress += dt;
-            if (cutProgress >= 1f) {
-                performCut();
-            }
+            if (cutProgress >= 1f) performCut();
         }
     }
 

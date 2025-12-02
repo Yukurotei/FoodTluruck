@@ -78,12 +78,9 @@ public class OnionRing implements Ingredient {
     }
 
     public void setCookedPercentage(int cookedPercentage) {
-        if (cookedPercentage < 0) {
-            cookedPercentage = 0;
-        }
-        if (cookedPercentage > 100) {
-            cookedPercentage = 100;
-        }
+        if (cookedPercentage < 0) cookedPercentage = 0;
+        if (cookedPercentage > 100) cookedPercentage = 100;
+        
         this.cookedPercentage = cookedPercentage;
     }
 

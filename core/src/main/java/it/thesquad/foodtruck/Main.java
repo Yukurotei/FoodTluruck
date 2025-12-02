@@ -21,17 +21,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-
-    public enum GameState {
-        WORLD,
-        MINIGAME
-    }
+    public enum GameState { WORLD, MINIGAME }
     private SpriteBatch batch;
     public static OrthographicCamera camera;
     public static Queue<Sprite> spriteObjects = new ConcurrentLinkedQueue<>();
     public static GameState gameState;
     public static CustomerQueue customerQueue = new CustomerQueue();
     private BitmapFont font;
+
 
     @Override
     public void create() {
@@ -51,25 +48,20 @@ public class Main extends ApplicationAdapter {
         new Player(new Texture("john_hands.png"), interactionSprite);
         customerQueue.add(new Customer());
         // font = new BitmapFont();
-        // try {
+    //     try {
 
-        //     int rating = 5;
 
-        //     String orderMsg = customerQueue.getElm(0).getOrderMsg();
-
-        //     customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
+    //         customerQueue.getElm(0).getClankerReview();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
     }
     @Override
     public void render() {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        for (Sprite sprite : spriteObjects) {
-            sprite.update(Gdx.graphics.getDeltaTime());
-        }
+        for (Sprite sprite : spriteObjects) sprite.update(Gdx.graphics.getDeltaTime());
 
         if (gameState == GameState.MINIGAME) {
             ScreenUtils.clear(0f, 0f, 0f, 1f);
@@ -80,9 +72,7 @@ public class Main extends ApplicationAdapter {
 
         batch.begin();
 
-        for (Sprite sprite : spriteObjects) {
-            sprite.render(batch);
-        }
+        for (Sprite sprite : spriteObjects) sprite.render(batch);
 
         if(gameState == GameState.WORLD) {
             // font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 300, 300);
@@ -97,8 +87,6 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         //player.dispose();
-        for (Sprite sprite : spriteObjects) {
-            sprite.dispose();
-        }
+        for (Sprite sprite : spriteObjects) sprite.dispose();
     }
 }

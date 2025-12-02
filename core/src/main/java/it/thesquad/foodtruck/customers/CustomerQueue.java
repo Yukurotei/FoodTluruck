@@ -5,20 +5,15 @@ import java.util.ArrayList;
 public class CustomerQueue {
     private ArrayList<Customer> array = new ArrayList<Customer>();
     
-    public CustomerQueue() {
-
-    }
-
     /**
-     * 
      * @param customer the customer object
      */
     public void add(Customer customer) {
         array.add(customer);
     }
 
-    public void pop() {
-        array.remove(array.size());
+    public void shift() {
+        array.remove(0);
     }
 
     /**

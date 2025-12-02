@@ -10,20 +10,15 @@ public class Customer {
     Order order;
     CompleteOrder completeOrder;
     Review review;
-    int id;
-    private static int customers = 0;
+
     /**
-     * 
      * Creates a new customer with a random order
      */
     public Customer() {
         this.order = Utils.randomOrder();
-        this.id = customers;
-        customers++;
     }
 
     /**
-     * 
      * @return the order placed by the customer
      */
     public Order getOrder() {
@@ -60,7 +55,7 @@ public class Customer {
      * @return the order message
      */
     public String getOrderMsg() {
-        return "Customer"+id+" wants "+getOrder().toString();
+        return "Customer wants " + getOrder().toString();
     }
 
     public String getClankerReview() {
