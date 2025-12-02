@@ -48,16 +48,13 @@ public class Main extends ApplicationAdapter {
         new Player(new Texture("player.png"), interactionSprite);
         customerQueue.add(new Customer());
         // font = new BitmapFont();
-        // try {
+    //     try {
 
-        //     int rating = 5;
 
-        //     String orderMsg = customerQueue.getElm(0).getOrderMsg();
-
-        //     customerQueue.getElm(0).setReview(new Review(rating, Utils.getReview(orderMsg,rating)));
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
+    //         customerQueue.getElm(0).getClankerReview();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
     }
     @Override
     public void render() {
