@@ -49,9 +49,7 @@ public class Player extends Sprite {
             justSwitchedState = true;
         }
 
-        if (Main.gameState == Main.GameState.WORLD) {
-            setProcessingMovement(true);
-        } else {
+        if (Main.gameState == Main.GameState.WORLD) setProcessingMovement(true); else {
             setProcessingMovement(false);
             interactionSprite.setVisible(false);
         }
@@ -59,12 +57,8 @@ public class Player extends Sprite {
         if (processMovement) {
             float oldX = getX();
             float dx = 0;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                dx -= 1;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                dx += 1;
-            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) dx -= 1;
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) dx += 1;
 
             setX(getX() + dx * speed * delta);
 
@@ -101,12 +95,8 @@ public class Player extends Sprite {
 
             float oldY = getY();
             float dy = 0;
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                dy -= 1;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                dy += 1;
-            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) dy -= 1;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) dy += 1;
 
             setY(getY() + dy * speed * delta);
 
@@ -218,9 +208,7 @@ public class Player extends Sprite {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, texture.getWidth(), texture.getHeight(), 1, 1, rotation, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-        if (currentIngredient != null) {
-            currentIngredient.draw(batch);
-        }
+        if (currentIngredient != null) currentIngredient.draw(batch);
     }
 
     public void dropItem() {

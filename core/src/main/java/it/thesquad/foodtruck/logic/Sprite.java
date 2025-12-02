@@ -42,6 +42,7 @@ public class Sprite {
      */
     public void render(SpriteBatch batch) {
         if (!isVisible) return;
+
         if (textures != null && !textures.isEmpty()) {
             batch.draw(textures.get(currentFrame), x, y);
         } else {
@@ -59,22 +60,17 @@ public class Sprite {
             if (animationTimer > frameTime) {
                 animationTimer = 0f;
                 currentFrame++;
-                if (currentFrame >= textures.size()) {
-                    currentFrame = 0;
-                }
+
+                if (currentFrame >= textures.size()) currentFrame = 0;
             }
         }
     }
 
     public void dispose() {
-        if (texture != null) {
-            texture.dispose();
-        }
-        if (textures != null) {
-            for (Texture t : textures) {
-                t.dispose();
-            }
-        }
+        if (texture != null) texture.dispose();
+
+        if (textures != null) for (Texture texture : textures) texture.dispose();
+
         Main.spriteObjects.remove(this);
     }
 
@@ -97,6 +93,7 @@ public class Sprite {
     public Texture getTexture() {
         if (texture == null && textures.isEmpty()) return null;
         if (textures.isEmpty()) return texture;
+        
         return textures.get(0);
     }
 
@@ -210,5 +207,9 @@ public class Sprite {
 
     public float getHeight() {
         return this.texture.getHeight();
+    }
+
+    public float centerAxis(float objectAxis, float parentAxis) {
+        return objectAxis - (parentAxis / 2F);
     }
 }

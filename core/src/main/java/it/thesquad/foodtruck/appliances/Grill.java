@@ -25,7 +25,7 @@ public class Grill extends Appliance {
     private Patty outputPatty;
     private float cookTime = 0f;
 
-    boolean justPutPatty = false; //NOTE FOR SEBASTIAN: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
+    boolean justPutPatty = false; //NOTE FOR person: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
 
     /**
      *

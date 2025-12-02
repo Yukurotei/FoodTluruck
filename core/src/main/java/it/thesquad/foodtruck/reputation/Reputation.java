@@ -49,9 +49,8 @@ public final class Reputation {
      */
     private static int calcAvgRating() {
         int a = 0;
-        for (Review review : reviews) {
-            a += review.getRating();
-        }
+        for (Review review : reviews) a += review.getRating();
+        
         return a/reviews.size();
     }
 }

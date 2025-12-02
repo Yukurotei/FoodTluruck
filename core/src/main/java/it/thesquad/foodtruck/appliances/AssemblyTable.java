@@ -40,11 +40,9 @@ public class AssemblyTable extends Table {
 
     @Override
     public void update(float dt) {
-        if (interactCooldown > 0)
-            interactCooldown -= dt;
+        if (interactCooldown > 0) interactCooldown -= dt;
 
-        if (interactCooldown < 0)
-            interactCooldown = 0;
+        if (interactCooldown < 0) interactCooldown = 0;
 
         if (tableButton != null) tableButton.update(dt);
 
@@ -93,12 +91,8 @@ public class AssemblyTable extends Table {
             Bun bun = null;
             Patty patty = null;
             for (Ingredient ingredient : items) {
-                if (ingredient instanceof Bun) {
-                    bun = (Bun) ingredient;
-                }
-                if (ingredient instanceof Patty) {
-                    patty = (Patty) ingredient;
-                }
+                if (ingredient instanceof Bun) bun = (Bun) ingredient;
+                if (ingredient instanceof Patty) patty = (Patty) ingredient;
             }
 
             //Food checks
