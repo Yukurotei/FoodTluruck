@@ -46,9 +46,7 @@ public class AssemblyTable extends Table {
 
         if (tableButton != null) tableButton.update(dt);
 
-        for (Ingredient ingredient : items) {
-            ingredient.getSprite().update(dt);
-        }
+        for (Ingredient ingredient : items) ingredient.getSprite().update(dt);
     }
 
     private void updateIngredientPos() {
@@ -69,14 +67,9 @@ public class AssemblyTable extends Table {
             if (!items.isEmpty()) {
                 items.remove(tableItem);
                 updateIngredientPos();
-                if (!items.isEmpty()) {
-                    tableItem = items.get(items.size() - 1);
-                } else {
-                    tableItem = null;
-                }
-            } else {
-                tableItem = null;
-            }
+                if (!items.isEmpty()) tableItem = items.get(items.size() - 1); 
+                else tableItem = null;
+            } else tableItem = null;
 
         } else if (player.getCurrentIngredient() != null) {
             if (items.size() >= 5) return;
