@@ -48,7 +48,7 @@ public class Main extends ApplicationAdapter {
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
-        new Player(new Texture("player.png"), interactionSprite);
+        new Player(new Texture("john_hands.png"), interactionSprite);
         customerQueue.add(new Customer());
         // font = new BitmapFont();
         // try {
