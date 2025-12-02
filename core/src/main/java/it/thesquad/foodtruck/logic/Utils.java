@@ -282,4 +282,9 @@ public final class Utils {
             return "AI error";
         }
     }
+
+    public static Texture randomCustomerTexture() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'randomCustomerTexture'");
+    }
 }

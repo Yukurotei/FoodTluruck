@@ -45,9 +45,9 @@ public class Main extends ApplicationAdapter {
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
-        new Player(new Texture("john_hands.png"), interactionSprite);
+        new Player(Utils.resizeTo(new Texture("john_hands.png"),20), interactionSprite);
         customerQueue.add(new Customer());
-        // font = new BitmapFont();
+        font = new BitmapFont();
     //     try {
 
 
@@ -79,6 +79,7 @@ public class Main extends ApplicationAdapter {
             // font.draw(batch, customerQueue.getElm(0).getReview().getReviewText(), 200, 200);
         }
 
+        font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 30, 30);
 
         batch.end();
     }

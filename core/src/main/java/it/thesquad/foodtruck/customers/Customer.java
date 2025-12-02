@@ -1,7 +1,10 @@
 package it.thesquad.foodtruck.customers;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.CompleteOrder;
+import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.reputation.Reputation;
 import it.thesquad.foodtruck.reputation.Review;
@@ -10,12 +13,14 @@ public class Customer {
     Order order;
     CompleteOrder completeOrder;
     Review review;
+    Sprite sprite;
 
     /**
      * Creates a new customer with a random order
      */
     public Customer() {
         this.order = Utils.randomOrder();
+        this.sprite = new Sprite(new Texture("tomato.png"), 0, 0, true);
     }
 
     /**
@@ -55,10 +60,14 @@ public class Customer {
      * @return the order message
      */
     public String getOrderMsg() {
-        return "Customer wants " + getOrder().toString();
+        return "I want " + getOrder().toString();
     }
 
     public String getClankerReview() {
         return Utils.getReview(getOrderMsg(), completeOrder.getAccuracy());
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 }
