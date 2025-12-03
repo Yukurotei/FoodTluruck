@@ -79,6 +79,10 @@ public class Main extends ApplicationAdapter {
             animationManager.animateScale(logo, logo.getScaleX() * 10, logo.getScaleY() * 10, 8f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             introSong.play();
         }));
+        cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
+            animationManager.animateRotation(logo, logo.getRotation() + 15, 5f, AnimationManager.Easing.LINEAR);
+            animationManager.animateMove(logo, logo.getX() - 200, logo.getY() + 100, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
+        }));
         /*
         cutsceneManager.addEvent(new CutsceneEvent(4f, () -> {
             animationManager.animateMove(Utils.getAnimatedSprite("logo"), 100, 100, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
