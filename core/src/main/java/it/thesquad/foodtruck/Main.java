@@ -2,6 +2,8 @@ package it.thesquad.foodtruck;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -34,9 +36,10 @@ public class Main extends ApplicationAdapter {
     public static GameState gameState;
     public static CustomerQueue customerQueue = new CustomerQueue();
     public static AnimationManager animationManager;
+    private CutsceneManager cutsceneManager;
     private BitmapFont font;
     public static float timePassed; //in seconds
-    private CutsceneManager cutsceneManager;
+    Music introSong;
 
     @Override
     public void create() {
@@ -58,20 +61,35 @@ public class Main extends ApplicationAdapter {
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
         new Player(Utils.resizeTo(new Texture("john_hands.png"),50), interactionSprite);
-        AnimatedSprite demoSprite = new AnimatedSprite("demo", new Texture("libgdx.png"), 0, 0, true);
         customerQueue.add(new Customer());
         font = new BitmapFont();
 
+        AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("libgdx.png"), 10), 0, 0, true);
+        logo.setX(400 - logo.getWidth() / 2f);
+        logo.setY(300 - logo.getHeight() / 2f);
+
         //CUTSCENE
+
+        introSong = Gdx.audio.newMusic(Gdx.files.internal("audio/give-it-one.mp3"));
+        introSong.setLooping(false);
+        introSong.setVolume(1f);
+        introSong.setPosition(2);
+
         cutsceneManager.addEvent(new CutsceneEvent(1f, () -> {
-            animationManager.animateMove(demoSprite, 300, 300, 2f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+            animationManager.animateScale(logo, logo.getScaleX() * 10, logo.getScaleY() * 10, 8f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            introSong.play();
         }));
+        /*
         cutsceneManager.addEvent(new CutsceneEvent(4f, () -> {
-            animationManager.animateMove(Utils.getAnimatedSprite("demo"), 100, 100, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+            animationManager.animateMove(Utils.getAnimatedSprite("logo"), 100, 100, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+            introSong.setVolume(0.5f);
         }));
+         */
+        /*
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             gameState = GameState.WORLD;
         }));
+         */
 
     //     try {
 

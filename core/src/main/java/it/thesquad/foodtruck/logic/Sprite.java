@@ -17,6 +17,7 @@ public class Sprite {
     protected float alpha = 1f;
     protected float scaleX = 1f;
     protected float scaleY = 1f;
+    protected float rotation = 0f;
     protected Rectangle hitbox;
     protected boolean isVisible;
     private float frameTime = 0.1f;
@@ -63,7 +64,7 @@ public class Sprite {
                 originX, originY,
                 width, height,
                 scaleX, scaleY,
-                0,
+                rotation,
                 0, 0, (int) width, (int) height,
                 false, false);
 
@@ -145,6 +146,10 @@ public class Sprite {
         return scaleY;
     }
 
+    public float getRotation() {
+        return rotation;
+    }
+
     /**
      *
      * @return whether the sprite is visible
@@ -181,6 +186,10 @@ public class Sprite {
 
     public void setScaleY(float scaleY) {
         this.scaleY = scaleY;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
     /**

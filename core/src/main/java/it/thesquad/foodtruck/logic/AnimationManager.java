@@ -9,7 +9,16 @@ public class AnimationManager {
         LINEAR,
         EASE_IN_QUAD,
         EASE_OUT_QUAD,
-        EASE_IN_OUT_QUAD
+        EASE_IN_OUT_QUAD,
+        EASE_IN_CUBIC,
+        EASE_OUT_CUBIC,
+        EASE_IN_OUT_CUBIC,
+        EASE_IN_SINE,
+        EASE_OUT_SINE,
+        EASE_IN_OUT_SINE,
+        EASE_IN_EXPO,
+        EASE_OUT_EXPO,
+        EASE_IN_OUT_EXPO
     }
 
     private final Array<Animation> animations = new Array<>();
@@ -50,6 +59,12 @@ public class AnimationManager {
         animations.add(anim);
     }
 
+    public void animateRotation(AnimatedSprite target, float toRotation, float duration, Easing easing) {
+        Animation anim = animationPool.obtain();
+        anim.initRotation(target, toRotation, duration, easing);
+        animations.add(anim);
+    }
+
     private static class Animation implements Pool.Poolable {
         private AnimatedSprite target;
         private Easing easing;
@@ -67,6 +82,9 @@ public class AnimationManager {
         private float startScaleX, startScaleY;
         private float toScaleX, toScaleY;
 
+        // Rotation
+        private float startRotation, toRotation;
+
 
         public void initMove(AnimatedSprite target, float toX, float toY, float duration, Easing easing) {
             this.target = target;
@@ -82,6 +100,7 @@ public class AnimationManager {
             this.toOpacity = Float.NaN;
             this.toScaleX = Float.NaN;
             this.toScaleY = Float.NaN;
+            this.toRotation = Float.NaN;
         }
 
         public void initFade(AnimatedSprite target, float toOpacity, float duration, Easing easing) {
@@ -97,6 +116,7 @@ public class AnimationManager {
             this.toY = Float.NaN;
             this.toScaleX = Float.NaN;
             this.toScaleY = Float.NaN;
+            this.toRotation = Float.NaN;
         }
 
         public void initScale(AnimatedSprite target, float toScaleX, float toScaleY, float duration, Easing easing) {
@@ -112,6 +132,23 @@ public class AnimationManager {
 
             this.toX = Float.NaN;
             this.toY = Float.NaN;
+            this.toOpacity = Float.NaN;
+            this.toRotation = Float.NaN;
+        }
+
+        public void initRotation(AnimatedSprite target, float toRotation, float duration, Easing easing) {
+            this.target = target;
+            this.duration = duration;
+            this.easing = easing;
+            this.time = 0;
+
+            this.startRotation = target.getRotation();
+            this.toRotation = toRotation;
+
+            this.toX = Float.NaN;
+            this.toY = Float.NaN;
+            this.toScaleX = Float.NaN;
+            this.toScaleY = Float.NaN;
             this.toOpacity = Float.NaN;
         }
 
@@ -137,6 +174,9 @@ public class AnimationManager {
             if (!Float.isNaN(toScaleY)) {
                 target.setScaleY(startScaleY + (toScaleY - startScaleY) * easedProgress);
             }
+            if (!Float.isNaN(toRotation)) {
+                target.setRotation(startRotation + (toRotation - startRotation) * easedProgress);
+            }
 
             if (progress >= 1f) {
                 time = duration; // Ensure time is exactly duration when finished
@@ -155,6 +195,27 @@ public class AnimationManager {
                     return t * (2 - t);
                 case EASE_IN_OUT_QUAD:
                     return t < 0.5f ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                case EASE_IN_CUBIC:
+                    return t * t * t;
+                case EASE_OUT_CUBIC:
+                    return 1 - (float) Math.pow(1 - t, 3);
+                case EASE_IN_OUT_CUBIC:
+                    return t < 0.5f ? 4 * t * t * t : 1 - (float) Math.pow(-2 * t + 2, 3) / 2;
+                case EASE_IN_SINE:
+                    return 1 - (float) Math.cos((t * Math.PI) / 2);
+                case EASE_OUT_SINE:
+                    return (float) Math.sin((t * Math.PI) / 2);
+                case EASE_IN_OUT_SINE:
+                    return -((float) Math.cos(Math.PI * t) - 1) / 2;
+                case EASE_IN_EXPO:
+                    return t == 0 ? 0 : (float) Math.pow(2, 10 * t - 10);
+                case EASE_OUT_EXPO:
+                    return t == 1 ? 1 : 1 - (float) Math.pow(2, -10 * t);
+                case EASE_IN_OUT_EXPO:
+                    if (t == 0) return 0;
+                    if (t == 1) return 1;
+                    if (t < 0.5f) return (float) Math.pow(2, 20 * t - 10) / 2;
+                    return (2 - (float) Math.pow(2, -20 * t + 10)) / 2;
                 case LINEAR:
                 default:
                     return t;
@@ -175,6 +236,7 @@ public class AnimationManager {
             startX = startY = toX = toY = Float.NaN;
             startOpacity = toOpacity = Float.NaN;
             startScaleX = startScaleY = toScaleX = toScaleY = Float.NaN;
+            startRotation = toRotation = Float.NaN;
         }
     }
 }
