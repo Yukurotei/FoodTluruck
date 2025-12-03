@@ -96,20 +96,27 @@ public class Main extends ApplicationAdapter {
             animationManager.animateFade(gdxLogo, 1f, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
             introSong.play();
         }));
+        cutsceneManager.addEvent(new CutsceneEvent(3f, () -> {
+            animationManager.animateMove(logo, logo.getX(), logo.getY() + 600, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
+        }));
         cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
             animationManager.animateRotation(gdxLogo, gdxLogo.getRotation() + 15, 5f, AnimationManager.Easing.EASE_OUT_QUAD);
             animationManager.animateMove(gdxLogo, gdxLogo.getX() - 200, gdxLogo.getY() + 150, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
             animationManager.animateFade(focus, 0.67f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateFade(allRoadsLeadToRome, 1f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 300, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
-            animationManager.animateMove(logo, logo.getX(), logo.getY() + 600, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() - gdxLogo.getScaleX() / 5, gdxLogo.getScaleY() - gdxLogo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
+            animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 10, logo.getScaleY() - logo.getScaleY() / 10, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
-            introSong.setVolume(0.5f);
+            introSong.setVolume(0.90f);
+            animationManager.animateRotation(gdxLogo, 20, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
+            animationManager.animateFade(logo, (float) (logo.getAlpha() - 0.5), 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
+            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() + 10, allRoadsLeadToRome.getY() + 10, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
+            animationManager.animateFade(focus, 1, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
         }));
         /*
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
@@ -150,7 +157,7 @@ public class Main extends ApplicationAdapter {
         } else if (gameState == GameState.INTRO) {
             batch.begin();
 
-            ScreenUtils.clear(237/255f, 185/255f, 43/255f, 1f);
+            //ScreenUtils.clear(237/255f, 185/255f, 43/255f, 1f);
 
             cutsceneManager.update(timePassed);
 
