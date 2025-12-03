@@ -2,6 +2,7 @@ package it.thesquad.foodtruck;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +19,7 @@ import it.thesquad.foodtruck.logic.*;
 import it.thesquad.foodtruck.player.Player;
 
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -40,6 +42,7 @@ public class Main extends ApplicationAdapter {
     private ParallaxBackground parallaxBackground;
     private boolean renderParallax = false;
     private Button playButton;
+    private AnimatedSprite playButtonAni;
 
     @Override
     public void create() {
@@ -89,32 +92,42 @@ public class Main extends ApplicationAdapter {
         flash.setY(300 - flash.getHeight() / 2f);
         flash.setAlpha(0f);
 
+        AnimatedSprite spotLight = new AnimatedSprite("spotLight", Utils.resizeTo(new Texture("spotLight.png"), 500), 0, 0, true);
+        spotLight.setX(400 - spotLight.getWidth() / 2f);
+        spotLight.setY(300 - spotLight.getHeight() / 2f);
+        spotLight.setAlpha(0f);
+
         Texture parallaxTexture = Utils.rotateTextureRightAngles(new Texture("hat.png"), 180);
         parallaxBackground = new ParallaxBackground(parallaxTexture, new Color(1f, 1f, 1f, 0.5f));
         parallaxBackground.setSpeed(50, 50);
 
         Texture playButtonTexture = Utils.resizeTo(new Texture("play.png"), 50);
-        AnimatedSprite playButtonAni = new AnimatedSprite("playButton", playButtonTexture, 0, 0, true);
+        playButtonAni = new AnimatedSprite("playButton", playButtonTexture, 0, 0, true);
         playButtonAni.setX(400 - playButtonAni.getWidth() / 2f + 100);
         playButtonAni.setY(300 - playButtonAni.getHeight() / 2f - 400);
         playButton = new Button(playButtonTexture, 0, 0, () -> {
             introSong.stop();
+            spotLight.setAlpha(1f);
             Sound effect = Gdx.audio.newSound(Gdx.files.internal("audio/playEffect.mp3"));
             effect.play();
             playButton.setVisible(false);
             playButtonAni.setRotation(0f);
             animationManager.animateScale(playButtonAni, playButtonAni.getScaleX() * 100, playButtonAni.getScaleY() * 100, 2, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            animationManager.animateScale(spotLight, spotLight.getScaleX() / 10, spotLight.getScaleY() / 10, 2, AnimationManager.Easing.LINEAR);
             cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
                 gameState = GameState.WORLD;
-                introSong.dispose();
-                playButton.dispose();
-                playButtonAni.dispose();
+                disposeIntro();
             }));
         });
         playButton.setX(400 - playButton.getWidth() / 2f);
         playButton.setY(300 - playButton.getHeight() / 2f - 400);
         playButton.addOnHoverListener(() -> {
-            animationManager.animateRotation(playButtonAni, 20, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            float randomResult = new Random().nextFloat(0, 1);
+            if (randomResult > 0.5f) {
+                animationManager.animateRotation(playButtonAni, 20, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            } else if (randomResult <= 0.5f) {
+                animationManager.animateRotation(playButtonAni, -20, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            }
         });
         playButton.addOnUnHoverListener(() -> {
             animationManager.animateRotation(playButtonAni, 0, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
@@ -179,7 +192,15 @@ public class Main extends ApplicationAdapter {
     //     } catch (Exception e) {
     //         e.printStackTrace();
     //     }
+
     }
+
+    public void disposeIntro() {
+        if (introSong != null) introSong.dispose();
+        if (playButton != null) playButton.dispose();
+        if (playButtonAni != null) playButtonAni.dispose();
+    }
+
     @Override
     public void render() {
         float dt = Gdx.graphics.getDeltaTime();
@@ -218,6 +239,11 @@ public class Main extends ApplicationAdapter {
             if (playButton != null && playButton.isVisible()) playButton.update(dt);
 
             batch.end();
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+                gameState = GameState.WORLD;
+                disposeIntro();
+            }
         }
     }
 
