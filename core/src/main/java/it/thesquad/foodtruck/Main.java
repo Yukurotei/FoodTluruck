@@ -71,9 +71,9 @@ public class Main extends ApplicationAdapter {
         focus.setX(400 - focus.getWidth() / 2f);
         focus.setY(300 - focus.getHeight() / 2f);
         focus.setAlpha(0f);
-
-        //CUTSCENE
-
+        ////////////
+        //CUTSCENE//
+        ////////////
         introSong = Gdx.audio.newMusic(Gdx.files.internal("audio/give-it-one.mp3"));
         introSong.setLooping(false);
         introSong.setVolume(1f);
