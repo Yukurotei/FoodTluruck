@@ -3,6 +3,7 @@ package it.thesquad.foodtruck.logic;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
+import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.Sizes;
 import it.thesquad.foodtruck.dish.Drinks;
@@ -286,5 +287,14 @@ public final class Utils {
     public static Texture randomCustomerTexture() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'randomCustomerTexture'");
+    }
+
+    public static AnimatedSprite getSprite(String id) {
+        for (AnimatedSprite aSprite : Main.animatedSprites) {
+            if (aSprite.getSpriteID().equalsIgnoreCase(id)) {
+                return aSprite;
+            }
+        }
+        return null;
     }
 }

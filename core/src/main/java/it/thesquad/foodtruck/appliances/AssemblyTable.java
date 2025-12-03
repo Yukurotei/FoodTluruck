@@ -27,7 +27,6 @@ public class AssemblyTable extends Table {
 
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
 
         tableButton.renderButton(batch);
 
@@ -35,7 +34,6 @@ public class AssemblyTable extends Table {
             ingredient.drawOnTable(batch);
         }
 
-        batch.end();
     }
 
     @Override

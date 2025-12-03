@@ -48,7 +48,6 @@ public class Table extends Appliance {
 
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
 
         tableButton.renderButton(batch);
 
@@ -56,7 +55,6 @@ public class Table extends Appliance {
             tableItem.drawOnTable(batch);
         }
 
-        batch.end();
     }
 
     @Override

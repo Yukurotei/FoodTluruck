@@ -108,7 +108,6 @@ public class Cutter extends Appliance {
 
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
         batch.draw(uiTexture, 0, 0);
 
         bunPile.renderButton(batch);
@@ -118,7 +117,6 @@ public class Cutter extends Appliance {
         if (cutTop != null) cutTop.render(batch);
         if (cutBottom != null) cutBottom.render(batch);
 
-        batch.end();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Customer {
     }
 
     /**
-     * 
+     *
      * @return the fufilled order by the customer
      */
     public CompleteOrder getCompleteOrder() {
@@ -39,7 +39,7 @@ public class Customer {
     }
 
     /**
-     * 
+     *
      * @param review the review given by the customer
      */
     public void setReview(Review review) {
@@ -48,7 +48,7 @@ public class Customer {
     }
 
     /**
-     * 
+     *
      * @return the review given by the customer
      */
     public Review getReview() {
@@ -56,7 +56,7 @@ public class Customer {
     }
 
     /**
-     * 
+     *
      * @return the order message
      */
     public String getOrderMsg() {

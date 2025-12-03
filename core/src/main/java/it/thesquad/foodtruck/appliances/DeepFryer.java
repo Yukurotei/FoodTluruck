@@ -64,7 +64,6 @@ public class DeepFryer extends Appliance {
 
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
         batch.draw(fryerUiTexture, 0, 0);
 
         fryerButton.renderButton(batch);
@@ -93,7 +92,6 @@ public class DeepFryer extends Appliance {
 
             batch.setColor(Color.WHITE);
         }
-        batch.end();
     }
 
     @Override

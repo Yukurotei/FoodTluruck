@@ -8,7 +8,7 @@ import it.thesquad.foodtruck.logic.Button;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.player.Player;
 
-public class FoodCubbard extends Appliance {
+public class FoodCupboard extends Appliance {
 
     private Button picklePile;
     private Button tomatoPile;
@@ -19,7 +19,7 @@ public class FoodCubbard extends Appliance {
      * @param x       the x-coordinate of the appliance
      * @param y       the y-coordinate of the appliance
      */
-    public FoodCubbard(Texture texture, float x, float y) {
+    public FoodCupboard(Texture texture, float x, float y) {
         super(texture, x, y);
     }
 
@@ -43,12 +43,10 @@ public class FoodCubbard extends Appliance {
 
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
 
         if (picklePile != null) picklePile.renderButton(batch);
         if (tomatoPile != null) tomatoPile.renderButton(batch);
 
-        batch.end();
     }
 
     @Override

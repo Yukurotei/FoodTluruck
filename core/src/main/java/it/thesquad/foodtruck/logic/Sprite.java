@@ -1,5 +1,6 @@
 package it.thesquad.foodtruck.logic;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,6 +14,9 @@ public class Sprite {
     protected List<Texture> textures;
     protected float x;
     protected float y;
+    protected float alpha = 1f;
+    protected float scaleX = 1f;
+    protected float scaleY = 1f;
     protected Rectangle hitbox;
     protected boolean isVisible;
     private float frameTime = 0.1f;
@@ -43,11 +47,27 @@ public class Sprite {
     public void render(SpriteBatch batch) {
         if (!isVisible) return;
 
-        if (textures != null && !textures.isEmpty()) {
-            batch.draw(textures.get(currentFrame), x, y);
-        } else {
-            batch.draw(texture, x, y);
-        }
+        Texture currentTexture = (textures != null && !textures.isEmpty()) ? textures.get(currentFrame) : texture;
+        if (currentTexture == null) return;
+
+        Color originalColor = batch.getColor();
+        batch.setColor(originalColor.r, originalColor.g, originalColor.b, alpha);
+
+        float width = currentTexture.getWidth();
+        float height = currentTexture.getHeight();
+        float originX = width / 2f;
+        float originY = height / 2f;
+
+        batch.draw(currentTexture,
+                x, y,
+                originX, originY,
+                width, height,
+                scaleX, scaleY,
+                0,
+                0, 0, (int) width, (int) height,
+                false, false);
+
+        batch.setColor(originalColor);
     }
 
     /**
@@ -113,6 +133,18 @@ public class Sprite {
         return y;
     }
 
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public float getScaleX() {
+        return scaleX;
+    }
+
+    public float getScaleY() {
+        return scaleY;
+    }
+
     /**
      *
      * @return whether the sprite is visible
@@ -137,6 +169,18 @@ public class Sprite {
     public void setY(float y) {
         this.y = y;
         hitbox.setY(y);
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
+
+    public void setScaleX(float scaleX) {
+        this.scaleX = scaleX;
+    }
+
+    public void setScaleY(float scaleY) {
+        this.scaleY = scaleY;
     }
 
     /**

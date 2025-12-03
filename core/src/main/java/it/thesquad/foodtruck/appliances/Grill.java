@@ -77,7 +77,6 @@ public class Grill extends Appliance {
      */
     @Override
     public void display(SpriteBatch batch) {
-        batch.begin();
         batch.draw(grillUiTexture, 0, 0);
 
         griller.renderButton(batch);
@@ -109,7 +108,6 @@ public class Grill extends Appliance {
             // Reset color to white to not affect other drawn objects
             batch.setColor(Color.WHITE);
         }
-        batch.end();
     }
 
     @Override
