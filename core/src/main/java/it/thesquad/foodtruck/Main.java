@@ -64,15 +64,25 @@ public class Main extends ApplicationAdapter {
         customerQueue.add(new Customer());
         font = new BitmapFont();
 
-        AnimatedSprite gdxLogo = new AnimatedSprite("gdxLogo", Utils.resizeTo(new Texture("madeWLibGDX.png"), 100), 0, 0, true);
-        gdxLogo.setAlpha(0f);
-        animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() / 10, gdxLogo.getScaleY() / 10, 0.1f, AnimationManager.Easing.LINEAR);
-        AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 250), 0, 0, true);
-        gdxLogo.setX(400 - gdxLogo.getWidth() / 2f);
-        gdxLogo.setY(300 - gdxLogo.getHeight() / 2f);
+        AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 200), 0, 0, true);
         focus.setX(400 - focus.getWidth() / 2f);
         focus.setY(300 - focus.getHeight() / 2f);
         focus.setAlpha(0f);
+
+        AnimatedSprite gdxLogo = new AnimatedSprite("gdxLogo", Utils.resizeTo(new Texture("madeWLibGDX.png"), 100), 0, 0, true);
+        gdxLogo.setX(400 - gdxLogo.getWidth() / 2f);
+        gdxLogo.setY(300 - gdxLogo.getHeight() / 2f);
+        gdxLogo.setAlpha(0f);
+        animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() / 10, gdxLogo.getScaleY() / 10, 0.1f, AnimationManager.Easing.LINEAR);
+
+        AnimatedSprite allRoadsLeadToRome = new AnimatedSprite("romeChef", new Texture("time_ticking.png"), 0, 0, true);
+        allRoadsLeadToRome.setX(400 - allRoadsLeadToRome.getWidth() / 2f + 700); //target is +400
+        allRoadsLeadToRome.setY(300 - allRoadsLeadToRome.getHeight() / 2f);
+        allRoadsLeadToRome.setAlpha(0f);
+
+        AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("grease_up.png"), 100), 0, 0, true);
+        logo.setX(400 - logo.getWidth() / 2f);
+        logo.setY(300 - logo.getHeight() / 2f - 600);
         ////////////
         //CUTSCENE//
         ////////////
@@ -88,12 +98,15 @@ public class Main extends ApplicationAdapter {
         }));
         cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
             animationManager.animateRotation(gdxLogo, gdxLogo.getRotation() + 15, 5f, AnimationManager.Easing.EASE_OUT_QUAD);
-            animationManager.animateMove(gdxLogo, gdxLogo.getX() - 200, gdxLogo.getY() + 100, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
+            animationManager.animateMove(gdxLogo, gdxLogo.getX() - 200, gdxLogo.getY() + 150, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
             animationManager.animateFade(focus, 0.67f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
-            //animationManager.animateRotation(focus, 3600f, 5f, AnimationManager.Easing.EASE_IN_QUAD);
+            animationManager.animateFade(allRoadsLeadToRome, 1f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 300, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
+            animationManager.animateMove(logo, logo.getX(), logo.getY() + 600, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() - gdxLogo.getScaleX() / 5, gdxLogo.getScaleY() - gdxLogo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             introSong.setVolume(0.5f);
@@ -136,6 +149,8 @@ public class Main extends ApplicationAdapter {
             batch.end();
         } else if (gameState == GameState.INTRO) {
             batch.begin();
+
+            ScreenUtils.clear(237/255f, 185/255f, 43/255f, 1f);
 
             cutsceneManager.update(timePassed);
 
