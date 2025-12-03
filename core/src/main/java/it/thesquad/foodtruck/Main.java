@@ -65,8 +65,12 @@ public class Main extends ApplicationAdapter {
         font = new BitmapFont();
 
         AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("libgdx.png"), 10), 0, 0, true);
+        AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 250), 0, 0, true);
         logo.setX(400 - logo.getWidth() / 2f);
         logo.setY(300 - logo.getHeight() / 2f);
+        focus.setX(400 - focus.getWidth() / 2f);
+        focus.setY(300 - focus.getHeight() / 2f);
+        focus.setAlpha(0f);
 
         //CUTSCENE
 
@@ -80,8 +84,13 @@ public class Main extends ApplicationAdapter {
             introSong.play();
         }));
         cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
-            animationManager.animateRotation(logo, logo.getRotation() + 15, 5f, AnimationManager.Easing.LINEAR);
+            animationManager.animateRotation(logo, logo.getRotation() + 15, 5f, AnimationManager.Easing.EASE_OUT_QUAD);
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() + 100, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
+            animationManager.animateFade(focus, 0.67f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            //animationManager.animateRotation(focus, 3600f, 5f, AnimationManager.Easing.EASE_IN_QUAD);
+        }));
+        cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
+            animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
         }));
         /*
         cutsceneManager.addEvent(new CutsceneEvent(4f, () -> {
