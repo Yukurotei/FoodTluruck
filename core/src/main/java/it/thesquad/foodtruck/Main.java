@@ -89,7 +89,7 @@ public class Main extends ApplicationAdapter {
         flash.setY(300 - flash.getHeight() / 2f);
         flash.setAlpha(0f);
 
-        Texture parallaxTexture = new Texture("hat.png");
+        Texture parallaxTexture = Utils.rotateTextureRightAngles(new Texture("hat.png"), 180);
         parallaxBackground = new ParallaxBackground(parallaxTexture, new Color(1f, 1f, 1f, 0.5f));
         parallaxBackground.setSpeed(50, 50);
 
