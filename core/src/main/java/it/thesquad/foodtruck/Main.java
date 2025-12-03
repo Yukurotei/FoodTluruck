@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
     private Music introSong;
     private ParallaxBackground parallaxBackground;
     private boolean renderParallax = false;
+    private Button playButton;
 
     @Override
     public void create() {
@@ -91,6 +92,32 @@ public class Main extends ApplicationAdapter {
         Texture parallaxTexture = new Texture("libgdx.png");
         parallaxBackground = new ParallaxBackground(parallaxTexture, new Color(1f, 1f, 1f, 0.5f));
         parallaxBackground.setSpeed(50, 50);
+
+        Texture playButtonTexture = Utils.resizeTo(new Texture("play.png"), 50);
+        AnimatedSprite playButtonAni = new AnimatedSprite("playButton", playButtonTexture, 0, 0, true);
+        playButtonAni.setX(400 - playButtonAni.getWidth() / 2f);
+        playButtonAni.setY(300 - playButtonAni.getHeight() / 2f);
+        playButton = new Button(playButtonTexture, 0, 0, () -> {
+            introSong.setPosition(207f);
+            playButton.setVisible(false);
+            playButtonAni.setRotation(0f);
+            animationManager.animateScale(playButtonAni, playButtonAni.getScaleX() * 100, playButtonAni.getScaleY() * 100, 2, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
+                gameState = GameState.WORLD;
+                introSong.stop();
+                introSong.dispose();
+                playButton.dispose();
+                playButtonAni.dispose();
+            }));
+        });
+        playButton.setX(400 - playButton.getWidth() / 2f);
+        playButton.setY(300 - playButton.getHeight() / 2f);
+        playButton.addOnHoverListener(() -> {
+            animationManager.animateRotation(playButtonAni, 20, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+        });
+        playButton.addOnUnHoverListener(() -> {
+            animationManager.animateRotation(playButtonAni, 0, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+        });
         ////////////
         //CUTSCENE//
         ////////////
@@ -181,6 +208,9 @@ public class Main extends ApplicationAdapter {
             for (AnimatedSprite aSprite : animatedSprites) {
                 aSprite.render(batch);
             }
+
+            if (playButton != null && playButton.isVisible()) playButton.update(dt);
+
             batch.end();
         }
     }

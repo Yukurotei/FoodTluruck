@@ -11,6 +11,9 @@ import it.thesquad.foodtruck.Main;
 public class Button extends Sprite {
     private final Runnable onClick;
     private Runnable onHover;
+    private Runnable onUnHover;
+
+    private boolean justHovered = false;
 
     /**
      * @param texture The image that will be used as a button
@@ -28,6 +31,10 @@ public class Button extends Sprite {
         this.onHover = onHover;
     }
 
+    public void addOnUnHoverListener(Runnable onUnHover) {
+        this.onUnHover = onUnHover;
+    }
+
     /**
      * @param batch The sprite contexted used to render thy button
      */
@@ -43,11 +50,17 @@ public class Button extends Sprite {
         Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         Main.camera.unproject(touchPos);
         if (getHitbox().contains(touchPos.x, touchPos.y)) {
-            if (onHover != null) {
+            if (onHover != null && !justHovered) {
+                justHovered = true;
                 onHover.run();
             }
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 onClick.run();
+            }
+        } else {
+            if (justHovered) {
+                justHovered = false;
+                if (onUnHover != null) onUnHover.run();
             }
         }
     }
