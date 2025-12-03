@@ -1,7 +1,7 @@
 package it.thesquad.foodtruck.dish;
 
 public enum Foods {
-    // Mains
+    // MainsSS
     BURGER("Burger", Category.MAIN),
     RIBS("Ribs", Category.MAIN),
     BRISKET("Brisket", Category.MAIN),

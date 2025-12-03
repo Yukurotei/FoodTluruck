@@ -91,6 +91,9 @@ public class Player extends Sprite {
                     Main.gameState = Main.GameState.MINIGAME;
                 }
             }
+            if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+                dropItem();
+            }
 
 
             float oldY = getY();

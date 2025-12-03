@@ -53,10 +53,10 @@ public class Main extends ApplicationAdapter {
         animationManager = new AnimationManager();
         cutsceneManager = new CutsceneManager();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 100, 200);
-        Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100);
-        Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 360, 360);
-        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200);
+        Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 400, 500);
+        Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 550, 500);
+        Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 670, 500);
+        DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 700, 300);
         Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
         AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
         FoodCupboard cupboard = new FoodCupboard(Utils.resizeTo(new Texture("foodCupboard.png"), 20), 500, 500);
