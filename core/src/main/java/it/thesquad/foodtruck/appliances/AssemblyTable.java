@@ -3,10 +3,7 @@ package it.thesquad.foodtruck.appliances;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import it.thesquad.foodtruck.ingredients.Bun;
-import it.thesquad.foodtruck.ingredients.Burger;
-import it.thesquad.foodtruck.ingredients.Ingredient;
-import it.thesquad.foodtruck.ingredients.Patty;
+import it.thesquad.foodtruck.ingredients.*;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
@@ -65,7 +62,7 @@ public class AssemblyTable extends Table {
             if (!items.isEmpty()) {
                 items.remove(tableItem);
                 updateIngredientPos();
-                if (!items.isEmpty()) tableItem = items.get(items.size() - 1); 
+                if (!items.isEmpty()) tableItem = items.get(items.size() - 1);
                 else tableItem = null;
             } else tableItem = null;
 
@@ -84,15 +81,24 @@ public class AssemblyTable extends Table {
             //Food check
             Bun bun = null;
             Patty patty = null;
+            Lettuce lettuce = null;
+            Pickle pickle = null;
+            Tomato tomato = null;
             for (Ingredient ingredient : items) {
                 if (ingredient instanceof Bun) bun = (Bun) ingredient;
                 if (ingredient instanceof Patty) patty = (Patty) ingredient;
+                if (ingredient instanceof Tomato) tomato = (Tomato) ingredient;
+                if (ingredient instanceof Pickle) pickle = (Pickle) ingredient;
+                if (ingredient instanceof Lettuce) lettuce = (Lettuce) ingredient;
             }
 
             //Food checks
-            if (bun != null && patty != null) {
+            if (bun != null && patty != null && tomato != null && pickle != null && lettuce != null) {
                 items.remove(bun);
                 items.remove(patty);
+                items.remove(tomato);
+                items.remove(pickle);
+                items.remove(lettuce);
                 items.add(new Burger(new Sprite(Utils.resizeTo(new Texture("burger.png"), 60), tableItem.getSprite().getX(), tableItem.getSprite().getY(), false)));
                 updateIngredientPos();
                 tableItem = items.get(items.size() - 1);

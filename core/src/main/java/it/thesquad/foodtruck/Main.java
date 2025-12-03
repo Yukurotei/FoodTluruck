@@ -45,6 +45,7 @@ public class Main extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         animationManager = new AnimationManager();
+        cutsceneManager = new CutsceneManager();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Grill grill = new Grill(Utils.resizeTo(new Texture("grill.png"), 50), 100, 200);
         Cutter cuttingBoard = new Cutter(Utils.resizeTo(new Texture("cuttingBoardSimple.png"), 50), 100, 100);
@@ -52,7 +53,7 @@ public class Main extends ApplicationAdapter {
         DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 200, 200);
         Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
         AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
-        FoodCupboard cupboard = new FoodCupboard(Utils.resizeTo(new Texture("table.png"), 20), 500, 500);
+        FoodCupboard cupboard = new FoodCupboard(Utils.resizeTo(new Texture("foodCupboard.png"), 20), 500, 500);
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
@@ -62,12 +63,14 @@ public class Main extends ApplicationAdapter {
         font = new BitmapFont();
 
         //CUTSCENE
-        cutsceneManager = new CutsceneManager();
         cutsceneManager.addEvent(new CutsceneEvent(1f, () -> {
-            animationManager.animateMove(Utils.getSprite("demo"), 300, 300, 2f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+            animationManager.animateMove(demoSprite, 300, 300, 2f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(4f, () -> {
-            animationManager.animateMove(Utils.getSprite("demo"), 100, 100, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+            animationManager.animateMove(Utils.getAnimatedSprite("demo"), 100, 100, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
+        }));
+        cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
+            gameState = GameState.WORLD;
         }));
 
     //     try {

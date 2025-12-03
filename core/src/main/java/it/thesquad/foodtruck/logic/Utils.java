@@ -289,7 +289,7 @@ public final class Utils {
         throw new UnsupportedOperationException("Unimplemented method 'randomCustomerTexture'");
     }
 
-    public static AnimatedSprite getSprite(String id) {
+    public static AnimatedSprite getAnimatedSprite(String id) {
         for (AnimatedSprite aSprite : Main.animatedSprites) {
             if (aSprite.getSpriteID().equalsIgnoreCase(id)) {
                 return aSprite;

@@ -17,7 +17,7 @@ public class AnimatedSprite extends Sprite {
      */
     public AnimatedSprite(String spriteID, Texture texture, float x, float y, boolean addToAnimationQueue) {
         super(texture, x, y, false);
-        if (Utils.getSprite(spriteID) != null) return;
+        if (Utils.getAnimatedSprite(spriteID) != null) return;
         this.spriteID = spriteID;
         if (addToAnimationQueue) {
             Main.animatedSprites.add(this);
