@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,12 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import it.thesquad.foodtruck.appliances.*;
 import it.thesquad.foodtruck.customers.Customer;
 import it.thesquad.foodtruck.customers.CustomerQueue;
-import it.thesquad.foodtruck.logic.AnimatedSprite;
-import it.thesquad.foodtruck.logic.AnimationManager;
-import it.thesquad.foodtruck.logic.CutsceneEvent;
-import it.thesquad.foodtruck.logic.CutsceneManager;
-import it.thesquad.foodtruck.logic.Sprite;
-import it.thesquad.foodtruck.logic.Utils;
+import it.thesquad.foodtruck.logic.*;
 import it.thesquad.foodtruck.player.Player;
 
 import java.util.Queue;
@@ -39,7 +35,10 @@ public class Main extends ApplicationAdapter {
     private CutsceneManager cutsceneManager;
     private BitmapFont font;
     public static float timePassed; //in seconds
-    Music introSong;
+
+    private Music introSong;
+    private ParallaxBackground parallaxBackground;
+    private boolean renderParallax = false;
 
     @Override
     public void create() {
@@ -64,7 +63,7 @@ public class Main extends ApplicationAdapter {
         customerQueue.add(new Customer());
         font = new BitmapFont();
 
-        AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 200), 0, 0, true);
+        AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 250), 0, 0, true);
         focus.setX(400 - focus.getWidth() / 2f);
         focus.setY(300 - focus.getHeight() / 2f);
         focus.setAlpha(0f);
@@ -88,6 +87,10 @@ public class Main extends ApplicationAdapter {
         flash.setX(400 - flash.getWidth() / 2f);
         flash.setY(300 - flash.getHeight() / 2f);
         flash.setAlpha(0f);
+
+        Texture parallaxTexture = new Texture("libgdx.png");
+        parallaxBackground = new ParallaxBackground(parallaxTexture, new Color(1f, 1f, 1f, 0.5f));
+        parallaxBackground.setSpeed(50, 50);
         ////////////
         //CUTSCENE//
         ////////////
@@ -115,6 +118,7 @@ public class Main extends ApplicationAdapter {
             animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 300, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(5.5f, () -> {
+            renderParallax = true;
             animationManager.animateFade(flash, 0f, 3f, AnimationManager.Easing.LINEAR);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
@@ -166,9 +170,11 @@ public class Main extends ApplicationAdapter {
             font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 30, 30);
             batch.end();
         } else if (gameState == GameState.INTRO) {
+            parallaxBackground.update(dt);
             batch.begin();
 
             //ScreenUtils.clear(237/255f, 185/255f, 43/255f, 1f);
+            if (renderParallax) parallaxBackground.render(camera, batch);
 
             cutsceneManager.update(timePassed);
 
