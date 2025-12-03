@@ -95,8 +95,8 @@ public class Main extends ApplicationAdapter {
 
         Texture playButtonTexture = Utils.resizeTo(new Texture("play.png"), 50);
         AnimatedSprite playButtonAni = new AnimatedSprite("playButton", playButtonTexture, 0, 0, true);
-        playButtonAni.setX(400 - playButtonAni.getWidth() / 2f);
-        playButtonAni.setY(300 - playButtonAni.getHeight() / 2f);
+        playButtonAni.setX(400 - playButtonAni.getWidth() / 2f + 100);
+        playButtonAni.setY(300 - playButtonAni.getHeight() / 2f - 400);
         playButton = new Button(playButtonTexture, 0, 0, () -> {
             introSong.setPosition(207f);
             playButton.setVisible(false);
@@ -111,7 +111,7 @@ public class Main extends ApplicationAdapter {
             }));
         });
         playButton.setX(400 - playButton.getWidth() / 2f);
-        playButton.setY(300 - playButton.getHeight() / 2f);
+        playButton.setY(300 - playButton.getHeight() / 2f - 400);
         playButton.addOnHoverListener(() -> {
             animationManager.animateRotation(playButtonAni, 20, 0.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
         });
@@ -152,6 +152,7 @@ public class Main extends ApplicationAdapter {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() - gdxLogo.getScaleX() / 5, gdxLogo.getScaleY() - gdxLogo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
             animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            animationManager.animateMove(playButtonAni, playButtonAni.getX(), playButtonAni.getY() + 400, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             introSong.setVolume(0.90f);
@@ -159,6 +160,10 @@ public class Main extends ApplicationAdapter {
             animationManager.animateFade(logo, (float) (logo.getAlpha() - 0.5), 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
             animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() + 10, allRoadsLeadToRome.getY() + 10, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
             animationManager.animateFade(focus, 1, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
+        }));
+        cutsceneManager.addEvent(new CutsceneEvent(12f, () -> {
+            playButton.setX(playButtonAni.getX());
+            playButton.setY(playButtonAni.getY());
         }));
         /*
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
