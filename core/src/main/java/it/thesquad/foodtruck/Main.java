@@ -80,9 +80,14 @@ public class Main extends ApplicationAdapter {
         allRoadsLeadToRome.setY(300 - allRoadsLeadToRome.getHeight() / 2f);
         allRoadsLeadToRome.setAlpha(0f);
 
-        AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("grease_up.png"), 100), 0, 0, true);
+        AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("grease_up.png"), 120), 0, 0, true);
         logo.setX(400 - logo.getWidth() / 2f);
         logo.setY(300 - logo.getHeight() / 2f - 600);
+
+        AnimatedSprite flash = new AnimatedSprite("whiteFlash", Utils.resizeTo(new Texture("whiteCirc.png"), 200), 0, 0, true);
+        flash.setX(400 - flash.getWidth() / 2f);
+        flash.setY(300 - flash.getHeight() / 2f);
+        flash.setAlpha(0f);
         ////////////
         //CUTSCENE//
         ////////////
@@ -99,6 +104,9 @@ public class Main extends ApplicationAdapter {
         cutsceneManager.addEvent(new CutsceneEvent(3f, () -> {
             animationManager.animateMove(logo, logo.getX(), logo.getY() + 600, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
         }));
+        cutsceneManager.addEvent(new CutsceneEvent(4.67f, () -> {
+            animationManager.animateFade(flash, 1f, 0.5f, AnimationManager.Easing.LINEAR);
+        }));
         cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
             animationManager.animateRotation(gdxLogo, gdxLogo.getRotation() + 15, 5f, AnimationManager.Easing.EASE_OUT_QUAD);
             animationManager.animateMove(gdxLogo, gdxLogo.getX() - 200, gdxLogo.getY() + 150, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
@@ -106,10 +114,13 @@ public class Main extends ApplicationAdapter {
             animationManager.animateFade(allRoadsLeadToRome, 1f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 300, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
         }));
+        cutsceneManager.addEvent(new CutsceneEvent(5.5f, () -> {
+            animationManager.animateFade(flash, 0f, 3f, AnimationManager.Easing.LINEAR);
+        }));
         cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() - gdxLogo.getScaleX() / 5, gdxLogo.getScaleY() - gdxLogo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
-            animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 10, logo.getScaleY() - logo.getScaleY() / 10, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             introSong.setVolume(0.90f);
