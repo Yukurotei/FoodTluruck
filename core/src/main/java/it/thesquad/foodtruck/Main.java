@@ -98,13 +98,14 @@ public class Main extends ApplicationAdapter {
         playButtonAni.setX(400 - playButtonAni.getWidth() / 2f + 100);
         playButtonAni.setY(300 - playButtonAni.getHeight() / 2f - 400);
         playButton = new Button(playButtonTexture, 0, 0, () -> {
-            introSong.setPosition(207f);
+            introSong.stop();
+            Sound effect = Gdx.audio.newSound(Gdx.files.internal("audio/playEffect.mp3"));
+            effect.play();
             playButton.setVisible(false);
             playButtonAni.setRotation(0f);
             animationManager.animateScale(playButtonAni, playButtonAni.getScaleX() * 100, playButtonAni.getScaleY() * 100, 2, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
                 gameState = GameState.WORLD;
-                introSong.stop();
                 introSong.dispose();
                 playButton.dispose();
                 playButtonAni.dispose();
