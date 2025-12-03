@@ -43,6 +43,7 @@ public class Main extends ApplicationAdapter {
     private boolean renderParallax = false;
     private Button playButton;
     private AnimatedSprite playButtonAni;
+    private AnimatedSprite spotLight;
 
     @Override
     public void create() {
@@ -79,7 +80,7 @@ public class Main extends ApplicationAdapter {
         animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() / 10, gdxLogo.getScaleY() / 10, 0.1f, AnimationManager.Easing.LINEAR);
 
         AnimatedSprite allRoadsLeadToRome = new AnimatedSprite("romeChef", new Texture("time_ticking.png"), 0, 0, true);
-        allRoadsLeadToRome.setX(400 - allRoadsLeadToRome.getWidth() / 2f + 700); //target is +400
+        allRoadsLeadToRome.setX(400 - allRoadsLeadToRome.getWidth() / 2f + 700);
         allRoadsLeadToRome.setY(300 - allRoadsLeadToRome.getHeight() / 2f);
         allRoadsLeadToRome.setAlpha(0f);
 
@@ -92,7 +93,7 @@ public class Main extends ApplicationAdapter {
         flash.setY(300 - flash.getHeight() / 2f);
         flash.setAlpha(0f);
 
-        AnimatedSprite spotLight = new AnimatedSprite("spotLight", Utils.resizeTo(new Texture("spotLight.png"), 500), 0, 0, true);
+        spotLight = new AnimatedSprite("spotLight", Utils.resizeTo(new Texture("spotLight.png"), 500), 0, 0, true);
         spotLight.setX(400 - spotLight.getWidth() / 2f);
         spotLight.setY(300 - spotLight.getHeight() / 2f);
         spotLight.setAlpha(0f);
@@ -106,14 +107,19 @@ public class Main extends ApplicationAdapter {
         playButtonAni.setX(400 - playButtonAni.getWidth() / 2f + 100);
         playButtonAni.setY(300 - playButtonAni.getHeight() / 2f - 400);
         playButton = new Button(playButtonTexture, 0, 0, () -> {
+            animationManager.animateScale(spotLight, spotLight.getScaleX() * 20, spotLight.getScaleY() * 20, 0.1f, AnimationManager.Easing.LINEAR);
             introSong.stop();
-            spotLight.setAlpha(1f);
             Sound effect = Gdx.audio.newSound(Gdx.files.internal("audio/playEffect.mp3"));
             effect.play();
             playButton.setVisible(false);
             playButtonAni.setRotation(0f);
             animationManager.animateScale(playButtonAni, playButtonAni.getScaleX() * 100, playButtonAni.getScaleY() * 100, 2, AnimationManager.Easing.EASE_IN_OUT_EXPO);
-            animationManager.animateScale(spotLight, spotLight.getScaleX() / 10, spotLight.getScaleY() / 10, 2, AnimationManager.Easing.LINEAR);
+            cutsceneManager.addEvent(new CutsceneEvent(timePassed + 0.1f, () -> {
+                spotLight.setAlpha(1f);
+            }));
+            cutsceneManager.addEvent(new CutsceneEvent(timePassed + 0.2f, () -> {
+                animationManager.animateScale(spotLight, spotLight.getScaleX() / 40, spotLight.getScaleY() / 40, 1f, AnimationManager.Easing.EASE_OUT_BOUNCE);
+            }));
             cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
                 gameState = GameState.WORLD;
                 disposeIntro();
@@ -219,6 +225,10 @@ public class Main extends ApplicationAdapter {
             Player.getInstance().getCurrentAppliance().display(batch);
             batch.end();
         } else if (gameState == GameState.WORLD) {
+            if (spotLight != null) {
+                spotLight.dispose();
+                spotLight = null;
+            }
             batch.begin();
             for (Sprite sprite : spriteObjects) sprite.render(batch);
             font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 30, 30);
