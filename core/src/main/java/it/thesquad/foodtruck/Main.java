@@ -94,6 +94,10 @@ public class Main extends ApplicationAdapter {
         allRoadsLeadToRome.setY(300 - allRoadsLeadToRome.getHeight() / 2f);
         allRoadsLeadToRome.setAlpha(0f);
 
+        AnimatedSprite drink = new AnimatedSprite("drink", Utils.resizeTo(new Texture("the_drink.png"), 50), 0, 0, true);
+        drink.setX(400 - drink.getWidth() / 2f + 800);
+        drink.setY(300 - drink.getHeight() / 2f);
+
         AnimatedSprite logo = new AnimatedSprite("logo", Utils.resizeTo(new Texture("grease_up.png"), 120), 0, 0, true);
         logo.setX(400 - logo.getWidth() / 2f);
         logo.setY(300 - logo.getHeight() / 2f - 600);
@@ -169,14 +173,14 @@ public class Main extends ApplicationAdapter {
             animationManager.animateMove(logo, logo.getX(), logo.getY() + 600, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(4.67f, () -> {
-            animationManager.animateFade(flash, 1f, 0.5f, AnimationManager.Easing.LINEAR);
+            animationManager.animateFade(flash, 1f, 0.3f, AnimationManager.Easing.LINEAR);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(5f, () -> {
             animationManager.animateRotation(gdxLogo, gdxLogo.getRotation() + 15, 5f, AnimationManager.Easing.EASE_OUT_QUAD);
             animationManager.animateMove(gdxLogo, gdxLogo.getX() - 200, gdxLogo.getY() + 150, 3f, AnimationManager.Easing.EASE_IN_OUT_CUBIC);
             animationManager.animateFade(focus, 0.67f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateFade(allRoadsLeadToRome, 1f, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
-            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 300, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
+            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() - 250, allRoadsLeadToRome.getY(), 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(5.5f, () -> {
             renderParallax = true;
@@ -187,12 +191,13 @@ public class Main extends ApplicationAdapter {
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateMove(playButtonAni, playButtonAni.getX(), playButtonAni.getY() + 400, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
+            animationManager.animateMove(drink, drink.getX() - 700, drink.getY() - 175, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             introSong.setVolume(0.90f);
             animationManager.animateRotation(gdxLogo, 20, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
             animationManager.animateFade(logo, (float) (logo.getAlpha() - 0.5), 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
-            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() + 10, allRoadsLeadToRome.getY() + 10, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
+            animationManager.animateMove(allRoadsLeadToRome, allRoadsLeadToRome.getX() + 50, allRoadsLeadToRome.getY() + 10, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
             animationManager.animateFade(focus, 1, 9999 * 3, AnimationManager.Easing.EASE_OSCILLATE_INFINITE);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(12f, () -> {
@@ -213,6 +218,10 @@ public class Main extends ApplicationAdapter {
         if (introSong != null) introSong.dispose();
         if (playButton != null) playButton.dispose();
         if (playButtonAni != null) playButtonAni.dispose();
+
+        for (AnimatedSprite aSprite : animatedSprites) {
+            if (aSprite != null) aSprite.dispose();
+        }
 
         bgm.play();
         cutsceneManager.addEvent(new CutsceneEvent(timePassed + 1, () -> {
