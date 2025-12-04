@@ -18,6 +18,8 @@ public class CustomerQueue {
     }
 
     public void shift() {
+        array.get(0).showClank();
+        // wait 3 sec
         array.remove(0);
         array.add(new Customer());
         getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
