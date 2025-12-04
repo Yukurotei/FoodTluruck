@@ -60,6 +60,10 @@ public class CompleteOrder {
         return drink;
     }
 
+    public void setMainEntree(CompleteFood c) {
+        mainEntree = c;
+    }
+
 
     public void setSideDish(CompleteFood c) {
         sideDish = c;
