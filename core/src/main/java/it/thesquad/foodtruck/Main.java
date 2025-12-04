@@ -191,7 +191,7 @@ public class Main extends ApplicationAdapter {
             animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateMove(playButtonAni, playButtonAni.getX(), playButtonAni.getY() + 400, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
-            animationManager.animateMove(drink, drink.getX() - 700, drink.getY() - 175, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
+            animationManager.animateMove(drink, drink.getX() - 700, drink.getY() - 175, 2.5f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
         }));
         cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
             introSong.setVolume(0.90f);
