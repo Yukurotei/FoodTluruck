@@ -8,6 +8,7 @@ import it.thesquad.foodtruck.player.Player;
 public class Lettuce implements Ingredient {
 
     private final Sprite lettuce;
+    private int accuracy = 5;
 
     public Lettuce(Sprite lettuce) {
         this.lettuce = lettuce;
@@ -37,7 +38,7 @@ public class Lettuce implements Ingredient {
 
     @Override
     public int getAccuracy() {
-        return 0;
+        return accuracy;
     }
 
     @Override

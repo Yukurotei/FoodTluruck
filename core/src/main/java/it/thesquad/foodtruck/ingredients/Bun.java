@@ -8,7 +8,7 @@ import it.thesquad.foodtruck.player.Player;
 public class Bun implements Ingredient {
 
     private Sprite bread;
-    private int accuracy;
+    private int accuracy = 5;
 
 
     public Bun(Sprite bread) {
