@@ -5,6 +5,7 @@ public class CompleteOrder {
     private CompleteFood sideDish;
     private CompleteFood dessertsDish;
     private Drinks drink;
+    private boolean isComplete;
 
     /**
      * 
@@ -19,6 +20,7 @@ public class CompleteOrder {
         this.sideDish = sideDish;
         this.dessertsDish = dessertsDish;
         this.drink = drink;
+        this.isComplete = false;
     }
 
     /**
@@ -36,6 +38,10 @@ public class CompleteOrder {
      */
     public CompleteFood getSideDish() {
         return sideDish;
+    }
+
+    public void complete() {
+        isComplete = true;
     }
 
     /**
