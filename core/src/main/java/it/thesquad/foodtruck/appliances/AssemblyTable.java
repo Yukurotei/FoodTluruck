@@ -105,7 +105,7 @@ public class AssemblyTable extends Table {
                 items.remove(tomato);
                 items.remove(pickle);
                 items.remove(lettuce);
-                items.add(new Burger(new Sprite(Utils.resizeTo(new Texture("burger.png"), 60), tableItem.getSprite().getX(), tableItem.getSprite().getY(), false)));
+                items.add(new Burger(new Sprite(Utils.resizeTo(new Texture("burger.png"), 60), tableItem.getSprite().getX(), tableItem.getSprite().getY(), false), patty));
                 updateIngredientPos();
                 tableItem = items.get(items.size() - 1);
                 wrapSound = Gdx.audio.newSound(Gdx.files.internal("audio/bag-crinkling.mp3"));
