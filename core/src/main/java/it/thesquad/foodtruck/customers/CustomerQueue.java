@@ -2,6 +2,11 @@ package it.thesquad.foodtruck.customers;
 
 import java.util.ArrayList;
 
+import it.thesquad.foodtruck.Main;
+import it.thesquad.foodtruck.logic.AnimatedSprite;
+import it.thesquad.foodtruck.logic.AnimationManager;
+import it.thesquad.foodtruck.logic.CutsceneEvent;
+
 public class CustomerQueue {
     private ArrayList<Customer> array = new ArrayList<Customer>();
     
@@ -14,6 +19,9 @@ public class CustomerQueue {
 
     public void shift() {
         array.remove(0);
+        Main.cutsceneManager.addEvent(new CutsceneEvent(3f, () -> {
+            Main.animationManager.animateMove(new AnimatedSprite(getElm(0).getSprite()), getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 600, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
+        }));
     }
 
     /**
