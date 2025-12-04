@@ -19,16 +19,20 @@ public class CustomerQueue {
 
     public void shift() {
         array.get(0).showClank();
-        // wait 3 sec
-        array.remove(0);
-        array.add(new Customer());
-        getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
-        getElm(0).getSprite().setY(-150);
-        AnimatedSprite customerAnimated = new AnimatedSprite("customer", getElm(0).getSprite().getTexture(), getElm(0).getSprite().getX(), getElm(0).getSprite().getY(), true);
-        customerAnimated.setAlpha(1f);
-        getElm(0).setAnimatedSprite(customerAnimated);
         Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 3f, () -> {
-            Main.animationManager.animateMove(customerAnimated, getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            Main.animationManager.animateMove(array.get(0).getAnimatedSprite(), array.get(0).getSprite().getX(), array.get(0).getSprite().getY() - 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 3f, () -> {
+                array.remove(0);
+                array.add(new Customer());
+                getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
+                getElm(0).getSprite().setY(-150);
+                AnimatedSprite customerAnimated = new AnimatedSprite("customer", getElm(0).getSprite().getTexture(), getElm(0).getSprite().getX(), getElm(0).getSprite().getY(), true);
+                customerAnimated.setAlpha(1f);
+                getElm(0).setAnimatedSprite(customerAnimated);
+                Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 2f, () -> {
+                    Main.animationManager.animateMove(customerAnimated, getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+                }));
+            }));
         }));
     }
 

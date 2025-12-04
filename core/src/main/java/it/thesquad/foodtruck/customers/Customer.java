@@ -71,7 +71,8 @@ public class Customer {
     }
 
     public void clankerReview(BitmapFont font, SpriteBatch batch) {
-        font.draw(batch, getOrderMsg(), getSprite().getX()+65, getSprite().getY()+55);
+        if (animatedSprite == null) return;
+        font.draw(batch, getOrderMsg(), animatedSprite.getX()+65, animatedSprite.getY()+55);
     }
 
     public void showClank() {
