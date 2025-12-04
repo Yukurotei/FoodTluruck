@@ -9,7 +9,7 @@ import it.thesquad.foodtruck.logic.CutsceneEvent;
 
 public class CustomerQueue {
     private ArrayList<Customer> array = new ArrayList<Customer>();
-    
+
     /**
      * @param customer the customer object
      */
@@ -19,13 +19,13 @@ public class CustomerQueue {
 
     public void shift() {
         array.remove(0);
-        Main.cutsceneManager.addEvent(new CutsceneEvent(3f, () -> {
+        Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 3f, () -> {
             Main.animationManager.animateMove(new AnimatedSprite(getElm(0).getSprite()), getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 600, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
         }));
     }
 
     /**
-     * 
+     *
      * @param index the index
      * @return the customer object at the index
      */

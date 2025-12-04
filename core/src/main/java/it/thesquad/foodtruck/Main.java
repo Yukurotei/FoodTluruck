@@ -70,7 +70,7 @@ public class Main extends ApplicationAdapter {
         interactionSprite.setVisible(false);
         new Player(Utils.resizeTo(new Texture("john_hands.png"),50), interactionSprite);
         customerQueue.add(new Customer());
-        
+
         font = new BitmapFont();
 
         backgroundTexture = Utils.resizeTo(new Texture("floorPattern.png"), 800, 600);
@@ -204,10 +204,6 @@ public class Main extends ApplicationAdapter {
     //     } catch (Exception e) {
     //         e.printStackTrace();
     //     }
-
-        cutsceneManager.addEvent(new CutsceneEvent(3f, () -> {
-                animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX() + 200, customerQueue.getElm(0).getSprite().getY() + 200, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
-        }));
     }
 
     public void disposeIntro() {
@@ -223,6 +219,9 @@ public class Main extends ApplicationAdapter {
                     bgm.setVolume(ia);
                 }));
             }
+        }));
+        cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
+            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX() + 200, customerQueue.getElm(0).getSprite().getY() + 200, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
         }));
     }
 
