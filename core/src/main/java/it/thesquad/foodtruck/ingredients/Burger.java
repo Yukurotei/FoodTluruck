@@ -11,4 +11,8 @@ public class Burger extends Bun
         super(bread);
         this.patty = patty;
     }
+
+    public Patty getPatty() {
+        return patty;
+    }
 }
