@@ -181,7 +181,7 @@ public class Main extends ApplicationAdapter {
         }));
         cutsceneManager.addEvent(new CutsceneEvent(9f, () -> {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() - gdxLogo.getScaleX() / 5, gdxLogo.getScaleY() - gdxLogo.getScaleY() / 5, 3f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
-            animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_SINE);
+            animationManager.animateMove(logo, logo.getX() - 200, logo.getY() - 100, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateScale(logo, logo.getScaleX() - logo.getScaleX() / 5, logo.getScaleY() - logo.getScaleY() / 5, 3.5f, AnimationManager.Easing.EASE_IN_OUT_BACK);
             animationManager.animateMove(playButtonAni, playButtonAni.getX(), playButtonAni.getY() + 400, 3f, AnimationManager.Easing.EASE_IN_OUT_BACK);
         }));
@@ -220,8 +220,10 @@ public class Main extends ApplicationAdapter {
                 }));
             }
         }));
+        customerQueue.getElm(0).getSprite().setX(400 - (customerQueue.getElm(0).getSprite().getWidth() / 2));
+        customerQueue.getElm(0).getSprite().setY(-100);
         cutsceneManager.addEvent(new CutsceneEvent(timePassed + 3f, () -> {
-            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX() + 200, customerQueue.getElm(0).getSprite().getY() + 200, 6f, AnimationManager.Easing.LINEAR);
+            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY() + 250, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
         }));
     }
 
