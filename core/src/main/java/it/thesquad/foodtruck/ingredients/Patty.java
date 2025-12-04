@@ -79,14 +79,14 @@ public class Patty implements Ingredient {
     public void setCookedPercentage(int cookedPercentage) {
         if (cookedPercentage < 0) cookedPercentage = 0;
         if (cookedPercentage > 100) cookedPercentage = 100;
-        
+
         this.cookedPercentage = cookedPercentage;
     }
 
 
     /**
      * @author MR CLANKER GEMINI TY DADDY (the formula)
-     * @return
+     * @return int through 0 - 5, 5 being the best
      */
     public int calcAccuracy() {
         if (cookedPercentage < 0 || cookedPercentage > 100) return 0;
