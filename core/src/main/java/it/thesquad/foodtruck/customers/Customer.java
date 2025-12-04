@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.CompleteOrder;
 import it.thesquad.foodtruck.logic.Sprite;
@@ -16,6 +17,7 @@ public class Customer {
     CompleteOrder completeOrder;
     Review review;
     Sprite sprite;
+    boolean showClank;
 
     /**
      * Creates a new customer with a random order
@@ -66,8 +68,16 @@ public class Customer {
         return "I want " + getOrder().toString();
     }
 
-    public String getClankerReview() {
-        return Utils.getReview(getOrderMsg(), completeOrder.getAccuracy());
+    public void clankerReview(BitmapFont font, SpriteBatch batch) {
+        font.draw(batch, getOrderMsg(), getSprite().getX()+65, getSprite().getY()+55);
+    }
+
+    public void showClank() {
+        showClank = true;
+    }
+
+    public boolean shouldShowClank() {
+        return showClank;
     }
 
     public Sprite getSprite() {

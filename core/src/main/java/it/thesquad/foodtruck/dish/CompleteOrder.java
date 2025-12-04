@@ -1,5 +1,7 @@
 package it.thesquad.foodtruck.dish;
 
+import it.thesquad.foodtruck.Main;
+
 public class CompleteOrder {
     private CompleteFood mainEntree;
     private CompleteFood sideDish;
@@ -42,6 +44,10 @@ public class CompleteOrder {
 
     public void complete() {
         isComplete = true;
+        Main.customerQueue.getElm(0).showClank();
+        
+        Main.customerQueue.shift();
+
     }
 
     /**

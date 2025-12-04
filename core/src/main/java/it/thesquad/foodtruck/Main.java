@@ -260,7 +260,11 @@ public class Main extends ApplicationAdapter {
             for (AnimatedSprite sprite : animatedSprites) {
                 for (Customer customer : customerQueue.getArrayList()) {
                     if (customer.getSprite() == sprite) {
-                        customer.drawOrderMsg(font, batch);
+                        if (customer.shouldShowClank()) {
+                            customer.drawOrderMsg(font, batch);
+                        } else {
+                            customer.clankerReview(font, batch);
+                        }
                     }
                 }
             }
