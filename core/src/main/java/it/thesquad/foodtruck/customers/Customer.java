@@ -23,6 +23,7 @@ public class Customer {
     public Customer() {
         this.order = Utils.randomOrder();
         this.sprite = new Sprite(Utils.randomCustomerTexture(), 0, 0, true);
+        this.completeOrder = new CompleteOrder(null, null, null, null);
     }
 
     /**
@@ -38,10 +39,6 @@ public class Customer {
      */
     public CompleteOrder getCompleteOrder() {
         return completeOrder;
-    }
-
-    public void setCompleteOrder(CompleteOrder completeOrder) {
-        this.completeOrder = completeOrder;
     }
 
     /**
