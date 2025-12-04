@@ -19,6 +19,7 @@ public class CustomerQueue {
 
     public void shift() {
         array.remove(0);
+        array.add(new Customer());
         getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
         getElm(0).getSprite().setY(-150);
         AnimatedSprite customerAnimated = new AnimatedSprite("customer", getElm(0).getSprite().getTexture(), getElm(0).getSprite().getX(), getElm(0).getSprite().getY(), true);
