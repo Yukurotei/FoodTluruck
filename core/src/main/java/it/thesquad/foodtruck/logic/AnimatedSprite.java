@@ -24,6 +24,10 @@ public class AnimatedSprite extends Sprite {
         }
     }
 
+    public AnimatedSprite(Sprite s) {
+        super(s.getTexture(), s.getX(), s.getY(), true);
+    }
+
     public void setSpriteID(String spriteID) {
         this.spriteID = spriteID;
     }
