@@ -39,6 +39,8 @@ public class Main extends ApplicationAdapter {
     private BitmapFont font;
     public static float timePassed; //in seconds
 
+    public static OrderWindow orderWindow;
+
     private Music introSong;
     private Music bgm;
     private ParallaxBackground parallaxBackground;
@@ -65,6 +67,7 @@ public class Main extends ApplicationAdapter {
         Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
         AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("assemblyTable.png"), 20), 300, 500);
         FoodCupboard cupboard = new FoodCupboard(Utils.resizeTo(new Texture("foodCupboard.png"), 20), 500, 500);
+        orderWindow = new OrderWindow(Utils.resizeTo(new Texture("orderWindow.png"), 20), 340, 300);
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
         interactionSprite.setVisible(false);
