@@ -69,7 +69,7 @@ public class CompleteOrder {
         dessertsDish = c;
     }
 
-    public void setMainEntree(Drinks d) {
+    public void setDrink(Drinks d) {
         drink = d;
     }
     /**
