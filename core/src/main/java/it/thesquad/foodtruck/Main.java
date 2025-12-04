@@ -21,6 +21,7 @@ import it.thesquad.foodtruck.player.Player;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -39,6 +40,7 @@ public class Main extends ApplicationAdapter {
     public static float timePassed; //in seconds
 
     private Music introSong;
+    private Music bgm;
     private ParallaxBackground parallaxBackground;
     private boolean renderParallax = false;
     private Button playButton;
@@ -146,6 +148,10 @@ public class Main extends ApplicationAdapter {
         introSong.setVolume(1f);
         introSong.setPosition(2);
 
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("audio/elevator-music.mp3"));
+        bgm.setLooping(true);
+        bgm.setVolume(0f);
+
         cutsceneManager.addEvent(new CutsceneEvent(1f, () -> {
             animationManager.animateScale(gdxLogo, gdxLogo.getScaleX() * 10, gdxLogo.getScaleY() * 10, 8f, AnimationManager.Easing.EASE_IN_OUT_EXPO);
             animationManager.animateFade(gdxLogo, 1f, 5f, AnimationManager.Easing.EASE_IN_OUT_QUAD);
@@ -205,6 +211,16 @@ public class Main extends ApplicationAdapter {
         if (introSong != null) introSong.dispose();
         if (playButton != null) playButton.dispose();
         if (playButtonAni != null) playButtonAni.dispose();
+
+        bgm.play();
+        cutsceneManager.addEvent(new CutsceneEvent(timePassed + 1, () -> {
+            for (int i = 1; i <= 100; i++) {
+                float ia = i;
+                cutsceneManager.addEvent(new CutsceneEvent(timePassed + i, () -> {
+                    bgm.setVolume(ia);
+                }));
+            }
+        }));
     }
 
     @Override
@@ -218,6 +234,8 @@ public class Main extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
+        cutsceneManager.update(timePassed);
 
         if (gameState == GameState.MINIGAME) {
             ScreenUtils.clear(0f, 0f, 0f, 1f);
@@ -239,8 +257,6 @@ public class Main extends ApplicationAdapter {
 
             //ScreenUtils.clear(237/255f, 185/255f, 43/255f, 1f);
             if (renderParallax) parallaxBackground.render(camera, batch);
-
-            cutsceneManager.update(timePassed);
 
             for (AnimatedSprite aSprite : animatedSprites) {
                 aSprite.render(batch);
