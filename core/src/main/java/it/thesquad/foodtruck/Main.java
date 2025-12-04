@@ -160,7 +160,7 @@ public class Main extends ApplicationAdapter {
         introSong.setVolume(1f);
         introSong.setPosition(2);
 
-        bgm = Gdx.audio.newMusic(Gdx.files.internal("audio/elevator-music.mp3"));
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("audio/elevator-music-fix.mp3"));
         bgm.setLooping(true);
         bgm.setVolume(0f);
 
