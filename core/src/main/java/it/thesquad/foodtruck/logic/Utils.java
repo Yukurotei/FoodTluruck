@@ -213,7 +213,7 @@ public final class Utils {
 
     public static String getReview(String order, int stars) {
         try {
-            URL url = new URL("http://ai.sebweb.ca/v1/chat/completions");
+            URL url = new URL("http://ai.webseb.ca/v1/chat/completions");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("POST");

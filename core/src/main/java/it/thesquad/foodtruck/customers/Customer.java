@@ -20,6 +20,7 @@ public class Customer {
     Sprite sprite;
     AnimatedSprite animatedSprite;
     boolean showClank;
+    String clankerRev;
 
     /**
      * Creates a new customer with a random order
@@ -72,7 +73,12 @@ public class Customer {
 
     public void clankerReview(BitmapFont font, SpriteBatch batch) {
         if (animatedSprite == null) return;
-        font.draw(batch, getOrderMsg(), animatedSprite.getX()+65, animatedSprite.getY()+55);
+        if (clankerRev != null) {
+            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+55);
+        } else {
+            clankerRev = Utils.getReview(getOrderMsg(), completeOrder.getMainEntree().getAccuracy());
+            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+55);
+        }
     }
 
     public void showClank() {
