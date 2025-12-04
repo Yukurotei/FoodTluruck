@@ -296,4 +296,31 @@ public final class Utils {
         }
         return null;
     }
+
+    /**
+     * Wraps text by inserting newline characters after a specified number of words.
+     *
+     * @param text The input string to wrap.
+     * @param wordsPerLine The approximate number of words before a line break.
+     * @return The wrapped string.
+     */
+    public static String wrapText(String text, int wordsPerLine) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder wrappedText = new StringBuilder();
+        String[] words = text.split(" ");
+        int wordCount = 0;
+
+        for (String word : words) {
+            wrappedText.append(word).append(" ");
+            wordCount++;
+            if (wordCount >= wordsPerLine) {
+                wrappedText.append("\n");
+                wordCount = 0;
+            }
+        }
+        return wrappedText.toString().trim();
+    }
 }

@@ -74,10 +74,10 @@ public class Customer {
     public void clankerReview(BitmapFont font, SpriteBatch batch) {
         if (animatedSprite == null) return;
         if (clankerRev != null) {
-            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+55);
+            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+35);
         } else {
-            clankerRev = Utils.getReview(getOrderMsg(), completeOrder.getMainEntree().getAccuracy());
-            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+55);
+            clankerRev = Utils.wrapText(Utils.getReview(getOrderMsg(), completeOrder.getMainEntree().getAccuracy()), 10);
+            font.draw(batch, clankerRev, animatedSprite.getX()+65, animatedSprite.getY()+35);
         }
     }
 
@@ -103,6 +103,6 @@ public class Customer {
 
     public void drawOrderMsg(BitmapFont font, SpriteBatch batch) {
         if (animatedSprite == null) return;
-        font.draw(batch, getOrderMsg(), animatedSprite.getX()+65, animatedSprite.getY()+55);
+        font.draw(batch, getOrderMsg(), animatedSprite.getX()+65, animatedSprite.getY()+35);
     }
 }

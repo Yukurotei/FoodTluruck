@@ -28,8 +28,10 @@ public class OrderWindow extends Table {
                 if (Main.customerQueue.getElm(0).getOrder().getMainEntree().getFood() == Foods.BURGER && tableItem instanceof Burger) {
                     Main.customerQueue.getElm(0).getCompleteOrder().setMainEntree(new CompleteFood(Foods.BURGER, Sizes.MEDIUM, tableItem.getSprite()));
                     Main.customerQueue.getElm(0).getCompleteOrder().getMainEntree().addIngredient(((Burger) tableItem).getPatty());
+                    Main.customerQueue.getElm(0).getCompleteOrder().complete(); //TODO: TEMP, CHECK IF ALL ORDERS ARE SATISFIED THEN COMPLETE
                     tableItem = null;
-                    Main.customerQueue.getElm(0).getCompleteOrder().complete();
+                    this.end();
+                    Main.gameState = Main.GameState.WORLD;
                 }
             }
         }
