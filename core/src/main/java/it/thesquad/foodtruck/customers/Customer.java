@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.CompleteOrder;
+import it.thesquad.foodtruck.logic.AnimatedSprite;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.reputation.Reputation;
@@ -17,6 +18,7 @@ public class Customer {
     CompleteOrder completeOrder;
     Review review;
     Sprite sprite;
+    AnimatedSprite animatedSprite;
     boolean showClank;
 
     /**
@@ -84,7 +86,16 @@ public class Customer {
         return sprite;
     }
 
+    public void setAnimatedSprite(AnimatedSprite animatedSprite) {
+        this.animatedSprite = animatedSprite;
+    }
+
+    public AnimatedSprite getAnimatedSprite() {
+        return animatedSprite;
+    }
+
     public void drawOrderMsg(BitmapFont font, SpriteBatch batch) {
-        font.draw(batch, getOrderMsg(), getSprite().getX()+65, getSprite().getY()+55);
+        if (animatedSprite == null) return;
+        font.draw(batch, getOrderMsg(), animatedSprite.getX()+65, animatedSprite.getY()+55);
     }
 }

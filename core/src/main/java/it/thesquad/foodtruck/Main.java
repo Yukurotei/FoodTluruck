@@ -225,8 +225,11 @@ public class Main extends ApplicationAdapter {
         }));
         customerQueue.getElm(0).getSprite().setX(400 - (customerQueue.getElm(0).getSprite().getWidth() / 2));
         customerQueue.getElm(0).getSprite().setY(-150);
+        AnimatedSprite customerAnimated = new AnimatedSprite("customer", customerQueue.getElm(0).getSprite().getTexture(), customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY(), true);
+        customerAnimated.setAlpha(1f);
+        customerQueue.getElm(0).setAnimatedSprite(customerAnimated);
         cutsceneManager.addEvent(new CutsceneEvent(timePassed + 3f, () -> {
-            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            animationManager.animateMove(customerAnimated, customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
         }));
     }
 
@@ -257,17 +260,14 @@ public class Main extends ApplicationAdapter {
             batch.begin();
             batch.draw(backgroundTexture, 0, 0);
             for (Sprite sprite : spriteObjects) sprite.render(batch);
-            for (AnimatedSprite sprite : animatedSprites) {
-                for (Customer customer : customerQueue.getArrayList()) {
-                    if (customer.getSprite() == sprite) {
-                        if (customer.shouldShowClank()) {
-                            customer.drawOrderMsg(font, batch);
-                        } else {
-                            customer.clankerReview(font, batch);
-                        }
-                    }
+            for (Customer customer : customerQueue.getArrayList()) {
+                if (!customer.shouldShowClank()) {
+                    customer.drawOrderMsg(font, batch);
+                } else {
+                    customer.clankerReview(font, batch);
                 }
             }
+            customerQueue.getElm(0).getAnimatedSprite().render(batch);
             batch.end();
         } else if (gameState == GameState.INTRO) {
             parallaxBackground.update(dt);

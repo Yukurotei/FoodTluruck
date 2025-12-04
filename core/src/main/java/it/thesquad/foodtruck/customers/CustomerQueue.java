@@ -19,10 +19,13 @@ public class CustomerQueue {
 
     public void shift() {
         array.remove(0);
+        getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
+        getElm(0).getSprite().setY(-150);
+        AnimatedSprite customerAnimated = new AnimatedSprite("customer", getElm(0).getSprite().getTexture(), getElm(0).getSprite().getX(), getElm(0).getSprite().getY(), true);
+        customerAnimated.setAlpha(1f);
+        getElm(0).setAnimatedSprite(customerAnimated);
         Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 3f, () -> {
-            getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
-            getElm(0).getSprite().setY(-150);
-            Main.animationManager.animateMove(new AnimatedSprite(getElm(0).getSprite()), getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            Main.animationManager.animateMove(customerAnimated, getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
         }));
     }
 
