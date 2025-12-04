@@ -40,7 +40,7 @@ public final class Utils {
                                 .filter(f -> f.getCategory() == Foods.Category.DESSERT)
                                 .toList();
 
-        return new Order(new Food(mains.get((int)Math.floor(Math.random()*mains.size())),randomSize()), new Food(sides.get((int)Math.floor(Math.random()*sides.size())),randomSize()), new Food(desserts.get((int)Math.floor(Math.random()*desserts.size())),randomSize()),
+        return new Order(new Food(Foods.BURGER/*mains.get((int)Math.floor(Math.random()*mains.size()))*/,randomSize()), new Food(sides.get((int)Math.floor(Math.random()*sides.size())),randomSize()), new Food(desserts.get((int)Math.floor(Math.random()*desserts.size())),randomSize()),
             Drinks.BEER);
     }
 
@@ -49,7 +49,7 @@ public final class Utils {
      * @return a random size (LARGE, MEDIUM, SMALL)
      */
     public static Sizes randomSize() {
-        int pick = (int)Math.floor(Math.random()*3);
+        int pick = 1;//(int)Math.floor(Math.random()*3);
         return switch (pick) {
             case 0 -> Sizes.LARGE;
             case 1 -> Sizes.MEDIUM;

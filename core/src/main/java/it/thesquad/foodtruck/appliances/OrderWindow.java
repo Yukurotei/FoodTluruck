@@ -29,6 +29,7 @@ public class OrderWindow extends Table {
                     Main.customerQueue.getElm(0).getCompleteOrder().setMainEntree(new CompleteFood(Foods.BURGER, Sizes.MEDIUM, tableItem.getSprite()));
                     Main.customerQueue.getElm(0).getCompleteOrder().getMainEntree().addIngredient(((Burger) tableItem).getPatty());
                     tableItem = null;
+                    Main.customerQueue.getElm(0).getCompleteOrder().complete();
                 }
             }
         }
