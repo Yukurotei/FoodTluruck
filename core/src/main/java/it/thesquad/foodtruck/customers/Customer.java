@@ -40,6 +40,10 @@ public class Customer {
         return completeOrder;
     }
 
+    public void setCompleteOrder(CompleteOrder completeOrder) {
+        this.completeOrder = completeOrder;
+    }
+
     /**
      *
      * @param review the review given by the customer
