@@ -60,6 +60,18 @@ public class CompleteOrder {
         return drink;
     }
 
+
+    public void setSideDish(CompleteFood c) {
+        sideDish = c;
+    }
+
+    public void setDessertsDish(CompleteFood c) {
+        dessertsDish = c;
+    }
+
+    public void setMainEntree(Drinks d) {
+        drink = d;
+    }
     /**
      * @return the obj to a string
      */
