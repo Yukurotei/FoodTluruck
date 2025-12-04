@@ -24,4 +24,8 @@ public class CustomerQueue {
     public Customer getElm(int index) {
         return array.get(index);
     }
+
+    public ArrayList<Customer> getArrayList() {
+        return array;
+    }
 }

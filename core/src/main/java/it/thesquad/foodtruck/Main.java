@@ -249,7 +249,13 @@ public class Main extends ApplicationAdapter {
             batch.begin();
             batch.draw(backgroundTexture, 0, 0);
             for (Sprite sprite : spriteObjects) sprite.render(batch);
-            font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 30, 30);
+            for (Sprite sprite : spriteObjects) {
+                for (Customer customer : customerQueue.getArrayList()) {
+                    if (customer.getSprite() == sprite) {
+                        customer.drawOrderMsg(font, batch);
+                    }
+                }
+            }
             batch.end();
         } else if (gameState == GameState.INTRO) {
             parallaxBackground.update(dt);

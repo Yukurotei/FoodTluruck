@@ -1,6 +1,8 @@
 package it.thesquad.foodtruck.customers;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import it.thesquad.foodtruck.Order;
 import it.thesquad.foodtruck.dish.CompleteOrder;
@@ -69,5 +71,9 @@ public class Customer {
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void drawOrderMsg(BitmapFont font, SpriteBatch batch) {
+        font.draw(batch, getOrderMsg(), getSprite().getX()+65, getSprite().getY()+55);
     }
 }
