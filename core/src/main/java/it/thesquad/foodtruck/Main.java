@@ -220,8 +220,8 @@ public class Main extends ApplicationAdapter {
                 }));
             }
         }));
-        cutsceneManager.addEvent(new CutsceneEvent(timePassed + 2, () -> {
-            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX() + 200, customerQueue.getElm(0).getSprite().getY() + 200, 6f, AnimationManager.Easing.EASE_IN_OUT_ELASTIC);
+        cutsceneManager.addEvent(new CutsceneEvent(timePassed + 3f, () -> {
+            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX() + 200, customerQueue.getElm(0).getSprite().getY() + 200, 6f, AnimationManager.Easing.LINEAR);
         }));
     }
 
