@@ -285,8 +285,7 @@ public final class Utils {
     }
 
     public static Texture randomCustomerTexture() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'randomCustomerTexture'");
+        return new Texture("human_base.png");
     }
 
     public static AnimatedSprite getAnimatedSprite(String id) {
