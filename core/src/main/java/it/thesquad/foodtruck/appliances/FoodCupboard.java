@@ -90,7 +90,7 @@ public class FoodCupboard extends Appliance {
         }
         if (lettucePile != null) {
             lettucePile.dispose();
-            lettucePile = null;//tes
+            lettucePile = null;
         }
         cupboardTexture.dispose();
     }
