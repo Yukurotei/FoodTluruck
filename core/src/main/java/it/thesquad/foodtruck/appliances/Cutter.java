@@ -1,6 +1,7 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -29,6 +30,8 @@ public class Cutter extends Appliance {
     private float cutProgress = 0f;
 
     private boolean justPlaced = false;
+
+    private Sound cuttingSound;
 
     public Cutter(Texture texture, int x, int y) {
         super(texture, x, y);
@@ -70,6 +73,8 @@ public class Cutter extends Appliance {
                 justPlaced = true;
                 isCutting = true;
                 cutProgress = 0f;
+                cuttingSound = Gdx.audio.newSound(Gdx.files.internal("audio/knife-chop.mp3"));
+                cuttingSound.play();
 
                 currentBun.setX(330);
                 currentBun.setY(260);
@@ -93,11 +98,16 @@ public class Cutter extends Appliance {
 
         if (isCutting && currentBun != null) {
             cutProgress += dt;
-            if (cutProgress >= 1f) performCut();
+            if (cutProgress >= 5f) performCut();
         }
     }
 
     private void performCut() {
+        if (cuttingSound != null) {
+            cuttingSound.stop();
+            cuttingSound.dispose();
+            cuttingSound = null;
+        }
         cutTop = new Sprite(bunTopTexture, 330, 280, false);
         cutBottom = new Sprite(bunBottomTexture, 330, 240, false);
 

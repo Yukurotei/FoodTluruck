@@ -52,7 +52,6 @@ public class FoodCupboard extends Appliance {
         });
         lettucePile = new Button(Utils.resizeTo(new Texture("lettuce.png"), 50), 300, 300, () -> {
             if (Player.getInstance().getCurrentIngredient() == null && !justGrabbed) {
-                System.out.println("LETTUCED");
                 justGrabbed = true;
                 Player.getInstance().setCurrentIngredient(new Lettuce(new Sprite(Utils.resizeTo(new Texture("lettuce.png"), 50), 0, 0, false)));
                 lettucePile.dispose();

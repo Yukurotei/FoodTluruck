@@ -1,9 +1,13 @@
 package it.thesquad.foodtruck.appliances;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import it.thesquad.foodtruck.Main;
 import it.thesquad.foodtruck.ingredients.*;
+import it.thesquad.foodtruck.logic.CutsceneEvent;
 import it.thesquad.foodtruck.logic.Sprite;
 import it.thesquad.foodtruck.logic.Utils;
 import it.thesquad.foodtruck.player.Player;
@@ -16,6 +20,8 @@ public class AssemblyTable extends Table {
     private final List<Ingredient> items;
 
     private final int offset = 20;
+
+    private Sound wrapSound;
 
     public AssemblyTable(Texture texture, int x, int y) {
         super(texture, x, y);
@@ -102,6 +108,14 @@ public class AssemblyTable extends Table {
                 items.add(new Burger(new Sprite(Utils.resizeTo(new Texture("burger.png"), 60), tableItem.getSprite().getX(), tableItem.getSprite().getY(), false)));
                 updateIngredientPos();
                 tableItem = items.get(items.size() - 1);
+                wrapSound = Gdx.audio.newSound(Gdx.files.internal("audio/bag-crinkling.mp3"));
+                wrapSound.play();
+                Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 2, () -> {
+                    if (wrapSound == null) return;
+                    wrapSound.stop();
+                    wrapSound.dispose();
+                    wrapSound = null;
+                }));
             }
         }
     }

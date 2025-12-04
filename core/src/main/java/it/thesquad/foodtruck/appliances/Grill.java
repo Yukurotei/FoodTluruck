@@ -1,6 +1,7 @@
 package it.thesquad.foodtruck.appliances;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,7 @@ public class Grill extends Appliance {
     private float cookTime = 0f;
 
     boolean justPutPatty = false; //NOTE FOR person: Reason why this exists is because buttons trigger 2 times when pressed for some reasona
+    Sound stoveSound;
 
     /**
      *
@@ -58,6 +60,11 @@ public class Grill extends Appliance {
                         + (Player.getInstance().getTexture().getWidth() / 2f) - (resizedPatty.getWidth() / 2f)
                         ,Player.getInstance().getY() + (Player.getInstance().getTexture().getHeight() / 2f) - (resizedPatty.getHeight() / 2f) - 67, false), outputPatty.getCookedPercentage()));
                     outputPatty = null;
+                    if (stoveSound != null) {
+                        stoveSound.stop();
+                        stoveSound.dispose();
+                        stoveSound = null;
+                    }
                 } else {
                     //TODO: Warn player they have something in their hands
                 }
@@ -68,6 +75,8 @@ public class Grill extends Appliance {
             isPattyCooking = true;
             currentPatty = null;
             outputPatty = new Patty(null, 0);
+            stoveSound = Gdx.audio.newSound(Gdx.files.internal("audio/gas-stove.mp3"));
+            stoveSound.loop();
         });
     }
 

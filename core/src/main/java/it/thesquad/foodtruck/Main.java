@@ -35,7 +35,7 @@ public class Main extends ApplicationAdapter {
     public static GameState gameState;
     public static CustomerQueue customerQueue = new CustomerQueue();
     public static AnimationManager animationManager;
-    private CutsceneManager cutsceneManager;
+    public static CutsceneManager cutsceneManager;
     private BitmapFont font;
     public static float timePassed; //in seconds
 
@@ -46,6 +46,8 @@ public class Main extends ApplicationAdapter {
     private Button playButton;
     private AnimatedSprite playButtonAni;
     private AnimatedSprite spotLight;
+
+    private Texture backgroundTexture;
 
     @Override
     public void create() {
@@ -61,7 +63,7 @@ public class Main extends ApplicationAdapter {
         Fridge fridge = new Fridge(Utils.resizeTo(new Texture("fridgeTopDown.png"), 50), 670, 500);
         DeepFryer fryer = new DeepFryer(Utils.resizeTo(new Texture("fryerUI.png"), 20), 700, 300);
         Table table = new Table(Utils.resizeTo(new Texture("table.png"), 20), 500, 300);
-        AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("table.png"), 20), 300, 500);
+        AssemblyTable assemblyTable = new AssemblyTable(Utils.resizeTo(new Texture("assemblyTable.png"), 20), 300, 500);
         FoodCupboard cupboard = new FoodCupboard(Utils.resizeTo(new Texture("foodCupboard.png"), 20), 500, 500);
 
         Sprite interactionSprite = new Sprite(Utils.resizeTo(new Texture("interact.png"), 50), 0, 0, true);
@@ -69,6 +71,8 @@ public class Main extends ApplicationAdapter {
         new Player(Utils.resizeTo(new Texture("john_hands.png"),50), interactionSprite);
         customerQueue.add(new Customer());
         font = new BitmapFont();
+
+        backgroundTexture = Utils.resizeTo(new Texture("floorPattern.png"), 800, 600);
 
         AnimatedSprite focus = new AnimatedSprite("focus", Utils.resizeTo(new Texture("focus.png"), 250), 0, 0, true);
         focus.setX(400 - focus.getWidth() / 2f);
@@ -191,11 +195,6 @@ public class Main extends ApplicationAdapter {
             playButton.setX(playButtonAni.getX());
             playButton.setY(playButtonAni.getY());
         }));
-        /*
-        cutsceneManager.addEvent(new CutsceneEvent(10f, () -> {
-            gameState = GameState.WORLD;
-        }));
-         */
 
     //     try {
 
@@ -248,6 +247,7 @@ public class Main extends ApplicationAdapter {
                 spotLight = null;
             }
             batch.begin();
+            batch.draw(backgroundTexture, 0, 0);
             for (Sprite sprite : spriteObjects) sprite.render(batch);
             font.draw(batch, customerQueue.getElm(0).getOrderMsg(), 30, 30);
             batch.end();
@@ -276,7 +276,6 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        //player.dispose();
         for (Sprite sprite : spriteObjects) sprite.dispose();
     }
 }
