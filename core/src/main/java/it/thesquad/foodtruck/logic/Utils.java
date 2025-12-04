@@ -285,7 +285,7 @@ public final class Utils {
     }
 
     public static Texture randomCustomerTexture() {
-        return new Texture("human_base.png");
+        return Utils.resizeTo(new Texture("human_base.png"), 40);
     }
 
     public static AnimatedSprite getAnimatedSprite(String id) {

@@ -21,8 +21,8 @@ public class CustomerQueue {
         array.remove(0);
         Main.cutsceneManager.addEvent(new CutsceneEvent(Main.timePassed + 3f, () -> {
             getElm(0).getSprite().setX(400 - (getElm(0).getSprite().getWidth() / 2));
-            getElm(0).getSprite().setY(-100);
-            Main.animationManager.animateMove(new AnimatedSprite(getElm(0).getSprite()), getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 250, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            getElm(0).getSprite().setY(-150);
+            Main.animationManager.animateMove(new AnimatedSprite(getElm(0).getSprite()), getElm(0).getSprite().getX(), getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
         }));
     }
 

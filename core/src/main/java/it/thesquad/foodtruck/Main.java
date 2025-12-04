@@ -221,9 +221,9 @@ public class Main extends ApplicationAdapter {
             }
         }));
         customerQueue.getElm(0).getSprite().setX(400 - (customerQueue.getElm(0).getSprite().getWidth() / 2));
-        customerQueue.getElm(0).getSprite().setY(-100);
+        customerQueue.getElm(0).getSprite().setY(-150);
         cutsceneManager.addEvent(new CutsceneEvent(timePassed + 3f, () -> {
-            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY() + 250, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
+            animationManager.animateMove(new AnimatedSprite(customerQueue.getElm(0).getSprite()), customerQueue.getElm(0).getSprite().getX(), customerQueue.getElm(0).getSprite().getY() + 300, 3f, AnimationManager.Easing.EASE_IN_OUT_QUART);
         }));
     }
 
