@@ -254,7 +254,7 @@ public class Main extends ApplicationAdapter {
             batch.begin();
             batch.draw(backgroundTexture, 0, 0);
             for (Sprite sprite : spriteObjects) sprite.render(batch);
-            for (Sprite sprite : spriteObjects) {
+            for (AnimatedSprite sprite : animatedSprites) {
                 for (Customer customer : customerQueue.getArrayList()) {
                     if (customer.getSprite() == sprite) {
                         customer.drawOrderMsg(font, batch);

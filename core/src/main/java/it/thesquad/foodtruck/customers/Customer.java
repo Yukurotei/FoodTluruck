@@ -22,7 +22,7 @@ public class Customer {
      */
     public Customer() {
         this.order = Utils.randomOrder();
-        this.sprite = new Sprite(new Texture("tomato.png"), 0, 0, true);
+        this.sprite = new Sprite(Utils.randomCustomerTexture(), 0, 0, true);
     }
 
     /**
