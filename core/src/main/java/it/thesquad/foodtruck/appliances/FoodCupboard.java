@@ -17,6 +17,8 @@ public class FoodCupboard extends Appliance {
     private Button lettucePile;
     private Texture cupboardTexture;
 
+    boolean justGrabbed;
+
     /**
      *
      * @param texture the texture of the appliance
@@ -30,23 +32,28 @@ public class FoodCupboard extends Appliance {
     @Override
     public void init() {
         cupboardTexture = Utils.resizeTo(new Texture("foodCupboard.png"), 400);
+        justGrabbed = false;
 
         picklePile = new Button(new Texture("pickle.png"), 200, 200, () -> {
-            if (Player.getInstance().getCurrentIngredient() == null) {
+            if (Player.getInstance().getCurrentIngredient() == null && !justGrabbed) {
+                justGrabbed = true;
                 Player.getInstance().setCurrentIngredient(new Pickle(new Sprite(new Texture("pickle.png"), 0, 0, false)));
                 picklePile.dispose();
                 this.picklePile = null;
             }
         });
         tomatoPile = new Button(new Texture("tomato.png"), 400, 200, () -> {
-            if (Player.getInstance().getCurrentIngredient() == null) {
+            if (Player.getInstance().getCurrentIngredient() == null && !justGrabbed) {
+                justGrabbed = true;
                 Player.getInstance().setCurrentIngredient(new Tomato(new Sprite(new Texture("tomato.png"), 0, 0, false)));
                 tomatoPile.dispose();
                 this.tomatoPile = null;
             }
         });
-        lettucePile = new Button(new Texture("lettuce.png"), 300, 300, () -> {
-            if (Player.getInstance().getCurrentIngredient() == null) {
+        lettucePile = new Button(Utils.resizeTo(new Texture("lettuce.png"), 50), 300, 300, () -> {
+            if (Player.getInstance().getCurrentIngredient() == null && !justGrabbed) {
+                System.out.println("LETTUCED");
+                justGrabbed = true;
                 Player.getInstance().setCurrentIngredient(new Lettuce(new Sprite(Utils.resizeTo(new Texture("lettuce.png"), 50), 0, 0, false)));
                 lettucePile.dispose();
                 this.lettucePile = null;
@@ -61,7 +68,6 @@ public class FoodCupboard extends Appliance {
         if (picklePile != null) picklePile.renderButton(batch);
         if (tomatoPile != null) tomatoPile.renderButton(batch);
         if (lettucePile != null) lettucePile.renderButton(batch);
-
     }
 
     @Override
@@ -69,13 +75,23 @@ public class FoodCupboard extends Appliance {
         if (picklePile != null) picklePile.update(dt);
         if (tomatoPile != null) tomatoPile.update(dt);
         if (lettucePile != null) lettucePile.update(dt);
+        if (justGrabbed) justGrabbed = false;
     }
 
     @Override
     public void end() {
-        if (picklePile != null) picklePile.dispose();
-        if (tomatoPile != null) tomatoPile.dispose();
-        if (lettucePile != null) lettucePile.dispose();
+        if (picklePile != null) {
+            picklePile.dispose();
+            picklePile = null;
+        }
+        if (tomatoPile != null) {
+            tomatoPile.dispose();
+            tomatoPile = null;
+        }
+        if (lettucePile != null) {
+            lettucePile.dispose();
+            lettucePile = null;
+        }
         cupboardTexture.dispose();
     }
 }
