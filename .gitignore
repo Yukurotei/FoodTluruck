@@ -166,4 +166,4 @@ Thumbs.db
 GEMINI.md
 
 ./vscode
-*.xml
+.idea/misc.xml
