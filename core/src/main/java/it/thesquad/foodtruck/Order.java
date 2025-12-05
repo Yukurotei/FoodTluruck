@@ -1,43 +1,66 @@
 package it.thesquad.foodtruck;
 
 import it.thesquad.foodtruck.dish.Drinks;
-import it.thesquad.foodtruck.dish.Foods;
+import it.thesquad.foodtruck.dish.Food;
 
 public class Order {
-    private Foods mainEntree;
-    private Foods sideDish;
-    private Foods dessertsDish;
+    private Food mainEntree;
+    private Food sideDish;
+    private Food dessertsDish;
     private Drinks drink;
 
-    public Order(Foods mainEntree, Foods sideDish, Foods dessertsDish, Drinks drink) {
+    /**
+     *
+     * @param mainEntree   the main entree food item of the order
+     * @param sideDish     the side dish food item of the order
+     * @param dessertsDish the dessert food item of the order
+     * @param drink        the drink of the order
+     */
+
+    public Order(Food mainEntree, Food sideDish, Food dessertsDish, Drinks drink) {
         this.mainEntree = mainEntree;
         this.sideDish = sideDish;
         this.dessertsDish = dessertsDish;
         this.drink = drink;
     }
 
-    public Foods getMainEntree() {
+    /**
+     *
+     * @return the main entree food item of the order
+     */
+    public Food getMainEntree() {
         return mainEntree;
+
     }
-    public Foods getSideDish() {
+
+    /**
+     *
+     * @return the side dish food item of the order
+     */
+    public Food getSideDish() {
         return sideDish;
     }
-    public Foods getDessertsDish() {
+
+    /**
+     *
+     * @return the dessert food item of the order
+     */
+    public Food getDessertsDish() {
         return dessertsDish;
     }
+
+    /**
+     *
+     * @return the drink of the order
+     */
     public Drinks getDrink() {
         return drink;
     }
-    public void setSideDish(Foods sideDish){
-        this.sideDish = sideDish;
-    }
-    public void setDessertsDish(Foods desserts){
-        this.dessertsDish = desserts;
-    }
-    public void setDrink(Drinks drink){
-        this.drink = drink;
-    }
-    public void setMainEntree(Foods mainEntree){
-        this.mainEntree = mainEntree;
+
+    /**
+     * @return the obj to a string
+     */
+    public String toString() {
+        return getMainEntree().getFood().getName()+" "+getSideDish().getFood().getName()+" "+getDessertsDish().getFood().getName()+" "+getDrink().getName();
     }
 }

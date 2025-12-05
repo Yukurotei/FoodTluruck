@@ -164,3 +164,6 @@ Thumbs.db
 **/resource-config.json
 
 GEMINI.md
+
+./vscode
+*.xml
